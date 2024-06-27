@@ -143,11 +143,11 @@ def main():
                         df.at[2, 'Return (calculated)'] = data_revenue_return_pf3.at[0, 'Return (calculated)']
                         df.at[2, 'IRR (calculated)'] = data_revenue_return_pf3.at[0, 'IRR (calculated)']
 
-                    if portco2_selected_option == 'Base Case':
+                    if portco3_selected_option == 'Base Case':
                         df.at[2, 'Return (calculated)'] = data_revenue_return_pf3.at[1, 'Return (calculated)']
                         df.at[2, 'IRR (calculated)'] = data_revenue_return_pf3.at[1, 'IRR (calculated)']
 
-                    if portco2_selected_option == 'High Case':
+                    if portco3_selected_option == 'High Case':
                         df.at[2, 'Return (calculated)'] = data_revenue_return_pf3.at[2, 'Return (calculated)']
                         df.at[2, 'IRR (calculated)'] = data_revenue_return_pf3.at[2, 'IRR (calculated)']
     
