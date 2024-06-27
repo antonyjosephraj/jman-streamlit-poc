@@ -12,11 +12,16 @@ def main():
         [data-testid="stAppViewBlockContainer"]{
         padding:30px;
         }
-        [data-testid="column"] {
+        [data-testid="stHorizontalBlock"] {
             border: 1px solid #66666633;
             border-radius: 10px;
             padding: 10px;
         } 
+        hr {
+            margin: 5px 0 20px 0;
+            padding: 1px;
+            background-color: #19105B;
+        }
         div[data-testid="stDataFrameResizable"] > canvas > table > thead > tr > th {
             padding: 12px 15px;
             border:none;
@@ -29,8 +34,9 @@ def main():
     """
     st.markdown(applyCss, unsafe_allow_html=True)
 
-    st.markdown("<h1 style='color: #19105B;'>Portfolio reporting 2</h1>", unsafe_allow_html=True)
+    st.markdown("<h1 style='color: #19105B; padding:0;'>Portfolio Reporting 2</h1>", unsafe_allow_html=True)
 
+    st.divider()
 
     # Investments
     investments = pd.read_csv('./inputs/investments_v2.csv')
@@ -454,7 +460,7 @@ def main():
             fig = go.Figure(go.Waterfall(
                 name = "20", 
                 # orientation = "v",
-                measure = ['Low Case', 'Base Case', 'High Case'],
+                measure = ["relative", "relative", "relative",  "relative", "total"],
                 x = waterfall_data_flow_df_pf2['Category'],
                 # textposition = "outside",
                 # text = ['Low', 'Base', 'High'],

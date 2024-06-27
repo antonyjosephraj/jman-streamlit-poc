@@ -39,6 +39,11 @@ def main():
         border-radius: 10px;
         padding: 10px;
     } 
+    hr {
+        margin: 5px 0 20px 0;
+        padding: 1px;
+        background-color: #19105B;
+    }
     div[data-testid="stDataFrameResizable"] > canvas > table > thead > tr > th {
         padding: 12px 15px;
         border:none;
@@ -51,7 +56,9 @@ def main():
     """
     st.markdown(applyCss, unsafe_allow_html=True)
 
-    st.markdown("<h1 style='color: #19105B;'>Portfolio reporting 1</h1>", unsafe_allow_html=True)
+    st.markdown("<h1 style='color: #19105B; padding:0;'>Portfolio Reporting 1</h1>", unsafe_allow_html=True)
+
+    st.divider()
 
     # st.set_page_config(layout="wide")
 
@@ -517,7 +524,7 @@ def main():
 
         asset_value_total = int(asset_value_v1) + int(asset_value_v2) + int(asset_value_v3)
 
-        financial_engineering = (investments_at_entry_amount + ebitda_value + multiple_growth ) - asset_value_total
+        financial_engineering = asset_value_total - (investments_at_entry_amount + ebitda_value + multiple_growth )
 
         # print('FINAL WATERFALL DATA: ', investments_at_entry_amount, ebitda_value, multiple_growth, financial_engineering, asset_value_total)
 
@@ -534,7 +541,7 @@ def main():
             fig = go.Figure(go.Waterfall(
                 name = "20", 
                 # orientation = "v",
-                measure = ['Low Case', 'Base Case', 'High Case'],
+                measure = ["relative", "relative", "relative",  "relative", "total"],
                 x = waterfall_data_flow_df_pf1['Category'],
                 # textposition = "outside",
                 # text = ['Low', 'Base', 'High'],

@@ -52,12 +52,12 @@ def main():
         """
         <style>
         [data-testid="stSidebar"][aria-expanded="true"] > div:first-child{
-            width: 400px;
+            width: 320px;
             background: linear-gradient(#19105b, #472067, #7c3375, #FF6196) !important;
             color: white;
         }
         [data-testid="stSidebar"][aria-expanded="false"] > div:first-child{
-            width: 400px;
+            width: 320px;
             margin-left: -400px;
         }
         body {
@@ -66,7 +66,7 @@ def main():
         
         [data-testid="stSidebarNavLink"] > span {
             color: white !important;
-            font-size:20px;
+            font-size:18px;
         }
 
         """,

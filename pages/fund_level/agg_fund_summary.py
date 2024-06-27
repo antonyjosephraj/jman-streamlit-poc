@@ -9,7 +9,30 @@ import plotly.graph_objects as go
 
 def main(): 
 
-    st.markdown("<h1 style='color: #19105B;'>Agg Fund Summary</h1>", unsafe_allow_html=True)
+    applyCss = """
+    <style>
+    [data-testid="stAppViewBlockContainer"]{
+        padding:30px;
+    }
+    hr {
+        margin: 5px 0 20px 0;
+        padding: 1px;
+        background-color: #19105B;
+    }
+    div[data-testid="stDataFrameResizable"] > canvas > table > thead > tr > th {
+        padding: 12px 15px;
+        border:none;
+    }
+    div[data-testid="stDataFrameResizable"] > canvas > table >tbody > tr {
+        text-align: center;
+        background-color: green; 
+    }
+    </style>
+    """
+    st.markdown(applyCss, unsafe_allow_html=True)
+
+    st.markdown("<h1 style='color: #19105B;padding:0;'>Agg Fund Summary</h1>", unsafe_allow_html=True)
+    st.divider()
 
     # Investments Details
     # st.subheader(':blue[Investments Details:]')      
@@ -51,6 +74,7 @@ def main():
     # Display the selected option
     # st.write(f'You selected: {selected_option}')
 
+    col11= st.columns(1)
 
     # Add a column with a dropdown list
     for i in df.index:
@@ -131,13 +155,16 @@ def main():
     st.markdown("<h2 style='color: #19105B; font-size:28px;'>Total of Fund Level:</h2>", unsafe_allow_html=True)
 
     st.write(df)
+    df1 = df
+    df1['Return (calculated)'] = pd.to_numeric(df1['Return (calculated)'].str.replace('x', ''))
 
-    total_investment_amout = df['Invested Amount'].sum()
-    # total_return_amount = df['Return (calculated)'].sum()
+    total_investment_amout = df1['Invested Amount'].sum()
+    total_return_amount = df1['Return (calculated)'].sum()
+    total_return_amount_v2 = str(total_return_amount) + ' x'
 
     fun_level_data = {
         'Invested Amount': [total_investment_amout],
-        'Return (calculated)': [23]
+        'Return (calculated)': [total_return_amount_v2]
     }
     
     fun_level_data_df = pd.DataFrame(fun_level_data)
@@ -183,32 +210,41 @@ def main():
     # AgGrid(filtered_df, gridOptions=grid_options, data_editor=dependent_dropdown_options)
 
 
-    # @st.cache_data
-    def get_chart_83992296():
+    chart_data = pd.DataFrame(np.random.randn(10, 3), columns=["a", "b", "c"])
 
-        fig = go.Figure(go.Waterfall(
-            name = "20", 
-            # orientation = "v",
-            measure = df['EBITDA at Entry'].tolist(),
-            x = df['Name'].tolist(),
-            # textposition = "outside",
-            text = df['Return (calculated)'].tolist(),
-            y = df['Date of Investment'].tolist(),
-            # connector = {"line":{"color":"rgb(63, 63, 63)"}},
-        ))
+    # st.write(chart_data)
+    # st.bar_chart(chart_data)
 
-        fig.update_layout(
-                title = "Profit and loss statement 2018",
-                showlegend = True
-        )
 
-        tab1, tab2 = st.tabs(["Streamlit theme (default)", "Plotly native theme"])
-        with tab1:
-            st.plotly_chart(fig, theme="streamlit")
-        # with tab2:
-        #     st.plotly_chart(fig, theme=None)
+    assumptions_data_portco1 = ss.assumptions_data_pf1
+    assumptions_data_portco2 = ss.assumptions_data_pf2
+    assumptions_data_portco3 = ss.assumptions_data_pf3
 
-    get_chart_83992296()
+    # Merge the dataframes on 'id' column
+    merged_df = pd.merge(assumptions_data_portco1, assumptions_data_portco2, on='Date', how='outer')
+    merged_df = pd.merge(merged_df, assumptions_data_portco3, on='Date', how='outer')
+    # merged_df['Low Case'] = merged_df['Low Case_x'].fillna(0) + merged_df['Low Case_y'].fillna(0) + merged_df['Low Case'].fillna(0)
+    # merged_df['Base Case'] = merged_df['Base Case_x'].fillna(0) + merged_df['value2'].fillna(0) + merged_df['value2'].fillna(0)
+    # merged_df['Base Case'] = merged_df['value1'].fillna(0) + merged_df['value2'].fillna(0) + merged_df['value2'].fillna(0)
+
+
+    # print(merged_df)
+
+    # Calculate the sum of 'number' column across all dataframes
+    # total_sum = merged_df['number'].sum()
+
+
+    # chart_data_v2 = pd.DataFrame(
+    # {
+    #     "col1": list(range(20)) * 3,
+    #     "col2": np.random.randn(60),
+    #     "col3": ["A"] * 20 + ["B"] * 20 + ["C"] * 20,
+    # }
+    # )
+    # st.write(chart_data_v2)
+    # st.bar_chart(chart_data_v2, x="col1", y="col2", color="col3")
+
+
 
 
 if __name__ == '__main__':
