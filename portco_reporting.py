@@ -76,12 +76,9 @@ def main():
 
     if authenticate_user():
 
-
                 # background: linear-gradient(#19105b, #472067, #7c3375, #FF6196) !important;
         
         v_menu = ['PortCo 1', 'PortCo 2', 'PortCo 3']
-
-
 
         with st.sidebar:
             st.markdown("<h3 style='color: white;'>Portfolio reporting 1</h3>", unsafe_allow_html=True)
@@ -109,7 +106,6 @@ def main():
         if selected == 'PortCo 3':
             portco_3.main()
 
-        
         # st.markdown(
         #     "<h1 style='color: darkblue;'>STREAMLIT APP</h1>",
         #     unsafe_allow_html=True

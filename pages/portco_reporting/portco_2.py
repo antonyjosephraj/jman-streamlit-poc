@@ -61,7 +61,6 @@ def main():
 
     # investments_details.loc[investments_details['Scenario'] == 'Low Case', 'Invested Amount'] = 30000
     # investments_details_edited_df = st.data_editor(investments_details)
-    # print('ppppppppppppppppp', investments_details_edited_df)
     # investments_details_edited_df = st.data_editor(investments_details, num_rows="dynamic")
 
     column1, column2 = st.columns(2)
@@ -71,14 +70,8 @@ def main():
     investments_at_entry = investments_edited_df['Investment at entry'].sum()
 
 
-    # print('investments_edited_df \n', investments_edited_df['Date of Investment'])
-    # print('min_date \n', min_date)
-
-
     # investments_details_v2['Exit Date'] = pd.to_datetime(investments_details_v2['Exit Date'], format='%m/%d/%Y').dt.strftime('%Y-%m-%d')
     max_date = investments_details_v2['Exit Date'].max()
-    # print('investments_details_edited_df \n', investments_details_edited_df['Exit Date'])
-    # print('max_date \n', max_date)
 
     # Assumptions
     # columns = ["Date" ,"Low Case" ,"Base Case" ,"High Case" ,"Comments"]
@@ -120,11 +113,11 @@ def main():
         ss.assumptions_data_pf2 = assumptions_edited_df_v2
         # ss.investments_data_pf2.loc[ss.investments_data_pf2['Invested Amount'].notna(), 'Multiple at Exit'] = ss.investments_data_pf2['Invested Amount']
         ss.investments_data_pf2.loc[ss.investments_data_pf2['Scenario'] == 'Low Case', 'Invested Amount'] = abs(low_case_sum_of_negatives)
-        ss.investments_data_pf2.loc[ss.investments_data_pf2['Scenario'] == 'Base case', 'Invested Amount'] = abs(base_case_sum_of_negatives)
+        ss.investments_data_pf2.loc[ss.investments_data_pf2['Scenario'] == 'Base Case', 'Invested Amount'] = abs(base_case_sum_of_negatives)
         ss.investments_data_pf2.loc[ss.investments_data_pf2['Scenario'] == 'High Case', 'Invested Amount'] = abs(high_case_sum_of_negatives)
         rr()
     # investments_details.loc[investments_details['Scenario'] == 'Low Case', 'Invested Amount'] = abs(low_case_sum_of_negatives)
-    # investments_details.loc[investments_details['Scenario'] == 'Base case', 'Invested Amount'] = abs(base_case_sum_of_negatives)
+    # investments_details.loc[investments_details['Scenario'] == 'Base Case', 'Invested Amount'] = abs(base_case_sum_of_negatives)
     # investments_details.loc[investments_details['Scenario'] == 'High Case', 'Invested Amount'] = abs(high_case_sum_of_negatives)
 
 
@@ -159,7 +152,7 @@ def main():
         high_case_sum_of_negatives = investment_update[investment_update['High Case'] < 0]['High Case'].sum()
 
         ss.investments_data_pf2.loc[ss.investments_data_pf2['Scenario'] == 'Low Case', 'Invested Amount'] = abs(low_case_sum_of_negatives)
-        ss.investments_data_pf2.loc[ss.investments_data_pf2['Scenario'] == 'Base case', 'Invested Amount'] = abs(base_case_sum_of_negatives)
+        ss.investments_data_pf2.loc[ss.investments_data_pf2['Scenario'] == 'Base Case', 'Invested Amount'] = abs(base_case_sum_of_negatives)
         ss.investments_data_pf2.loc[ss.investments_data_pf2['Scenario'] == 'High Case', 'Invested Amount'] = abs(high_case_sum_of_negatives)
 
         rr()
@@ -172,24 +165,30 @@ def main():
 
     # st.write(column_values_list)
 
-    data2 = {
+    editda_multiple = {
         'Calc': ['ARR /Rev /EBITDA', 'Multiple'],
         'Entry': [200,10]
     }
-    data_v2 = pd.DataFrame(data2)
-    # data_v2 = pd.DataFrame(columns=column_values_list)
-    data_v2[column_values_list] = None
-    data_v2.loc[0, column_values_list] = [column_values_values]
-    data_v2.loc[1, column_values_list] = [column_values_values2]
+    editda_multiple_df = pd.DataFrame(editda_multiple)
+    # editda_multiple_df = pd.DataFrame(columns=column_values_list)
+    editda_multiple_df[column_values_list] = None
+    editda_multiple_df.loc[0, column_values_list] = column_values_values
+    editda_multiple_df.loc[1, column_values_list] = column_values_values2
 
-    # st.write(data_v2)
+    # st.write(editda_multiple_df)
+    ss.editda_multiple_df_pf2 = editda_multiple_df
 
-    data3 = {
+
+    netdebt_and_cashflow_pf2 = {
         'Calc': ['Net Debt', 'Cash flow adj'],
-        'Entry': [None,None]
+        'Entry': [None, None]
     }
-    data_v3 = pd.DataFrame(data3)
-    data_v3[column_values_list] = None
+    netdebt_and_cashflow_df_pf2 = pd.DataFrame(netdebt_and_cashflow_pf2)
+    netdebt_and_cashflow_df_pf2[column_values_list] = None
+    # print('11111111111: netdebt_and_cashflow_df_pf2', netdebt_and_cashflow_df_pf2)
+
+    if 'netdebt_and_cashflow_df_pf2' not in ss:
+            ss.netdebt_and_cashflow_df_pf2 = netdebt_and_cashflow_df_pf2
 
 
     # FUNCTIONS
@@ -199,15 +198,13 @@ def main():
         net_debt = df.loc[df['Calc'] == 'Net Debt', case].values[0]
         cash_flow_adj = df.loc[df['Calc'] == 'Cash flow adj', case].values[0]
 
-        if isinstance(arr_rev_ebitda, list):
-            arr_rev_ebitda = int(arr_rev_ebitda[0])
-        if isinstance(multiple, list):
-            multiple = int(multiple[0]) 
+        arr_rev_ebitda = 0 if arr_rev_ebitda == None or arr_rev_ebitda == '' else arr_rev_ebitda
+        multiple = 0 if multiple == None or multiple == ''  else multiple
+        net_debt = 0 if net_debt == None or net_debt == '' else net_debt
+        cash_flow_adj = 0 if cash_flow_adj == None or cash_flow_adj == ''  else cash_flow_adj
 
-        net_debt = 0 if net_debt == None else net_debt
-        cash_flow_adj = 0 if cash_flow_adj == None else cash_flow_adj
         a = int(arr_rev_ebitda * multiple)
-        b = int(int(net_debt) + int(cash_flow_adj))
+        b = int(net_debt) + int(cash_flow_adj)
         result = a + b
         return result
 
@@ -234,15 +231,21 @@ def main():
 
         # with st.container(height=300, border=True, backgroundColor='red'):
         with st.container(height=300, border=True):
-            st.write(data_v2)
-            data_v3_edited_df = st.data_editor(data_v3)
+            st.write(ss.editda_multiple_df_pf2)
+            netdebt_and_cashflow_edited_df_pf2 = de(ss.netdebt_and_cashflow_df_pf2)
+            # print('222222222222222: netdebt_and_cashflow_edited_df_pf2', netdebt_and_cashflow_edited_df_pf2)
+            # print('333333333333333333333: netdebt_and_cashflow_edited_df_pf1', ss.netdebt_and_cashflow_df_pf2)
 
-            concatenated_df = pd.concat([data_v2, data_v3_edited_df], ignore_index=True)
+            if not ss.netdebt_and_cashflow_df_pf2.equals(netdebt_and_cashflow_edited_df_pf2):
+                ss.netdebt_and_cashflow_df_pf2 = netdebt_and_cashflow_edited_df_pf2
+                rr()
+
+            concatenated_df = pd.concat([ss.editda_multiple_df_pf2, ss.netdebt_and_cashflow_df_pf2], ignore_index=True)
 
             # Calculate Equity for each case
             equity_entry = calculate_equity(concatenated_df, 'Entry')
             equity_low_case = calculate_equity(concatenated_df, 'Low Case')
-            equity_base_case = calculate_equity(concatenated_df, 'Base case')
+            equity_base_case = calculate_equity(concatenated_df, 'Base Case')
             equity_high_case = calculate_equity(concatenated_df, 'High Case')
 
             equity_data = {
@@ -254,8 +257,9 @@ def main():
             }
 
             equity_df = pd.DataFrame(equity_data)
+            ss.equity_df_pf2 = equity_df
 
-            st.write(equity_df)
+            st.write(ss.equity_df_pf2)
 
             ownership_data_pf2 = {
                 'Calc': ['Ownership %'],
@@ -266,11 +270,19 @@ def main():
             }
 
             ownership_df_pf2 = pd.DataFrame(ownership_data_pf2)
-
+            if 'ownership_df_pf2' not in ss:
+                ss.ownership_df_pf2 = ownership_df_pf2
             # st.write(ownership_df_pf2)
-            ownership_edited_df_pf2 = de(ownership_df_pf2)
+            ownership_edited_df_pf2 = de(ss.ownership_df_pf2)
+            # print('111111111111111: ownership_edited_df_pf2', ss.ownership_df_pf2)
+            # print('222222222: ownership_edited_df_pf2', ownership_edited_df_pf2)
 
-            concatenated_df_v2 = pd.concat([equity_df, ownership_edited_df_pf2], ignore_index=True)
+            if not ss.ownership_df_pf2.equals(ownership_edited_df_pf2):
+                ss.ownership_df_pf2 = ownership_edited_df_pf2
+                rr()
+
+
+            concatenated_df_v2 = pd.concat([ss.equity_df_pf2, ss.ownership_df_pf2], ignore_index=True)
 
             # Calculate Equity for each case
             value_entry = calculate_value(concatenated_df_v2, 'Entry')
@@ -288,6 +300,8 @@ def main():
             }
 
             value_and_investment_df = pd.DataFrame(value_and_investment)
+            ss.value_and_investment_df_pf2 = value_and_investment_df
+            
             st.write(value_and_investment_df)
 
 
@@ -308,6 +322,7 @@ def main():
 
             money_multiple_df = pd.DataFrame(money_multiple)
             st.write(money_multiple_df)
+            ss.money_multiple_df_pf2 = money_multiple_df
 
 
     money_multiple_value = money_multiple_df.iloc[0].tolist()
@@ -355,27 +370,104 @@ def main():
     with column2:
         st.markdown("<h2 style='color: #19105B; font-size:28px;'>Waterfall Chart:</h2>", unsafe_allow_html=True)
 
+        # Waterfall Data 
+        waterfall_data_pf2 = pd.concat([ss.editda_multiple_df_pf2, ss.netdebt_and_cashflow_df_pf2, ss.equity_df_pf2, ss.ownership_df_pf2, ss.value_and_investment_df_pf2, ss.money_multiple_df_pf2], ignore_index=True)
+
+        print('WATERFALL DATA - PF2: ', waterfall_data_pf2)
+        investments_at_entry_amount = ss.investments_amount_pf1['Investment at entry'].sum()
+
+        waterfall_options_pf2 = ['Low Case', 'Base Case', 'High Case']
+        selected_option_pf2 = st.selectbox('Choose an Portco 1 option:', waterfall_options_pf2)
+        ss.selected_option_pf2 = selected_option_pf2
+
+        ebitda_value = 0
+
+        if ss.selected_option_pf2 in waterfall_data_pf2.columns:
+            # =((J22-H22)*H24+H25+H26)*H28
+            case_value = waterfall_data_pf2[ss.selected_option_pf2].iloc[0]
+            entry_value = waterfall_data_pf2.loc[waterfall_data_pf2['Calc'] == 'ARR /Rev /EBITDA', 'Entry'].values
+            actual_entry_value = int(case_value) - int(entry_value)
+            # total_calc_column = waterfall_data_pf2['Calc'].isin(['Multiple', 'Net Debt', 'Cash flow adj'])
+            # total_value = waterfall_data_pf2.loc[total_calc_column, 'Entry'].sum()
+            multiple = waterfall_data_pf2.loc[waterfall_data_pf2['Calc'] == 'Multiple', ss.selected_option_pf2].values
+            net_debt = waterfall_data_pf2.loc[waterfall_data_pf2['Calc'] == 'Net Debt', ss.selected_option_pf2].values
+            cash_flow_adj = waterfall_data_pf2.loc[waterfall_data_pf2['Calc'] == 'Cash flow adj', ss.selected_option_pf2].values
+            if multiple == None:
+                multiple = 0
+            if net_debt == None:
+                net_debt = 0
+            if cash_flow_adj == None:
+                cash_flow_adj = 0
+
+            total_value = int(multiple) + int(net_debt) + int(cash_flow_adj)
+            ownership_data_v2 = waterfall_data_pf2.loc[waterfall_data_pf2['Calc'] == 'Ownership %', ss.selected_option_pf2].values[0]
+            if ownership_data_v2 == None:
+                ownership_data_v2 = 0
+
+            ebitda_value = (actual_entry_value * total_value) * int(ownership_data_v2)
+
+        # print('EBITDA VALUE: ', ebitda_value )
+
+        multiple_growth = 0
+        if ss.selected_option_pf2 in waterfall_data_pf2.columns:
+        # =((J24-H24)*J22+H25)*H28
+            case_value1 = waterfall_data_pf2.loc[waterfall_data_pf2['Calc'] == 'Multiple', 'Entry'].values
+            case_value2 = waterfall_data_pf2.loc[waterfall_data_pf2['Calc'] == 'Multiple', ss.selected_option_pf2].values
+            multi_minus_value = int(case_value2) - int(case_value1)
+            total_value1 = waterfall_data_pf2.loc[waterfall_data_pf2['Calc'] == 'ARR /Rev /EBITDA', 'Entry'].values
+            total_value2 = waterfall_data_pf2.loc[waterfall_data_pf2['Calc'] == 'Cash flow adj', ss.selected_option_pf2].values
+
+            if total_value1 == None:
+                total_value1 = 0
+            if total_value2 == None:
+                total_value2 = 0
+
+            total_value3 = int(total_value1) + int(total_value2)
+            ownership_data_v2 = waterfall_data_pf2.loc[waterfall_data_pf2['Calc'] == 'Ownership %', ss.selected_option_pf2].values[0]
+            if ownership_data_v2 == None:
+                ownership_data_v2 = 0
+            multiple_growth = (multi_minus_value * total_value3) * int(ownership_data_v2)
+
+        # print('MULTIPLE GROWTH: ', multiple_growth )
+
+        asset_value_v1 = waterfall_data_pf2.loc[waterfall_data_pf2['Calc'] == 'Value', 'Low Case'].values
+        asset_value_v2 = waterfall_data_pf2.loc[waterfall_data_pf2['Calc'] == 'Value', 'Base Case'].values
+        asset_value_v3 = waterfall_data_pf2.loc[waterfall_data_pf2['Calc'] == 'Value', 'High Case'].values
+
+        asset_value_total = int(asset_value_v1) + int(asset_value_v2) + int(asset_value_v3)
+
+        financial_engineering = (investments_at_entry_amount + ebitda_value + multiple_growth ) - asset_value_total
+
+        # print('FINAL WATERFALL DATA: ', investments_at_entry_amount, ebitda_value, multiple_growth, financial_engineering, asset_value_total)
+
+        waterfall_data_flow_pf2 = {
+            'Category': ['Value at invetsment', 'EBITDA growth', 'Multiple growth', 'Financial engineering', 'Asset value'],
+            'Values': [investments_at_entry_amount, ebitda_value, multiple_growth, financial_engineering, asset_value_total  ]
+        }
+
+        waterfall_data_flow_df_pf2 = pd.DataFrame(waterfall_data_flow_pf2)
+
+
+
         def get_chart_83992296():
 
             fig = go.Figure(go.Waterfall(
                 name = "20", 
                 # orientation = "v",
                 measure = ['Low Case', 'Base Case', 'High Case'],
-                x = ['Low Case', 'Base Case', 'High Case'],
+                x = waterfall_data_flow_df_pf2['Category'],
                 # textposition = "outside",
-                text = ['Low', 'Base', 'High'],
-                y = [2000, 5000, 6000],
+                # text = ['Low', 'Base', 'High'],
+                y = waterfall_data_flow_df_pf2['Values'],
                 # connector = {"line":{"color":"rgb(63, 63, 63)"}},
             ))
 
             fig.update_layout(
-                    title = "Profit and loss statement 2018",
+                    title = "Proftolio Insights dashboard",
                     showlegend = True
             )
 
-            tab1, tab2 = st.tabs(["Streamlit theme (default)", "Plotly native theme"])
-            with tab1:
-                st.plotly_chart(fig, theme="streamlit")
+            st.plotly_chart(fig, theme="streamlit")
             # with tab2:
             #     st.plotly_chart(fig, theme=None)
 

@@ -25,6 +25,8 @@ def main():
     data_investments_amount_pf2 = ss.investments_amount_pf2
     data_revenue_return_pf2 = ss.revenue_return_pf2
 
+
+    # print('1111111111111111111', data_investments_details_pf2)
     data_investments_details_pf3 = ss.investments_data_pf3
     data_investments_amount_pf3 = ss.investments_amount_pf3
     data_revenue_return_pf3 = ss.revenue_return_pf3
@@ -35,25 +37,24 @@ def main():
     col1, col2, col3 = st.columns(3)
 
     with col1:
-        portco1_options = ['Low Case', 'Base case', 'High Case']
+        portco1_options = ['Low Case', 'Base Case', 'High Case']
         portco1_selected_option = st.selectbox('Choose an Portco 1 option:', portco1_options)
 
     with col2:
-        portco2_options = ['Base case', 'Low Case', 'High Case' ]
+        portco2_options = ['Base Case', 'Low Case', 'High Case' ]
         portco2_selected_option = st.selectbox('Choose an Portco 2 option:', portco2_options)
 
     with col3:
-        portco3_options = ['High Case', 'Low Case', 'Base case']
+        portco3_options = ['High Case', 'Low Case', 'Base Case']
         portco3_selected_option = st.selectbox('Choose an Portco 3 option:', portco3_options)
 
     # Display the selected option
     # st.write(f'You selected: {selected_option}')
 
 
-
     # Add a column with a dropdown list
     for i in df.index:
-        # df.at[i, 'Scenario'] = st.selectbox('Select Action:', ['Low Case', 'High Case', 'Base case'], key=i)
+        # df.at[i, 'Scenario'] = st.selectbox('Select Action:', ['Low Case', 'High Case', 'Base Case'], key=i)
         if i  == 0:
             for pf1 in data_investments_details_pf1.index:
                 # st.write(data_investments_details_pf1.at[pf1, 'Scenario'])
@@ -70,7 +71,7 @@ def main():
                         df.at[0, 'Return (calculated)'] = data_revenue_return_pf1.at[0, 'Return (calculated)']
                         df.at[0, 'IRR (calculated)'] = data_revenue_return_pf1.at[0, 'IRR (calculated)']
 
-                    if portco1_selected_option == 'Base case':
+                    if portco1_selected_option == 'Base Case':
                         df.at[0, 'Return (calculated)'] = data_revenue_return_pf1.at[1, 'Return (calculated)']
                         df.at[0, 'IRR (calculated)'] = data_revenue_return_pf1.at[1, 'IRR (calculated)']
 
@@ -94,7 +95,7 @@ def main():
                         df.at[1, 'Return (calculated)'] = data_revenue_return_pf2.at[0, 'Return (calculated)']
                         df.at[1, 'IRR (calculated)'] = data_revenue_return_pf2.at[0, 'IRR (calculated)']
 
-                    if portco2_selected_option == 'Base case':
+                    if portco2_selected_option == 'Base Case':
                         df.at[1, 'Return (calculated)'] = data_revenue_return_pf2.at[1, 'Return (calculated)']
                         df.at[1, 'IRR (calculated)'] = data_revenue_return_pf2.at[1, 'IRR (calculated)']
 
@@ -119,7 +120,7 @@ def main():
                         df.at[2, 'Return (calculated)'] = data_revenue_return_pf3.at[0, 'Return (calculated)']
                         df.at[2, 'IRR (calculated)'] = data_revenue_return_pf3.at[0, 'IRR (calculated)']
 
-                    if portco2_selected_option == 'Base case':
+                    if portco2_selected_option == 'Base Case':
                         df.at[2, 'Return (calculated)'] = data_revenue_return_pf3.at[1, 'Return (calculated)']
                         df.at[2, 'IRR (calculated)'] = data_revenue_return_pf3.at[1, 'IRR (calculated)']
 

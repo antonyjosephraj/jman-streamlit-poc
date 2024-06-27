@@ -104,7 +104,6 @@ def main():
 
     # investments_details.loc[investments_details['Scenario'] == 'Low Case', 'Invested Amount'] = 30000
     # investments_details_edited_df = st.data_editor(investments_details)
-    # print('ppppppppppppppppp', investments_details_edited_df)
     # investments_details_edited_df = st.data_editor(investments_details, num_rows="dynamic")
 
     # Calculations
@@ -112,14 +111,10 @@ def main():
     investments_at_entry = investments_edited_df['Investment at entry'].sum()
 
 
-    # print('investments_edited_df \n', investments_edited_df['Date of Investment'])
-    # print('min_date \n', min_date)
 
 
     # investments_details_v2['Exit Date'] = pd.to_datetime(investments_details_v2['Exit Date'], format='%m/%d/%Y').dt.strftime('%Y-%m-%d')
     max_date = investments_details_v2['Exit Date'].max()
-    # print('investments_details_edited_df \n', investments_details_edited_df['Exit Date'])
-    # print('max_date \n', max_date)
 
     # Assumptions
     # columns = ["Date" ,"Low Case" ,"Base Case" ,"High Case" ,"Comments"]
@@ -219,46 +214,45 @@ def main():
 
         # st.write(column_values_list)
 
-        data2 = {
+        editda_multiple = {
             'Calc': ['ARR /Rev /EBITDA', 'Multiple'],
             'Entry': [200,10]
         }
-        data_v2 = pd.DataFrame(data2)
-        # data_v2 = pd.DataFrame(columns=column_values_list)
-        data_v2[column_values_list] = None
-        data_v2.loc[0, column_values_list] = column_values_values
-        data_v2.loc[1, column_values_list] = column_values_values2
+        editda_multiple_df = pd.DataFrame(editda_multiple)
+        # editda_multiple_df = pd.DataFrame(columns=column_values_list)
+        editda_multiple_df[column_values_list] = None
+        editda_multiple_df.loc[0, column_values_list] = column_values_values
+        editda_multiple_df.loc[1, column_values_list] = column_values_values2
 
-        ss.data_v2_pf1 = data_v2
+        ss.editda_multiple_df_pf1 = editda_multiple_df
 
-
-        data3 = {
+        netdebt_and_cashflow_pf1 = {
             'Calc': ['Net Debt', 'Cash flow adj'],
             'Entry': [None,None]
         }
-        data_v3 = pd.DataFrame(data3)
-        data_v3[column_values_list] = None
-        
-        if 'data_v3_pf1' not in ss:
-            ss.data_v3_pf1 = data_v3
+        netdebt_and_cashflow_df_pf1 = pd.DataFrame(netdebt_and_cashflow_pf1)
+        # print('111111111111111: netdebt_and_cashflow_df_pf1', netdebt_and_cashflow_df_pf1)
 
+
+        netdebt_and_cashflow_df_pf1[column_values_list] = None
+        
+        if 'netdebt_and_cashflow_df_pf1' not in ss:
+            ss.netdebt_and_cashflow_df_pf1 = netdebt_and_cashflow_df_pf1
 
         # FUNCTIONS
         def calculate_equity(df, case):
-            arr_rev_ebitda = df.loc[df['Calc'] == 'ARR /Rev /EBITDA', case].values
-            multiple = df.loc[df['Calc'] == 'Multiple', case].values
-            net_debt = df.loc[df['Calc'] == 'Net Debt', case].values
-            cash_flow_adj = df.loc[df['Calc'] == 'Cash flow adj', case].values
+            arr_rev_ebitda = df.loc[df['Calc'] == 'ARR /Rev /EBITDA', case].values[0]
+            multiple = df.loc[df['Calc'] == 'Multiple', case].values[0]
+            net_debt = df.loc[df['Calc'] == 'Net Debt', case].values[0]
+            cash_flow_adj = df.loc[df['Calc'] == 'Cash flow adj', case].values[0]
 
-            if isinstance(arr_rev_ebitda, list):
-                arr_rev_ebitda = int(arr_rev_ebitda)
-            if isinstance(multiple, list):
-                multiple = int(multiple) 
+            arr_rev_ebitda = 0 if arr_rev_ebitda == None or arr_rev_ebitda == '' else arr_rev_ebitda
+            multiple = 0 if multiple == None or multiple == ''  else multiple
+            net_debt = 0 if net_debt == None or net_debt == '' else net_debt
+            cash_flow_adj = 0 if cash_flow_adj == None or cash_flow_adj == ''  else cash_flow_adj
 
-            net_debt = 0 if net_debt == None else net_debt
-            cash_flow_adj = 0 if cash_flow_adj == None else cash_flow_adj
             a = int(arr_rev_ebitda * multiple)
-            b = int(int(net_debt) + int(cash_flow_adj))
+            b = int(net_debt) + int(cash_flow_adj)
             result = a + b
             return result
 
@@ -275,8 +269,6 @@ def main():
             value = df.loc[df['Calc'] == 'Value', case].values[0]
             investments = df.loc[df['Calc'] == 'Investment', case].values[0]
 
-            print('LLL', value, investments)
-
             value = 1 if value == None else value
             investments = 1 if investments == None else investments
 
@@ -289,22 +281,25 @@ def main():
             with st.container(height=300, border=True):
                 # st.write(ss)
 
-                st.write(data_v2)
-                data_v3_edited_df = de(data_v3)
-                
-                if not ss.data_v3_pf1.equals(data_v3_edited_df):
-                    sample_data = data_v3_edited_df
-                    merged_df = pd.merge(ss.data_v3_pf1, sample_data, on=['Calc'], suffixes=('_df1', '_df2'), how='left')
-                    merged_df['Entry'] = merged_df.apply(lambda row: row['Entry_df2'] if not pd.isna(row['Entry_df2']) else row['Entry_df1'], axis=1)
-                    merged_df['Low Case'] = merged_df.apply(lambda row: row['Low Case_df2'] if not pd.isna(row['Low Case_df2']) else row['Low Case_df1'], axis=1)
-                    merged_df['Base Case'] = merged_df.apply(lambda row: row['Base Case_df2'] if not pd.isna(row['Base Case_df2']) else row['Base Case_df1'], axis=1)
-                    merged_df['High Case'] = merged_df.apply(lambda row: row['High Case_df2'] if not pd.isna(row['High Case_df2']) else row['High Case_df1'], axis=1)
+                st.write(ss.editda_multiple_df_pf1)
+                netdebt_and_cashflow_edited_df_pf1 = de(ss.netdebt_and_cashflow_df_pf1)
+                # print('222222222222222: netdebt_and_cashflow_edited_df_pf1', netdebt_and_cashflow_edited_df_pf1)
+                # print('333333333333333333333: netdebt_and_cashflow_edited_df_pf1', ss.netdebt_and_cashflow_df_pf1)
 
-                    # Select final columns and drop duplicates
-                    ss.data_v3_pf1 = merged_df[['Calc', "Entry", "Low Case" ,"Base Case" ,"High Case"]].drop_duplicates()
+                if not ss.netdebt_and_cashflow_df_pf1.equals(netdebt_and_cashflow_edited_df_pf1):
+                    # sample_data = netdebt_and_cashflow_edited_df_pf1
+                    # merged_df = pd.merge(ss.netdebt_and_cashflow_df_pf1, sample_data, on=['Calc'], suffixes=('_df1', '_df2'), how='left')
+                    # merged_df['Entry'] = merged_df.apply(lambda row: row['Entry_df2'] if not pd.isna(row['Entry_df2']) else row['Entry_df1'], axis=1)
+                    # merged_df['Low Case'] = merged_df.apply(lambda row: row['Low Case_df2'] if not pd.isna(row['Low Case_df2']) else row['Low Case_df1'], axis=1)
+                    # merged_df['Base Case'] = merged_df.apply(lambda row: row['Base Case_df2'] if not pd.isna(row['Base Case_df2']) else row['Base Case_df1'], axis=1)
+                    # merged_df['High Case'] = merged_df.apply(lambda row: row['High Case_df2'] if not pd.isna(row['High Case_df2']) else row['High Case_df1'], axis=1)
 
+                    ss.netdebt_and_cashflow_df_pf1 =netdebt_and_cashflow_edited_df_pf1
+                    rr()
 
-                concatenated_df = pd.concat([data_v2, data_v3_edited_df], ignore_index=True)
+                # print('444444444444444444444: netdebt_and_cashflow_edited_df_pf1', ss.netdebt_and_cashflow_df_pf1)
+
+                concatenated_df = pd.concat([ss.editda_multiple_df_pf1, ss.netdebt_and_cashflow_df_pf1], ignore_index=True)
 
                 # Calculate Equity for each case
                 equity_entry = calculate_equity(concatenated_df, 'Entry')
@@ -334,27 +329,32 @@ def main():
                     'High Case':None
                 }
 
-                ownership_df = pd.DataFrame(ownership_data_pf1)
+                ownership_df_pf1 = pd.DataFrame(ownership_data_pf1)
 
                 if 'ownership_df_pf1' not in ss:
-                    ss.ownership_df_pf1 = ownership_df
+                    ss.ownership_df_pf1 = ownership_df_pf1
 
                 # st.write(ownership_df_pf1)
-                ownership_edited_df_pf1 = de(ownership_df)
+                ownership_edited_df_pf1 = de(ss.ownership_df_pf1)
+
+                # print('111111111111111: ownership_edited_df_pf1', ss.ownership_df_pf1)
+                # print('222222222: ownership_edited_df_pf1', ownership_edited_df_pf1)
 
                 if not ss.ownership_df_pf1.equals(ownership_edited_df_pf1):
-                    sample_data = ownership_edited_df_pf1
-                    merged_df = pd.merge(ss.ownership_df_pf1, sample_data, on=['Calc'], suffixes=('_df1', '_df2'), how='left')
-                    merged_df['Entry'] = merged_df.apply(lambda row: row['Entry_df2'] if not pd.isna(row['Entry_df2']) else row['Entry_df1'], axis=1)
-                    merged_df['Low Case'] = merged_df.apply(lambda row: row['Low Case_df2'] if not pd.isna(row['Low Case_df2']) else row['Low Case_df1'], axis=1)
-                    merged_df['Base Case'] = merged_df.apply(lambda row: row['Base Case_df2'] if not pd.isna(row['Base Case_df2']) else row['Base Case_df1'], axis=1)
-                    merged_df['High Case'] = merged_df.apply(lambda row: row['High Case_df2'] if not pd.isna(row['High Case_df2']) else row['High Case_df1'], axis=1)
+                    # sample_data = ownership_edited_df_pf1
+                    # merged_df = pd.merge(ss.ownership_df_pf1, sample_data, on=['Calc'], suffixes=('_df1', '_df2'), how='left')
+                    # merged_df['Entry'] = merged_df.apply(lambda row: row['Entry_df2'] if not pd.isna(row['Entry_df2']) else row['Entry_df1'], axis=1)
+                    # merged_df['Low Case'] = merged_df.apply(lambda row: row['Low Case_df2'] if not pd.isna(row['Low Case_df2']) else row['Low Case_df1'], axis=1)
+                    # merged_df['Base Case'] = merged_df.apply(lambda row: row['Base Case_df2'] if not pd.isna(row['Base Case_df2']) else row['Base Case_df1'], axis=1)
+                    # merged_df['High Case'] = merged_df.apply(lambda row: row['High Case_df2'] if not pd.isna(row['High Case_df2']) else row['High Case_df1'], axis=1)
 
                     # Select final columns and drop duplicates
-                    ss.ownership_df_pf1 = merged_df[['Calc', "Entry", "Low Case" ,"Base Case" ,"High Case"]].drop_duplicates()
+                    ss.ownership_df_pf1 = ownership_edited_df_pf1
+                    rr()
 
+                # print('333333: ownership_edited_df_pf1', ss.ownership_df_pf1)
 
-                concatenated_df_v2 = pd.concat([equity_df, ss.ownership_df_pf1], ignore_index=True)
+                concatenated_df_v2 = pd.concat([ss.equity_df_pf1, ss.ownership_df_pf1], ignore_index=True)
 
                 # Calculate Equity for each case
                 value_entry = calculate_value(concatenated_df_v2, 'Entry')
@@ -446,89 +446,88 @@ def main():
         # styled_df_1 = style_dataframe(ss.revenue_return_pf1)
         # st.write(style_dataframe(ss.revenue_return_pf1).hide(axis="index").to_html(), unsafe_allow_html=True)
 
-    # Waterfall Data 
-    waterfall_data = pd.concat([ss.data_v2_pf1, ss.data_v3_pf1, ss.equity_df_pf1, ss.ownership_df_pf1, ss.value_and_investment_df_pf1, ss.money_multiple_df_pf1], ignore_index=True)
-
-    print('111111111111111', waterfall_data)
-    investments_at_entry_amount = ss.investments_amount_pf1['Investment at entry'].sum()
-
-    waterfall_options_pf1 = ['Low Case', 'Base Case', 'High Case']
-    selected_option_pf1 = st.selectbox('Choose an Portco 1 option:', waterfall_options_pf1)
-
-    ebitda_value = 0
-
-    if selected_option_pf1 in waterfall_data.columns:
-        # =((J22-H22)*H24+H25+H26)*H28
-        case_value = waterfall_data[selected_option_pf1].iloc[0]
-        entry_value = waterfall_data.loc[waterfall_data['Calc'] == 'ARR /Rev /EBITDA', 'Entry'].values
-        actual_entry_value = int(case_value) - int(entry_value)
-        # total_calc_column = waterfall_data['Calc'].isin(['Multiple', 'Net Debt', 'Cash flow adj'])
-        # total_value = waterfall_data.loc[total_calc_column, 'Entry'].sum()
-        multiple = waterfall_data.loc[waterfall_data['Calc'] == 'Multiple', selected_option_pf1].values
-        net_debt = waterfall_data.loc[waterfall_data['Calc'] == 'Net Debt', selected_option_pf1].values
-        cash_flow_adj = waterfall_data.loc[waterfall_data['Calc'] == 'Cash flow adj', selected_option_pf1].values
-        if multiple == None:
-            multiple = 0
-        if net_debt == None:
-            net_debt = 0
-        if cash_flow_adj == None:
-            cash_flow_adj = 0
-
-        total_value = int(multiple) + int(net_debt) + int(cash_flow_adj)
-        print('444444444444',actual_entry_value,  total_value, investments_at_entry_amount)
-        ownership_data_v2 = waterfall_data.loc[waterfall_data['Calc'] == 'Ownership %', selected_option_pf1].values[0]
-        if ownership_data_v2 == None:
-            ownership_data_v2 = 0
-
-        print('22222222222222222',actual_entry_value , total_value,  ownership_data_v2)
-
-        ebitda_value = (actual_entry_value * total_value) * int(ownership_data_v2)
-
-    print('33333333', ebitda_value )
-
-    multiple_growth = 0
-    if selected_option_pf1 in waterfall_data.columns:
-       # =((J24-H24)*J22+H25)*H28
-        case_value1 = waterfall_data.loc[waterfall_data['Calc'] == 'Multiple', 'Entry'].values
-        case_value2 = waterfall_data.loc[waterfall_data['Calc'] == 'Multiple', selected_option_pf1].values
-        multi_minus_value = int(case_value2) - int(case_value1)
-        total_value1 = waterfall_data.loc[waterfall_data['Calc'] == 'ARR /Rev /EBITDA', 'Entry'].values
-        total_value2 = waterfall_data.loc[waterfall_data['Calc'] == 'Cash flow adj', selected_option_pf1].values
-
-        if total_value1 == None:
-            total_value1 = 0
-        if total_value2 == None:
-            total_value2 = 0
-
-        total_value3 = int(total_value1) + int(total_value2)
-        ownership_data_v2 = waterfall_data.loc[waterfall_data['Calc'] == 'Ownership %', selected_option_pf1].values[0]
-        if ownership_data_v2 == None:
-            ownership_data_v2 = 0
-        print('22222222222222222',multi_minus_value , total_value3,  ownership_data_v2)
-        multiple_growth = (multi_minus_value * total_value3) * int(ownership_data_v2)
-
-    print('111111111111111111111111', ebitda_value, multiple_growth )
-
-    asset_value_v1 = waterfall_data.loc[waterfall_data['Calc'] == 'Value', 'Low Case'].values
-    asset_value_v2 = waterfall_data.loc[waterfall_data['Calc'] == 'Value', 'Base Case'].values
-    asset_value_v3 = waterfall_data.loc[waterfall_data['Calc'] == 'Value', 'High Case'].values
-
-    asset_value_total = int(asset_value_v1) + int(asset_value_v2) + int(asset_value_v3)
-
-    financial_engineering = (investments_at_entry_amount + ebitda_value + multiple_growth ) - asset_value_total
-    print('yyyy', financial_engineering)
-    print('ZZZZ', investments_at_entry_amount, ebitda_value, multiple_growth, financial_engineering, asset_value_total)
-    print('--------------------')
-
-    waterfall_data_flow = {
-        'Category': ['Value at invetsment', 'EBITDA growth', 'Multiple growth', 'Financial engineering', 'Asset value'],
-        'Values': [investments_at_entry_amount, ebitda_value, multiple_growth, financial_engineering, asset_value_total  ]
-    }
-
-    waterfall_data_flow_pf1 = pd.DataFrame(waterfall_data_flow)
-
+   
     with column2:
         st.markdown("<h2 style='color: #19105B; font-size:28px;'>Waterfall Chart:</h2>", unsafe_allow_html=True)
+
+        # Waterfall Data 
+        waterfall_data_pf1 = pd.concat([ss.editda_multiple_df_pf1, ss.netdebt_and_cashflow_df_pf1, ss.equity_df_pf1, ss.ownership_df_pf1, ss.value_and_investment_df_pf1, ss.money_multiple_df_pf1], ignore_index=True)
+
+        print('WATERFALL DATA - PF1: ', waterfall_data_pf1)
+        investments_at_entry_amount = ss.investments_amount_pf1['Investment at entry'].sum()
+
+        waterfall_options_pf1 = ['Low Case', 'Base Case', 'High Case']
+        selected_option_pf1 = st.selectbox('Choose an Portco 1 option:', waterfall_options_pf1)
+
+        ss.selected_option_pf1 = selected_option_pf1
+
+        ebitda_value = 0
+
+        if ss.selected_option_pf1 in waterfall_data_pf1.columns:
+            # =((J22-H22)*H24+H25+H26)*H28
+            case_value = waterfall_data_pf1[ss.selected_option_pf1].iloc[0]
+            entry_value = waterfall_data_pf1.loc[waterfall_data_pf1['Calc'] == 'ARR /Rev /EBITDA', 'Entry'].values
+            actual_entry_value = int(case_value) - int(entry_value)
+            # total_calc_column = waterfall_data_pf1['Calc'].isin(['Multiple', 'Net Debt', 'Cash flow adj'])
+            # total_value = waterfall_data_pf1.loc[total_calc_column, 'Entry'].sum()
+            multiple = waterfall_data_pf1.loc[waterfall_data_pf1['Calc'] == 'Multiple', ss.selected_option_pf1].values
+            net_debt = waterfall_data_pf1.loc[waterfall_data_pf1['Calc'] == 'Net Debt', ss.selected_option_pf1].values
+            cash_flow_adj = waterfall_data_pf1.loc[waterfall_data_pf1['Calc'] == 'Cash flow adj', ss.selected_option_pf1].values
+            if multiple == None:
+                multiple = 0
+            if net_debt == None:
+                net_debt = 0
+            if cash_flow_adj == None:
+                cash_flow_adj = 0
+
+            total_value = int(multiple) + int(net_debt) + int(cash_flow_adj)
+            ownership_data_v2 = waterfall_data_pf1.loc[waterfall_data_pf1['Calc'] == 'Ownership %', ss.selected_option_pf1].values[0]
+            if ownership_data_v2 == None:
+                ownership_data_v2 = 0
+
+            ebitda_value = (actual_entry_value * total_value) * int(ownership_data_v2)
+
+        # print('EBITDA VALUE: ', ebitda_value )
+
+        multiple_growth = 0
+        if ss.selected_option_pf1 in waterfall_data_pf1.columns:
+        # =((J24-H24)*J22+H25)*H28
+            case_value1 = waterfall_data_pf1.loc[waterfall_data_pf1['Calc'] == 'Multiple', 'Entry'].values
+            case_value2 = waterfall_data_pf1.loc[waterfall_data_pf1['Calc'] == 'Multiple', ss.selected_option_pf1].values
+            multi_minus_value = int(case_value2) - int(case_value1)
+            total_value1 = waterfall_data_pf1.loc[waterfall_data_pf1['Calc'] == 'ARR /Rev /EBITDA', 'Entry'].values
+            total_value2 = waterfall_data_pf1.loc[waterfall_data_pf1['Calc'] == 'Cash flow adj', ss.selected_option_pf1].values
+
+            if total_value1 == None:
+                total_value1 = 0
+            if total_value2 == None:
+                total_value2 = 0
+
+            total_value3 = int(total_value1) + int(total_value2)
+            ownership_data_v2 = waterfall_data_pf1.loc[waterfall_data_pf1['Calc'] == 'Ownership %', ss.selected_option_pf1].values[0]
+            if ownership_data_v2 == None:
+                ownership_data_v2 = 0
+            multiple_growth = (multi_minus_value * total_value3) * int(ownership_data_v2)
+
+        # print('MULTIPLE GROWTH: ', multiple_growth)
+
+        asset_value_v1 = waterfall_data_pf1.loc[waterfall_data_pf1['Calc'] == 'Value', 'Low Case'].values
+        asset_value_v2 = waterfall_data_pf1.loc[waterfall_data_pf1['Calc'] == 'Value', 'Base Case'].values
+        asset_value_v3 = waterfall_data_pf1.loc[waterfall_data_pf1['Calc'] == 'Value', 'High Case'].values
+
+        asset_value_total = int(asset_value_v1) + int(asset_value_v2) + int(asset_value_v3)
+
+        financial_engineering = (investments_at_entry_amount + ebitda_value + multiple_growth ) - asset_value_total
+
+        # print('FINAL WATERFALL DATA: ', investments_at_entry_amount, ebitda_value, multiple_growth, financial_engineering, asset_value_total)
+
+        waterfall_data_flow_pf1 = {
+            'Category': ['Value at invetsment', 'EBITDA growth', 'Multiple growth', 'Financial engineering', 'Asset value'],
+            'Values': [investments_at_entry_amount, ebitda_value, multiple_growth, financial_engineering, asset_value_total  ]
+        }
+
+        waterfall_data_flow_df_pf1 = pd.DataFrame(waterfall_data_flow_pf1)
+
 
         def get_chart_83992296():
 
@@ -536,10 +535,10 @@ def main():
                 name = "20", 
                 # orientation = "v",
                 measure = ['Low Case', 'Base Case', 'High Case'],
-                x = waterfall_data_flow_pf1['Category'],
+                x = waterfall_data_flow_df_pf1['Category'],
                 # textposition = "outside",
                 # text = ['Low', 'Base', 'High'],
-                y = waterfall_data_flow_pf1['Values'],
+                y = waterfall_data_flow_df_pf1['Values'],
                 # connector = {"line":{"color":"rgb(63, 63, 63)"}},
             ))
 
