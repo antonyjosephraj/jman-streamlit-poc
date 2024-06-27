@@ -17,8 +17,8 @@ st.set_page_config(
 
 
 def creds_edtered():
-    # if st.session_state['user'].strip() == 'JMAN-Client' and st.session_state['pass'].strip() == 'JMAN-PoC':
-    if st.session_state['user'].strip() == 'admin' and st.session_state['pass'].strip() == 'admin':
+    if st.session_state['user'].strip() == 'JMAN-Client' and st.session_state['pass'].strip() == 'JMAN-PoC':
+    # if st.session_state['user'].strip() == 'admin' and st.session_state['pass'].strip() == 'admin':
 
         st.session_state['authenticated'] = True
     
@@ -81,7 +81,7 @@ def main():
         v_menu = ['PortCo 1', 'PortCo 2', 'PortCo 3']
 
         with st.sidebar:
-            st.markdown("<h3 style='color: white;'>Portfolio reporting 1</h3>", unsafe_allow_html=True)
+            st.markdown("<h3 style='color: white;'>Portfolio Reporting</h3>", unsafe_allow_html=True)
 
             selected = option_menu(
                 menu_title = None,
