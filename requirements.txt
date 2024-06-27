@@ -1,0 +1,10 @@
+pandas
+plotly
+streamlit
+yfinance
+pandas-datareader
+prophet
+numpy
+numpy_financial
+streamlit-authenticator
+streamlit-option-menu
