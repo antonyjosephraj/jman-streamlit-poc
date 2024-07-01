@@ -27,7 +27,7 @@ def creds_edtered():
         if not st.session_state['pass']:
             st.warning('Please enter Password')
         elif not st.session_state['user']:
-            st.warning('Please enter Username')
+            st.warning('Please enter Username') 
         else:
             st.warning('Please enter Username & Password')
 
