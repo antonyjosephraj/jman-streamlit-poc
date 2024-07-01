@@ -83,7 +83,7 @@ def main():
         unsafe_allow_html=True,
     )
     LOGO_URL_LARGE = "images\jman-logo.png"
-    st.logo(LOGO_URL_LARGE, link="https://streamlit.io/gallery", icon_image=LOGO_URL_LARGE)
+    # st.logo(LOGO_URL_LARGE, link="https://streamlit.io/gallery", icon_image=LOGO_URL_LARGE)
 
     if authenticate_user():
 

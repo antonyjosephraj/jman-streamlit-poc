@@ -13,7 +13,7 @@ import datetime
 def main(): 
 
     applyCss = """
-    <style>
+    <style> 
     [data-testid="stAppViewBlockContainer"]{
         padding:30px;
     }
