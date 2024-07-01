@@ -3,9 +3,8 @@ import numpy as np
 import pandas as pd
 import numpy_financial as npf
 from streamlit import session_state as ss, data_editor as de, rerun as rr
-# import plotly.graph_objects as go
 import datetime
-# import matplotlib.pyplot as plt
+import matplotlib.pyplot as plt
 # import seaborn as sns
 
 
@@ -274,35 +273,35 @@ def main():
 
         st.bar_chart(fund_level_report_df_v5, x="Index", y=['Invested Capital', 'Asset Value'])
 
-    # with col2:
+    with col2:
 
         # # Create the bar chart
-        # fig, ax1 = plt.subplots()
+        fig, ax1 = plt.subplots()
         
-        # # Create stacked bars
-        # ax1.bar(fund_level_report_df_v3['Year'], fund_level_report_df_v3['Invested Capital'], color='r')
-        # ax1.bar(fund_level_report_df_v3['Year'], fund_level_report_df_v3['Distributions'], color='y')
-        # ax1.bar(fund_level_report_df_v3['Year'], fund_level_report_df_v3['Residual Value'], color='g')
+        # Create stacked bars
+        ax1.bar(fund_level_report_df_v3['Year'], fund_level_report_df_v3['Invested Capital'], color='r')
+        ax1.bar(fund_level_report_df_v3['Year'], fund_level_report_df_v3['Distributions'], color='y')
+        ax1.bar(fund_level_report_df_v3['Year'], fund_level_report_df_v3['Residual Value'], color='g')
 
-        # # Plot the net values line on the same x-axis
-        # ax2 = ax1.twinx()
-        # ax2.plot(fund_level_report_df_v3['Year'], fund_level_report_df_v3['Total Returns'], color='b', marker='o', label='Net Values')
+        # Plot the net values line on the same x-axis
+        ax2 = ax1.twinx()
+        ax2.plot(fund_level_report_df_v3['Year'], fund_level_report_df_v3['Total Returns'], color='b', marker='o', label='Net Values')
         
-        # # Synchronize the y-axis limits
-        # ax2.set_ylim(ax1.get_ylim())
+        # Synchronize the y-axis limits
+        ax2.set_ylim(ax1.get_ylim())
         
-        # # Add labels and title
-        # ax1.set_xlabel('Categories')
-        # ax1.set_ylabel('Bar Values')
-        # ax2.set_ylabel('Net Values')
-        # plt.title('Stacked Bar Chart with Net Values Line Graph')
+        # Add labels and title
+        ax1.set_xlabel('Categories')
+        ax1.set_ylabel('Bar Values')
+        ax2.set_ylabel('Net Values')
+        plt.title('Stacked Bar Chart with Net Values Line Graph')
         
-        # # Add legend
-        # ax1.legend(loc='upper left')
-        # ax2.legend(loc='upper right')
+        # Add legend
+        ax1.legend(loc='upper left')
+        ax2.legend(loc='upper right')
         
-        # # Show the plot
-        # st.pyplot(fig)
+        # Show the plot
+        st.pyplot(fig)
 
 if __name__ == '__main__':
     main()
