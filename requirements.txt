@@ -8,5 +8,3 @@ numpy
 numpy_financial
 streamlit-authenticator
 streamlit-option-menu
-seaborn
-matplotlib
