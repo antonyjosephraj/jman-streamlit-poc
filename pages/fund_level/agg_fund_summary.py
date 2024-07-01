@@ -39,22 +39,16 @@ def main():
     st.markdown("<h1 style='color: #19105B;padding:0;'>Agg Fund Summary</h1>", unsafe_allow_html=True)
     st.divider()
 
-    # Investments Details
-    # st.subheader(':blue[Investments Details:]')      
-    # investments_details = pd.read_csv('./inputs/investments_details.csv') 
-    # investments_details['Exit Date'] = pd.to_datetime(investments_details['Exit Date'], format='%m/%d/%Y').dt.strftime('%Y-%m-%d')
+    # Collecting All Data
 
     data_investments_details_pf1 = ss.investments_data_pf1
     data_investments_amount_pf1 = ss.investments_amount_pf1
     data_revenue_return_pf1 = ss.revenue_return_pf1
 
-
     data_investments_details_pf2 = ss.investments_data_pf2
     data_investments_amount_pf2 = ss.investments_amount_pf2
     data_revenue_return_pf2 = ss.revenue_return_pf2
 
-
-    # print('1111111111111111111', data_investments_details_pf2)
     data_investments_details_pf3 = ss.investments_data_pf3
     data_investments_amount_pf3 = ss.investments_amount_pf3
     data_revenue_return_pf3 = ss.revenue_return_pf3
@@ -62,6 +56,7 @@ def main():
     data = {'Name': ['Portco 1', 'Portco 2', 'Portco 3']}
     df = pd.DataFrame(data)
 
+    # Columns - 1  
     col1, col2, col3 = st.columns(3)
 
     with col1:
@@ -76,17 +71,12 @@ def main():
         portco3_options = ['High Case', 'Low Case', 'Base Case']
         portco3_selected_option = st.selectbox('Choose an Portco 3 option:', portco3_options)
 
-    # Display the selected option
-    # st.write(f'You selected: {selected_option}')
-
     col11= st.columns(1)
 
     # Add a column with a dropdown list
     for i in df.index:
-        # df.at[i, 'Scenario'] = st.selectbox('Select Action:', ['Low Case', 'High Case', 'Base Case'], key=i)
         if i  == 0:
             for pf1 in data_investments_details_pf1.index:
-                # st.write(data_investments_details_pf1.at[pf1, 'Scenario'])
                 if portco1_selected_option == data_investments_details_pf1.at[pf1, 'Scenario']:
                     df.at[0, 'Scenario'] = portco1_selected_option
                     df.at[0, 'Date of Investment'] = data_investments_amount_pf1.iloc[0]['Date of Investment']
@@ -110,7 +100,6 @@ def main():
 
         if i  == 1:
             for pf1 in data_investments_details_pf2.index:
-                # st.write(data_investments_details_pf2.at[pf1, 'Scenario'])
                 if portco2_selected_option == data_investments_details_pf2.at[pf1, 'Scenario']:
                     df.at[1, 'Scenario'] = portco2_selected_option
                     df.at[1, 'Date of Investment'] = data_investments_amount_pf2.iloc[0]['Date of Investment']
@@ -135,7 +124,6 @@ def main():
         
         if i  == 2:
             for pf1 in data_investments_details_pf3.index:
-                # st.write(data_investments_details_pf3.at[pf1, 'Scenario'])
                 if portco3_selected_option == data_investments_details_pf3.at[pf1, 'Scenario']:
                     df.at[2, 'Scenario'] = portco3_selected_option
                     df.at[2, 'Date of Investment'] = data_investments_amount_pf3.iloc[0]['Date of Investment']
@@ -178,49 +166,9 @@ def main():
 
     st.write(fun_level_data_df)
 
-    
-    # df = pd.DataFrame({
-    #     'Column 1': [st.selectbox('d',options), st.selectbox('d',options), st.selectbox('d',options)],
-    #     'Column 2': ['A', 'B', 'C']
-    # })
-
-    # def add_dropdowns(dataframe):
-    #     # Example function to add dropdowns
-    #     return dataframe
-
-    # st.dataframe(add_dropdowns(df))
-
-    # Create a sample dataframe
-    # data = {
-    #     'Category': ['Fruit', 'Vegetable', 'Fruit', 'Meat', 'Vegetable'],
-    #     'Subcategory': ['Apple', 'Carrot', 'Banana', 'Beef', 'Broccoli']
-    # }
-
-    # df = pd.DataFrame(data)
-
-    # # Create the primary dropdown for Category
-    # selected_category = st.selectbox("Select Category", df['Category'].unique())
-
-    # # Filter the dataframe based on the selected category
-    # filtered_df = df[df['Category'] == selected_category]
-
-    # # Create a dictionary for dependent dropdown options
-    # dependent_dropdown_options = {
-    #     'options': filtered_df['Subcategory'].unique().tolist(),
-    #     'default': None  # You can set a default value here if needed
-    # }
-
-    # # Display the dependent dropdown using st_aggrid
-    # grid_options = GridOptionsBuilder.from_dataframe(filtered_df).build()
-    # AgGrid(filtered_df, gridOptions=grid_options, data_editor=dependent_dropdown_options)
-
-
     chart_data = pd.DataFrame(np.random.randn(10, 3), columns=["a", "b", "c"])
 
-    # st.write(chart_data)
-    # st.bar_chart(chart_data)
-
-
+    # Get Assumptions Data
     assumptions_data_portco1 = ss.assumptions_data_pf1
     assumptions_data_portco2 = ss.assumptions_data_pf2
     assumptions_data_portco3 = ss.assumptions_data_pf3
@@ -283,17 +231,13 @@ def main():
     merged_df['past_value'] = merged_df['past_value_x'].fillna(0) + merged_df['past_value_y'].fillna(0) + merged_df['past_value'].fillna(0)
     merged_df['future_value'] = merged_df['future_value_x'].fillna(0) + merged_df['future_value_y'].fillna(0) + merged_df['future_value'].fillna(0)
 
-
     merged_df_v2 = merged_df[['year', 'past_value', 'future_value']]
-    print('final', merged_df_v2)
 
     in_merged_df = pd.merge(in_df1, in_df2, on='year', how='outer')
     in_merged_df = pd.merge(in_merged_df, in_df3, on='year', how='outer')
     in_merged_df['investment'] = in_merged_df['investment_x'].fillna(0) + in_merged_df['investment_y'].fillna(0) + in_merged_df['investment'].fillna(0)
 
     in_merged_df_v2 = in_merged_df[['year', 'investment']]
-
-    print('RRRRRRRRRRRRRRRRR', in_merged_df_v2)
 
     fund_level_report_df =  pd.merge(merged_df_v2, in_merged_df_v2, on='year', how='outer')
     fund_level_report_df['investment'] = fund_level_report_df['investment'].fillna(0)
@@ -308,35 +252,23 @@ def main():
 
     fund_level_report_df_v3 = fund_level_report_df_v2[['Year', 'Invested Capital', 'Asset Value', 'Distributions', 'Residual Value', 'Total Returns']]
 
-    print('FINAL_DATA: ', fund_level_report_df_v3)
-
-    # st.write(fund_level_report_df_v3)
     fund_level_report_df_v4 = fund_level_report_df_v3[['Invested Capital', 'Distributions', 'Asset Value', 'Residual Value']]
     fund_level_report_df_v4['Invested Capital'] = fund_level_report_df_v3['Invested Capital'].abs()
     
     sum_invested_captital_amount = fund_level_report_df_v4['Invested Capital'].sum()
     sum_asset_value_amount = fund_level_report_df_v4['Asset Value'].sum()
     
-    # st.write(fund_level_report_df_v4)
-
     fund_level_report_df_v5 = pd.DataFrame({
             'Index': [1,2],
             'Invested Capital': [sum_invested_captital_amount, 0],
             'Asset Value': [0, sum_asset_value_amount]
     })
 
-    # fig, ax = plt.subplots()
-
-    # for category, group in fund_level_report_df_v3:
-    #     ax.bar(category, group['Value'].sum(), label=category)
-
-
     st.markdown("<div style='background-color: #19105B; padding:0.3px; marging:5px 0;'></div>", unsafe_allow_html=True)
     st.markdown("<h2 style='color: #19105B; font-size:28px;'>Agg Fun Summary Chart:</h2>", unsafe_allow_html=True)
-
     st.markdown("<div style='marging:5px 0;'></div>", unsafe_allow_html=True)
 
-
+    # Columns - 2:
     col1, col2 = st.columns(2)
 
     with col1:
@@ -344,7 +276,6 @@ def main():
         st.bar_chart(fund_level_report_df_v5, x="Index", y=['Invested Capital', 'Asset Value'])
 
     with col2:
-        # Create a DataFrame with your data
 
         # Create the bar chart
         fig, ax1 = plt.subplots()
@@ -354,7 +285,6 @@ def main():
         ax1.bar(fund_level_report_df_v3['Year'], fund_level_report_df_v3['Distributions'], color='y')
         ax1.bar(fund_level_report_df_v3['Year'], fund_level_report_df_v3['Residual Value'], color='g')
 
-        
         # Plot the net values line on the same x-axis
         ax2 = ax1.twinx()
         ax2.plot(fund_level_report_df_v3['Year'], fund_level_report_df_v3['Total Returns'], color='b', marker='o', label='Net Values')
@@ -373,88 +303,7 @@ def main():
         ax2.legend(loc='upper right')
         
         # Show the plot
-        # plt.show()
         st.pyplot(fig)
-
-
-        # ==================
-        # Create a Seaborn pairplot
-        # fund_level_report_df_v3.set_index('Year', inplace=True)
-
-        # # Create a figure and axis object using matplotlib
-        # fig, ax1 = plt.subplots(figsize=(12, 6))
-
-        # # Plot the lineplot on ax1
-        # sns.lineplot(data=fund_level_report_df_v3, x=fund_level_report_df_v3.index, y='Total Returns', marker='o', sort=False, ax=ax1)
-
-        # # Create a second y-axis for barplot
-        # ax2 = ax1.twinx()
-
-        # # Plot the barplot on ax2
-        # sns.barplot(data=fund_level_report_df_v3, x=fund_level_report_df_v3.index, y='Invested Capital', alpha=0.5, ax=ax2, color='blue', label='Invested Capital')
-        # sns.barplot(data=fund_level_report_df_v3, x=fund_level_report_df_v3.index, y='Distributions', alpha=0.5, ax=ax2, color='orange', label='Distributions')
-        # sns.barplot(data=fund_level_report_df_v3, x=fund_level_report_df_v3.index, y='Residual Value', alpha=0.5, ax=ax2, color='green', label='Residual Value')
-
-        # # Optionally, set labels and legends
-        # ax1.set_xlabel('Year')
-        # ax1.set_ylabel('Total Returns')
-        # ax2.set_ylabel('Amount')
-
-        # # Display legends from the last barplot (assuming all have the same x-values)
-        # ax2.legend()
-
-        # # Instead of plt.show(), capture the plot into a variable
-        # plt.close(fig)  # Close the figure to prevent double plotting
-
-        # # Combine both line plot and bar plots into a single plot variable
-        # plot_combined = fig
-
-        # # Display the combined plot in Streamlit
-        # st.pyplot(plot_combined)
-
-        # ===============
-        # st.bar_chart(fund_level_report_df_v3, x="Year", y=['Invested Capital',  'Distributions', 'Residual Value'])
-        # st.line_chart(fund_level_report_df_v3, x="Year", y=['Invested Capital', 'Distributions', 'Residual Value', 'Total Returns'])
-
-
-
-    # merged_df_v2['Invested Cap'] = merged_df['Low Case'] + merged_df['Base Case'] + merged_df['High Case']
-
-    # total_salary = merged_df_v2['Invested Cap'].sum()
-
-    # chart_data = pd.DataFrame({
-    #     'Categtory': ['Invested Cap', 'Asset Value', 'Distributions', 'Residual Value'],
-    #      'Values': [0, 0, 0, 0]
-    # })
-
-    # print(merged_df_v2)
-
-
-    # merged_df_v3 = merged_df_v2
-    # Calculate the sum of 'number' column across all dataframes
-    # total_sum = merged_df['number'].sum()
-
-
-    # chart_data_v2 = pd.DataFrame(
-    # {
-    #     "col1": list(range(20)) * 3,
-    #     "col2": np.random.randn(60),
-    #     "col3": ["A"] * 20 + ["B"] * 20 + ["C"] * 20,
-    # }
-    # )
-    # st.write(chart_data_v2)
-    # st.bar_chart(chart_data_v2, x="col1", y="col2", color="col3")
-
-
-
 
 if __name__ == '__main__':
     main()
-
-
-    # fig = go.Figure(go.Waterfall(
-    #         x = ["Sales", "Consulting", "Net revenue", "Purchases", "Other expenses", "Profit before tax"],
-    #         y = [60, 80, 0, -40, -20, 0],
-    #     ))
-    #     st.plotly_chart(fig, theme="streamlit")
-    
