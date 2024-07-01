@@ -4,6 +4,11 @@ import pandas as pd
 import numpy_financial as npf
 from streamlit import session_state as ss, data_editor as de, rerun as rr
 import plotly.graph_objects as go
+import datetime
+import matplotlib
+import matplotlib.pyplot as plt
+import seaborn as sns
+
 
 
 def main(): 
@@ -13,6 +18,7 @@ def main():
     [data-testid="stAppViewBlockContainer"]{
         padding:30px;
     }
+    
     hr {
         margin: 5px 0 20px 0;
         padding: 1px;
@@ -219,16 +225,212 @@ def main():
     assumptions_data_portco2 = ss.assumptions_data_pf2
     assumptions_data_portco3 = ss.assumptions_data_pf3
 
+    today = pd.Timestamp(datetime.datetime.now().date())
+
+    def sum_positive_values(df_subset):
+        positive_sum = df_subset[['Low Case', 'Base Case', 'High Case']].apply(lambda x: x[x > 0].sum(), axis=1).sum()
+        return positive_sum
+
+    def calculation_value(df):
+
+        df['Date'] = pd.to_datetime(df['Date'])
+        df['year'] = df['Date'].dt.year
+
+        past_values = df[df['Date'] < today]
+        future_values = df[df['Date'] >= today]
+
+        years = sorted(df['year'].unique())  # List of all years in the data
+        past_value = []
+        future_value = []
+
+        for year in years:
+            past_sum = sum_positive_values(past_values[past_values['year'] == year])
+            future_sum = sum_positive_values(future_values[future_values['year'] == year])
+            past_value.append(past_sum)
+            future_value.append(future_sum)
+
+        return_data = pd.DataFrame({
+            'year': years,
+            'past_value': past_value,
+            'future_value': future_value
+        })
+        
+        return return_data
+        
+    df1 = calculation_value(assumptions_data_portco1)
+    df2 = calculation_value(assumptions_data_portco2)
+    df3 = calculation_value(assumptions_data_portco3)
+
+    def calculation_investment(df):
+        df['Date'] = pd.to_datetime(df['Date'])
+
+        first_row = df.iloc[0]
+        year = [first_row['Date'].year]
+        value = [first_row[['Low Case', 'Base Case', 'High Case']].sum()]
+
+        return_data = pd.DataFrame({
+            'year': year,
+            'investment': value
+        })
+        return return_data
+    in_df1 = calculation_investment(assumptions_data_portco1)
+    in_df2 = calculation_investment(assumptions_data_portco2)
+    in_df3 = calculation_investment(assumptions_data_portco3)
+
     # Merge the dataframes on 'id' column
-    merged_df = pd.merge(assumptions_data_portco1, assumptions_data_portco2, on='Date', how='outer')
-    merged_df = pd.merge(merged_df, assumptions_data_portco3, on='Date', how='outer')
-    # merged_df['Low Case'] = merged_df['Low Case_x'].fillna(0) + merged_df['Low Case_y'].fillna(0) + merged_df['Low Case'].fillna(0)
-    # merged_df['Base Case'] = merged_df['Base Case_x'].fillna(0) + merged_df['value2'].fillna(0) + merged_df['value2'].fillna(0)
-    # merged_df['Base Case'] = merged_df['value1'].fillna(0) + merged_df['value2'].fillna(0) + merged_df['value2'].fillna(0)
+    merged_df = pd.merge(df1, df2, on='year', how='outer')
+    merged_df = pd.merge(merged_df, df3, on='year', how='outer')
+    merged_df['past_value'] = merged_df['past_value_x'].fillna(0) + merged_df['past_value_y'].fillna(0) + merged_df['past_value'].fillna(0)
+    merged_df['future_value'] = merged_df['future_value_x'].fillna(0) + merged_df['future_value_y'].fillna(0) + merged_df['future_value'].fillna(0)
 
 
-    # print(merged_df)
+    merged_df_v2 = merged_df[['year', 'past_value', 'future_value']]
+    print('final', merged_df_v2)
 
+    in_merged_df = pd.merge(in_df1, in_df2, on='year', how='outer')
+    in_merged_df = pd.merge(in_merged_df, in_df3, on='year', how='outer')
+    in_merged_df['investment'] = in_merged_df['investment_x'].fillna(0) + in_merged_df['investment_y'].fillna(0) + in_merged_df['investment'].fillna(0)
+
+    in_merged_df_v2 = in_merged_df[['year', 'investment']]
+
+    print('RRRRRRRRRRRRRRRRR', in_merged_df_v2)
+
+    fund_level_report_df =  pd.merge(merged_df_v2, in_merged_df_v2, on='year', how='outer')
+    fund_level_report_df['investment'] = fund_level_report_df['investment'].fillna(0)
+
+    fund_level_report_df_v2 = fund_level_report_df
+    fund_level_report_df_v2['Year'] = fund_level_report_df_v2['year']
+    fund_level_report_df_v2['Invested Capital'] = fund_level_report_df_v2['investment']
+    fund_level_report_df_v2['Distributions'] = fund_level_report_df_v2['past_value']
+    fund_level_report_df_v2['Residual Value'] = fund_level_report_df_v2['future_value']
+    fund_level_report_df_v2['Asset Value'] = (fund_level_report_df_v2['past_value'] + fund_level_report_df_v2['future_value'])
+    fund_level_report_df_v2['Total Returns'] = (fund_level_report_df_v2['past_value'] + fund_level_report_df_v2['future_value']) + fund_level_report_df_v2['investment']
+
+    fund_level_report_df_v3 = fund_level_report_df_v2[['Year', 'Invested Capital', 'Asset Value', 'Distributions', 'Residual Value', 'Total Returns']]
+
+    print('FINAL_DATA: ', fund_level_report_df_v3)
+
+    # st.write(fund_level_report_df_v3)
+    fund_level_report_df_v4 = fund_level_report_df_v3[['Invested Capital', 'Distributions', 'Asset Value', 'Residual Value']]
+    fund_level_report_df_v4['Invested Capital'] = fund_level_report_df_v3['Invested Capital'].abs()
+    
+    sum_invested_captital_amount = fund_level_report_df_v4['Invested Capital'].sum()
+    sum_asset_value_amount = fund_level_report_df_v4['Asset Value'].sum()
+    
+    # st.write(fund_level_report_df_v4)
+
+    fund_level_report_df_v5 = pd.DataFrame({
+            'Index': [1,2],
+            'Invested Capital': [sum_invested_captital_amount, 0],
+            'Asset Value': [0, sum_asset_value_amount]
+    })
+
+    # fig, ax = plt.subplots()
+
+    # for category, group in fund_level_report_df_v3:
+    #     ax.bar(category, group['Value'].sum(), label=category)
+
+
+    st.markdown("<div style='background-color: #19105B; padding:0.3px; marging:5px 0;'></div>", unsafe_allow_html=True)
+    st.markdown("<h2 style='color: #19105B; font-size:28px;'>Agg Fun Summary Chart:</h2>", unsafe_allow_html=True)
+
+    st.markdown("<div style='marging:5px 0;'></div>", unsafe_allow_html=True)
+
+
+    col1, col2 = st.columns(2)
+
+    with col1:
+
+        st.bar_chart(fund_level_report_df_v5, x="Index", y=['Invested Capital', 'Asset Value'])
+
+    with col2:
+        # Create a DataFrame with your data
+
+        # Create the bar chart
+        fig, ax1 = plt.subplots()
+        
+        # Create stacked bars
+        ax1.bar(fund_level_report_df_v3['Year'], fund_level_report_df_v3['Invested Capital'], color='r')
+        ax1.bar(fund_level_report_df_v3['Year'], fund_level_report_df_v3['Distributions'], color='y')
+        ax1.bar(fund_level_report_df_v3['Year'], fund_level_report_df_v3['Residual Value'], color='g')
+
+        
+        # Plot the net values line on the same x-axis
+        ax2 = ax1.twinx()
+        ax2.plot(fund_level_report_df_v3['Year'], fund_level_report_df_v3['Total Returns'], color='b', marker='o', label='Net Values')
+        
+        # Synchronize the y-axis limits
+        ax2.set_ylim(ax1.get_ylim())
+        
+        # Add labels and title
+        ax1.set_xlabel('Categories')
+        ax1.set_ylabel('Bar Values')
+        ax2.set_ylabel('Net Values')
+        plt.title('Stacked Bar Chart with Net Values Line Graph')
+        
+        # Add legend
+        ax1.legend(loc='upper left')
+        ax2.legend(loc='upper right')
+        
+        # Show the plot
+        # plt.show()
+        st.pyplot(fig)
+
+
+        # ==================
+        # Create a Seaborn pairplot
+        # fund_level_report_df_v3.set_index('Year', inplace=True)
+
+        # # Create a figure and axis object using matplotlib
+        # fig, ax1 = plt.subplots(figsize=(12, 6))
+
+        # # Plot the lineplot on ax1
+        # sns.lineplot(data=fund_level_report_df_v3, x=fund_level_report_df_v3.index, y='Total Returns', marker='o', sort=False, ax=ax1)
+
+        # # Create a second y-axis for barplot
+        # ax2 = ax1.twinx()
+
+        # # Plot the barplot on ax2
+        # sns.barplot(data=fund_level_report_df_v3, x=fund_level_report_df_v3.index, y='Invested Capital', alpha=0.5, ax=ax2, color='blue', label='Invested Capital')
+        # sns.barplot(data=fund_level_report_df_v3, x=fund_level_report_df_v3.index, y='Distributions', alpha=0.5, ax=ax2, color='orange', label='Distributions')
+        # sns.barplot(data=fund_level_report_df_v3, x=fund_level_report_df_v3.index, y='Residual Value', alpha=0.5, ax=ax2, color='green', label='Residual Value')
+
+        # # Optionally, set labels and legends
+        # ax1.set_xlabel('Year')
+        # ax1.set_ylabel('Total Returns')
+        # ax2.set_ylabel('Amount')
+
+        # # Display legends from the last barplot (assuming all have the same x-values)
+        # ax2.legend()
+
+        # # Instead of plt.show(), capture the plot into a variable
+        # plt.close(fig)  # Close the figure to prevent double plotting
+
+        # # Combine both line plot and bar plots into a single plot variable
+        # plot_combined = fig
+
+        # # Display the combined plot in Streamlit
+        # st.pyplot(plot_combined)
+
+        # ===============
+        # st.bar_chart(fund_level_report_df_v3, x="Year", y=['Invested Capital',  'Distributions', 'Residual Value'])
+        # st.line_chart(fund_level_report_df_v3, x="Year", y=['Invested Capital', 'Distributions', 'Residual Value', 'Total Returns'])
+
+
+
+    # merged_df_v2['Invested Cap'] = merged_df['Low Case'] + merged_df['Base Case'] + merged_df['High Case']
+
+    # total_salary = merged_df_v2['Invested Cap'].sum()
+
+    # chart_data = pd.DataFrame({
+    #     'Categtory': ['Invested Cap', 'Asset Value', 'Distributions', 'Residual Value'],
+    #      'Values': [0, 0, 0, 0]
+    # })
+
+    # print(merged_df_v2)
+
+
+    # merged_df_v3 = merged_df_v2
     # Calculate the sum of 'number' column across all dataframes
     # total_sum = merged_df['number'].sum()
 

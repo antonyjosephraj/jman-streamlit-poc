@@ -6,6 +6,17 @@ from streamlit import session_state as ss, data_editor as de, rerun as rr
 from streamlit_option_menu import option_menu
 from pages.fund_level import agg_fund_summary
 
+st.set_page_config(
+    page_title="JMAN App",
+    page_icon="📈",
+    layout="wide",
+    initial_sidebar_state="expanded",
+    # menu_items={
+    #     'Get Help': 'https://www.extremelycoolapp.com/help',
+    #     'Report a bug': "https://www.extremelycoolapp.com/bug",
+    #     'About': "# This is a header. This is an *extremely* cool app!"
+    # }
+)
 
 def main(): 
 
@@ -30,10 +41,22 @@ def main():
             font-size:20px;
         }
 
+        [data-testid="stSidebarNavSeparator"]{
+            background-color: white;
+            height: 1px;
+        }
+        [data-testid="stLogo"]{
+            width: 100px;
+            height: 50px;
+        }
+
         """,
         unsafe_allow_html=True,
     )
 
+    LOGO_URL_LARGE = "images\jman-logo.png"
+    st.logo(LOGO_URL_LARGE, link="https://streamlit.io/gallery", icon_image=LOGO_URL_LARGE)
+    
     v_menu = ['Agg Fund Summary']
 
     with st.sidebar:

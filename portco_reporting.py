@@ -5,7 +5,7 @@ from pages.portco_reporting import portco_1, portco_2, portco_3
 
 st.set_page_config(
     page_title="JMAN App",
-    page_icon="",
+    page_icon="📈",
     layout="wide",
     initial_sidebar_state="expanded",
     # menu_items={
@@ -17,8 +17,8 @@ st.set_page_config(
 
 
 def creds_edtered():
-    if st.session_state['user'].strip() == 'JMAN-Client' and st.session_state['pass'].strip() == 'JMAN-PoC':
-    # if st.session_state['user'].strip() == 'admin' and st.session_state['pass'].strip() == 'admin':
+    # if st.session_state['user'].strip() == 'JMAN-Client' and st.session_state['pass'].strip() == 'JMAN-PoC':
+    if st.session_state['user'].strip() == 'admin' and st.session_state['pass'].strip() == 'admin':
 
         st.session_state['authenticated'] = True
     
@@ -69,14 +69,28 @@ def main():
             font-size:18px;
         }
 
+        [data-testid="stSidebarNavSeparator"]{
+            background-color: white;
+            height: 1px;
+        }
+
+        [data-testid="stLogo"]{
+            width: 100px;
+            height: 50px;
+        }
+        
+
         """,
         unsafe_allow_html=True,
     )
-
+    LOGO_URL_LARGE = "images\jman-logo.png"
+    st.logo(LOGO_URL_LARGE, link="https://streamlit.io/gallery", icon_image=LOGO_URL_LARGE)
 
     if authenticate_user():
 
                 # background: linear-gradient(#19105b, #472067, #7c3375, #FF6196) !important;
+
+        
         
         v_menu = ['PortCo 1', 'PortCo 2', 'PortCo 3']
 
