@@ -257,9 +257,8 @@ def main():
     sum_asset_value_amount = fund_level_report_df_v4['Asset Value'].sum()
     
     fund_level_report_df_v5 = pd.DataFrame({
-            'Index': [1,2],
-            'Invested Capital': [sum_invested_captital_amount, 0],
-            'Asset Value': [0, sum_asset_value_amount]
+            'Category': ['Invested Capital', 'Asset Value'],
+            'Values': [sum_invested_captital_amount, sum_asset_value_amount]
     })
 
     st.markdown("<div style='background-color: #19105B; padding:0.3px; marging:5px 0;'></div>", unsafe_allow_html=True)
@@ -270,8 +269,19 @@ def main():
     col1, col2 = st.columns(2)
 
     with col1:
+        colors = ['#19105B', '#FF6196']
+        fig, ax = plt.subplots()
+        ax.bar(fund_level_report_df_v5['Category'], fund_level_report_df_v5['Values'], color=colors)
 
-        st.bar_chart(fund_level_report_df_v5, x="Index", y=['Invested Capital', 'Asset Value'])
+        # Customize labels and title
+        ax.set_xlabel('Fund Level Categories')
+        ax.set_ylabel('Fund Level Values')
+        ax.set_title('Bar Chart with Fund Level Data')
+
+        # Show plot in Streamlit
+        st.pyplot(fig)
+
+        # st.bar_chart(fund_level_report_df_v5, x="Index", y=['Invested Capital', 'Asset Value'])
 
     with col2:
 
@@ -279,9 +289,9 @@ def main():
         fig, ax1 = plt.subplots()
         
         # Create stacked bars
-        ax1.bar(fund_level_report_df_v3['Year'], fund_level_report_df_v3['Invested Capital'], color='r')
-        ax1.bar(fund_level_report_df_v3['Year'], fund_level_report_df_v3['Distributions'], color='y')
-        ax1.bar(fund_level_report_df_v3['Year'], fund_level_report_df_v3['Residual Value'], color='g')
+        ax1.bar(fund_level_report_df_v3['Year'], fund_level_report_df_v3['Invested Capital'], color='#19105B')
+        ax1.bar(fund_level_report_df_v3['Year'], fund_level_report_df_v3['Distributions'], color='#3411A3')
+        ax1.bar(fund_level_report_df_v3['Year'], fund_level_report_df_v3['Residual Value'], color='#FF6196')
 
         # Plot the net values line on the same x-axis
         ax2 = ax1.twinx()

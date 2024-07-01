@@ -323,6 +323,7 @@ def main():
     high_case_irr = npf.irr(df3['High Case Cash Flow'])
 
     revenue_return = {
+        'Scenario': ['Low Case', 'Base Case', 'High Case'],
         'Return (calculated)': money_multiple_value[2:],
         'IRR (calculated)': [low_case_irr, base_case_irr, high_case_irr ]
     }
@@ -416,6 +417,10 @@ def main():
                 # text = ['Low', 'Base', 'High'],
                 y = waterfall_data_flow_df_pf2['Values'],
                 # connector = {"line":{"color":"rgb(63, 63, 63)"}},
+                connector = {"line":{"color":"#19105B"}},
+                decreasing = {"marker":{"color":"#3411A3", }},
+                increasing = {"marker":{"color":"#FF6196"}},
+                totals = {"marker":{"color":"#19105B",}}
             ))
 
             fig.update_layout(
