@@ -55,7 +55,7 @@ def main():
     )
 
     LOGO_URL_LARGE = "images\jman-logo.png"
-    st.logo(LOGO_URL_LARGE, link="https://streamlit.io/gallery", icon_image=LOGO_URL_LARGE)
+    # st.logo(LOGO_URL_LARGE, link="https://streamlit.io/gallery", icon_image=LOGO_URL_LARGE)
     
     v_menu = ['Agg Fund Summary']
 
