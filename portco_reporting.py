@@ -51,6 +51,7 @@ def main():
     st.markdown(
         """
         <style>
+        
         [data-testid="stSidebar"][aria-expanded="true"] > div:first-child{
             width: 320px;
             background: linear-gradient(#19105b, #472067, #7c3375, #FF6196) !important;
@@ -78,10 +79,23 @@ def main():
             width: 100px;
             height: 50px;
         }
-        
+        [data-testid="baseButton-secondary"]{
+            background-color: white;
+            color: #19105b;
+            font-weight:700;
+            width:100px;
+            height:20px;
+
+        }
+
+
         """,
         unsafe_allow_html=True,
     )
+
+        # [data-testid="stVerticalBlock"] > [data-testid="stHorizontalBlock"]{
+        #     margin-top:300px !important;
+        # }
     LOGO_URL_LARGE = "images\jman-logo.png"
     # st.logo(LOGO_URL_LARGE, link="https://streamlit.io/gallery", icon_image=LOGO_URL_LARGE)
 
@@ -105,6 +119,14 @@ def main():
                     "nav-link-selected": {"background-color": "#19105B"},
                 }
             )
+
+        
+            # if st.button('Download'):
+            #     print('Hello, Streamlit!')
+            
+            # if st.button('Upload'):
+            #     print('Hello, Streamlit!')
+
 
         if selected == 'PortCo 1':
             portco_1.main()

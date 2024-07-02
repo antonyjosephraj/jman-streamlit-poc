@@ -31,12 +31,43 @@ def main():
         text-align: center;
         background-color: green; 
     }
+
+    .block-container{
+        position: relative;
+    }
+    .top-right {
+        position: absolute; top: -80px; right: 5px;
+        flex:row;
+    } 
+    .top-right > button:first-child {
+        background-color: #19105B ;
+        border: 1px solid black;
+        padding: 10px 5px;
+        border-radius: 10px;
+        color: white;
+    }
+
+    .top-right > button:nth-child(2) {
+        background-color: #19105B ;
+        border: 1px solid black;
+        padding: 10px 5px;
+        border-radius: 10px;
+        color: white;
+        margin-left: 5px;
+    }
+
     </style>
     """
+
 
     st.markdown(applyCss, unsafe_allow_html=True)
     st.markdown("<h1 style='color: #19105B; padding:0;'>Portfolio Reporting 1</h1>", unsafe_allow_html=True)
     st.divider()
+
+    # Create a button in the top-right corner
+    st.markdown('<div class="top-right"><button>Upload</button> <button>Download</button> </div>', unsafe_allow_html=True)
+
+    # st.markdown("<div style='marging:5px 0;'></div>", unsafe_allow_html=True)
 
     # Investments
     investments = pd.read_csv('./inputs/investments.csv')
@@ -55,7 +86,7 @@ def main():
     if 'investments_data_pf1' not in ss:
         ss.investments_data_pf1 = pd.DataFrame(investments_details)
 
-
+    
     # Columns - 1
     col1, col2 = st.columns(2)
 
@@ -416,7 +447,7 @@ def main():
 
         def get_chart_83992296():
 
-            colors = ['#19105B', '#3411A3', '#FF6196', '#4FE5DB', '#A187F3']
+            # colors = ['#19105B', '#3411A3', '#FF6196', '#4FE5DB', '#A187F3']
 
             fig = go.Figure(go.Waterfall(
                 name = "20", 
@@ -434,9 +465,36 @@ def main():
             ))
 
             fig.update_layout(
-                    title = "Proftolio Insights dashboard",
-                    showlegend = True
+                title="Portfolio Insights Dashboard",
+                title_font=dict(
+                    size=20,  # Title font size
+                    color='#FF6196'  # Title color
+                ),
+                xaxis=dict(
+                    title='Categories',  # X-axis title
+                    title_font=dict(
+                        size=14,  # X-axis title font size
+                        color='#19105B'  # X-axis title color
+                    ),
+                    tickfont=dict(
+                        size=12,  # X-axis tick font size
+                        color='#19105B'  # X-axis tick color
+                    ),
+                ),
+                yaxis=dict(
+                    title='Values',  # Y-axis title
+                    title_font=dict(
+                        size=14,  # Y-axis title font size
+                        color='#19105B'  # Y-axis title color
+                    ),
+                    tickfont=dict(
+                        size=12,  # Y-axis tick font size
+                        color='#19105B'  # Y-axis tick color
+                    ),
+                ),
+                showlegend=True
             )
+
 
             st.plotly_chart(fig, theme="streamlit")
 

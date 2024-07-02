@@ -270,13 +270,19 @@ def main():
 
     with col1:
         colors = ['#19105B', '#FF6196']
-        fig, ax = plt.subplots()
-        ax.bar(fund_level_report_df_v5['Category'], fund_level_report_df_v5['Values'], color=colors)
+        
+        fig, ax = plt.subplots(figsize=(10, 6))
+        bin_width = 0.3
+
+        ax.bar(fund_level_report_df_v5['Category'], fund_level_report_df_v5['Values'], color=colors, width=bin_width)
 
         # Customize labels and title
-        ax.set_xlabel('Fund Level Categories')
-        ax.set_ylabel('Fund Level Values')
-        ax.set_title('Bar Chart with Fund Level Data')
+        ax.set_xlabel('Fund Level Categories', color='#19105B', fontsize=10)
+        ax.set_ylabel('Fund Level Values', color='#19105B', fontsize=10)
+        ax.set_title('Bar Chart with Fund Level Data', color='#FF6196', fontsize=10)
+
+        ax.tick_params(axis='x', labelsize=7, color='#19105B')
+        ax.tick_params(axis='y', labelsize=7, color='#19105B')
 
         # Show plot in Streamlit
         st.pyplot(fig)
@@ -286,7 +292,7 @@ def main():
     with col2:
 
         # # Create the bar chart
-        fig, ax1 = plt.subplots()
+        fig, ax1 = plt.subplots(figsize=(9, 6))
         
         # Create stacked bars
         ax1.bar(fund_level_report_df_v3['Year'], fund_level_report_df_v3['Invested Capital'], color='#19105B')
@@ -301,14 +307,19 @@ def main():
         ax2.set_ylim(ax1.get_ylim())
         
         # Add labels and title
-        ax1.set_xlabel('Categories')
-        ax1.set_ylabel('Bar Values')
-        ax2.set_ylabel('Net Values')
-        plt.title('Stacked Bar Chart with Net Values Line Graph')
+        ax1.set_xlabel('Categories', color='#19105B', fontsize=10)
+        ax1.set_ylabel('Bar Values', color='#19105B', fontsize=10)
+        ax2.set_ylabel('Net Values', color='#19105B', fontsize=10)
+        plt.title('Stacked Bar Chart with Net Values Line Graph', color='#FF6196', fontsize=10)
         
+
         # Add legend
         ax1.legend(loc='upper left')
         ax2.legend(loc='upper right')
+
+        ax1.tick_params(axis='x', labelsize=7, color='#19105B')
+        ax1.tick_params(axis='y', labelsize=7, color='#19105B')
+        ax2.tick_params(axis='y', labelsize=7)
         
         # Show the plot
         st.pyplot(fig)
