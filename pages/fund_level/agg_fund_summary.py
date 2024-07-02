@@ -266,63 +266,86 @@ def main():
     st.markdown("<div style='marging:5px 0;'></div>", unsafe_allow_html=True)
 
     # Columns - 2:
-    # col1, col2 = st.columns(2)
+    col1, col2 = st.columns(2)
 
-    # with col1:
-    #     colors = ['#19105B', '#FF6196']
+    with col1:
+        colors = ['#19105B', '#FF6196']
         
-    #     fig, ax = plt.subplots(figsize=(10, 6))
-    #     bin_width = 0.3
+        fig, ax = plt.subplots(figsize=(9.5, 6))
+        bin_width = 0.3
 
-    #     ax.bar(fund_level_report_df_v5['Category'], fund_level_report_df_v5['Values'], color=colors, width=bin_width)
+        ax.bar(fund_level_report_df_v5['Category'], fund_level_report_df_v5['Values'], color=colors, width=bin_width)
 
-    #     # Customize labels and title
-    #     ax.set_xlabel('Fund Level Categories', color='#19105B', fontsize=10)
-    #     ax.set_ylabel('Fund Level Values', color='#19105B', fontsize=10)
-    #     ax.set_title('Bar Chart with Fund Level Data', color='#FF6196', fontsize=10)
+        # Customize labels and title
+        ax.set_xlabel('Fund Level Categories', color='#19105B', fontsize=10)
+        ax.set_ylabel('Fund Level Values', color='#19105B', fontsize=10)
+        ax.set_title('Bar Chart with Fund Level Data', color='#FF6196', fontsize=10)
 
-    #     ax.tick_params(axis='x', labelsize=7, color='#19105B')
-    #     ax.tick_params(axis='y', labelsize=7, color='#19105B')
+        ax.tick_params(axis='x', labelsize=7, color='#19105B')
+        ax.tick_params(axis='y', labelsize=7, color='#19105B')
 
-    #     # Show plot in Streamlit
-    #     st.pyplot(fig)
+        ax.grid(True, axis='y', linestyle='-', color='#19105B', alpha=0.1)  # Change axis to 'x' or 'both' if needed
+        ax.spines['top'].set_visible(False)
+        ax.spines['right'].set_visible(False)
+        # ax.spines['bottom'].set_visible(False)
+        # ax.spines['left'].set_visible(False)
 
-    #     # st.bar_chart(fund_level_report_df_v5, x="Index", y=['Invested Capital', 'Asset Value'])
+        # Show plot in Streamlit
+        st.pyplot(fig)
 
-    # with col2:
 
-    #     # # Create the bar chart
-    #     fig, ax1 = plt.subplots(figsize=(9, 6))
+
+        # st.bar_chart(fund_level_report_df_v5, x="Index", y=['Invested Capital', 'Asset Value'])
+
+    with col2:
+
+        # # Create the bar chart
+        fig, ax1 = plt.subplots(figsize=(9, 6))
+
+        unique_years = fund_level_report_df_v3['Year'].apply(int).unique()
         
-    #     # Create stacked bars
-    #     ax1.bar(fund_level_report_df_v3['Year'], fund_level_report_df_v3['Invested Capital'], color='#19105B')
-    #     ax1.bar(fund_level_report_df_v3['Year'], fund_level_report_df_v3['Distributions'], color='#3411A3')
-    #     ax1.bar(fund_level_report_df_v3['Year'], fund_level_report_df_v3['Residual Value'], color='#FF6196')
+        # Create stacked bars
+        ax1.bar(fund_level_report_df_v3['Year'], fund_level_report_df_v3['Invested Capital'], color='#19105B')
+        ax1.bar(fund_level_report_df_v3['Year'], fund_level_report_df_v3['Distributions'], color='#3411A3')
+        ax1.bar(fund_level_report_df_v3['Year'], fund_level_report_df_v3['Residual Value'], color='#FF6196')
 
-    #     # Plot the net values line on the same x-axis
-    #     ax2 = ax1.twinx()
-    #     ax2.plot(fund_level_report_df_v3['Year'], fund_level_report_df_v3['Total Returns'], color='b', marker='o', label='Net Values')
+        # Plot the net values line on the same x-axis
+        ax2 = ax1.twinx()
+        ax2.plot(fund_level_report_df_v3['Year'], fund_level_report_df_v3['Total Returns'], color='b')
         
-    #     # Synchronize the y-axis limits
-    #     ax2.set_ylim(ax1.get_ylim())
+        # Synchronize the y-axis limits
+        # ax2.set_ylim(ax1.get_ylim())
+        ax2.set_ylim(bottom=0)
+
         
-    #     # Add labels and title
-    #     ax1.set_xlabel('Categories', color='#19105B', fontsize=10)
-    #     ax1.set_ylabel('Bar Values', color='#19105B', fontsize=10)
-    #     ax2.set_ylabel('Net Values', color='#19105B', fontsize=10)
-    #     plt.title('Stacked Bar Chart with Net Values Line Graph', color='#FF6196', fontsize=10)
+        # Add labels and title
+        ax1.set_xlabel('Categories', color='#19105B', fontsize=10)
+        ax1.set_ylabel('Bar Values', color='#19105B', fontsize=10)
+        # ax2.set_ylabel('Net Values', color='#19105B', fontsize=10)
+        plt.title('Stacked Bar Chart with Net Values Line Graph', color='#FF6196', fontsize=10)
         
 
-    #     # Add legend
-    #     ax1.legend(loc='upper left')
-    #     ax2.legend(loc='upper right')
+        plt.xticks(unique_years)
+        # Add legend
+        ax1.legend(loc='upper left')
+        ax2.legend(loc='upper right')
 
-    #     ax1.tick_params(axis='x', labelsize=7, color='#19105B')
-    #     ax1.tick_params(axis='y', labelsize=7, color='#19105B')
-    #     ax2.tick_params(axis='y', labelsize=7)
-        
-    #     # Show the plot
-    #     st.pyplot(fig)
+        ax1.tick_params(axis='x', labelsize=7, color='#19105B')
+        ax1.tick_params(axis='y', labelsize=7, color='#19105B')
+        ax2.tick_params(axis='y', labelsize=0)
+
+        ax2.grid(True, axis='y', linestyle='-', color='#19105B', alpha=0.1)  # Change axis to 'x' or 'both' if needed
+        ax1.spines['top'].set_visible(False)
+        ax1.spines['right'].set_visible(False)
+        # ax1.spines['bottom'].set_visible(False)
+        # ax1.spines['left'].set_visible(False)
+
+        ax2.spines['top'].set_visible(False)
+        ax2.spines['right'].set_visible(False)
+        # ax2.spines['bottom'].set_visible(False)
+        # ax2.spines['left'].set_visible(False)
+        # Show the plot
+        st.pyplot(fig)
 
 if __name__ == '__main__':
     main()

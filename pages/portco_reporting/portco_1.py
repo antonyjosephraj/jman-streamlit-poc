@@ -42,7 +42,7 @@ def main():
     .top-right > button:first-child {
         background-color: #19105B ;
         border: 1px solid black;
-        padding: 10px 5px;
+        padding: 8px 10px;
         border-radius: 10px;
         color: white;
     }
@@ -50,7 +50,7 @@ def main():
     .top-right > button:nth-child(2) {
         background-color: #19105B ;
         border: 1px solid black;
-        padding: 10px 5px;
+        padding: 8px 10px;
         border-radius: 10px;
         color: white;
         margin-left: 5px;

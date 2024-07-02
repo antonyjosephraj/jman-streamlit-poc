@@ -24,14 +24,14 @@ def main():
         """
         <style>
         [data-testid="stSidebar"][aria-expanded="true"] > div:first-child{
-            width: 320px;
+            # width: 320px;
             background: linear-gradient(#19105b, #472067, #7c3375, #FF6196) !important;
             color: white;
         }
-        [data-testid="stSidebar"][aria-expanded="false"] > div:first-child{
-            width: 320px;
-            margin-left: -400px;
-        }
+        # [data-testid="stSidebar"][aria-expanded="false"] > div:first-child{
+        #     width: 320px;
+        #     margin-left: -400px;
+        # }
         body {
             font-family: "Arial";
         }
