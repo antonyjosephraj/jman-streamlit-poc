@@ -261,7 +261,7 @@ def main():
             'Values': [sum_invested_captital_amount, sum_asset_value_amount]
     })
 
-    st.markdown("<div style='background-color: #19105B; padding:0.3px; marging:5px 0;'></div>", unsafe_allow_html=True)
+    # st.markdown("<div style='background-color: #19105B; padding:0.3px; marging:5px 0;'></div>", unsafe_allow_html=True)
     st.markdown("<h2 style='color: #19105B; font-size:28px;'>Agg Fun Summary Chart:</h2>", unsafe_allow_html=True)
     st.markdown("<div style='marging:5px 0;'></div>", unsafe_allow_html=True)
 
