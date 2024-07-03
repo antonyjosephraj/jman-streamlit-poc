@@ -112,10 +112,10 @@ def main():
         # [data-testid="stVerticalBlock"] > [data-testid="stHorizontalBlock"]{
         #     margin-top:300px !important;
         # }
-    LOGO_URL_LARGE = "images\jman-logo.png"
     LOGO_URL_SMALL = "images\jman-logo2.jpg"
+    LOGO_URL_LARGE = "images\jman-logo.png"
 
-    st.logo(LOGO_URL_LARGE, link="https://streamlit.io/gallery", icon_image=LOGO_URL_SMALL)
+    st.logo(LOGO_URL_LARGE, icon_image=LOGO_URL_SMALL)
 
     if authenticate_user():
 
