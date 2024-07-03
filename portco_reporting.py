@@ -20,8 +20,8 @@ ICON_RED = "images/jman-logo2.jpg"
 
 
 def creds_edtered():
-    # if st.session_state['user'].strip() == 'JMAN-Client' and st.session_state['pass'].strip() == 'JMAN-PoC':
-    if st.session_state['user'].strip() == 'admin' and st.session_state['pass'].strip() == 'admin':
+    if st.session_state['user'].strip() == 'JMAN-Client' and st.session_state['pass'].strip() == 'JMAN-PoC':
+    # if st.session_state['user'].strip() == 'admin' and st.session_state['pass'].strip() == 'admin':
 
         st.session_state['authenticated'] = True
      
