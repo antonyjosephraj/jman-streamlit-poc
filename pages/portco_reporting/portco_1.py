@@ -14,7 +14,7 @@ def main():
     padding:30px;
     }
     [data-testid="stHorizontalBlock"] {
-        border: 1px solid #66666633;
+        border: 2px solid #19105B;
         border-radius: 10px;
         padding: 10px;
     } 
@@ -54,6 +54,10 @@ def main():
         border-radius: 10px;
         color: white;
         margin-left: 5px;
+    }
+
+    .dvn-scroll-inner{
+        border: 2px solid #19105B;
     }
 
     </style>
@@ -128,7 +132,7 @@ def main():
     with st.container(border=True):
 
         with column1:
-            st.markdown("<h2 style='color: #19105B; font-size:28px;'>Casual Assumptions:</h2>", unsafe_allow_html=True)
+            st.markdown("<h2 style='color: #19105B; font-size:28px;'>Cashflow Assumptions:</h2>", unsafe_allow_html=True)
             assumptions_edited_df_v2 = de(ss.assumptions_data_pf1)
 
         investment_update = assumptions_edited_df_v2

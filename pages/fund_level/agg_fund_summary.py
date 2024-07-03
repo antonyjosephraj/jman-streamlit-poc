@@ -300,7 +300,7 @@ def main():
     with col2:
 
         # # Create the bar chart
-        fig, ax1 = plt.subplots(figsize=(9, 6))
+        fig1, ax1 = plt.subplots(figsize=(9, 6))
 
         unique_years = fund_level_report_df_v3['Year'].apply(int).unique()
         
@@ -345,7 +345,7 @@ def main():
         # ax2.spines['bottom'].set_visible(False)
         # ax2.spines['left'].set_visible(False)
         # Show the plot
-        st.pyplot(fig)
+        st.pyplot(fig1)
 
 if __name__ == '__main__':
     main()

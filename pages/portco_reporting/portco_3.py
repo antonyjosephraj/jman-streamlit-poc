@@ -13,7 +13,7 @@ def main():
         padding:30px;
         }
         [data-testid="stHorizontalBlock"] {
-            border: 2px solid #66666633;
+            border: 2px solid #19105B;F
             border-radius: 10px;
             padding: 10px;
         } 
@@ -112,7 +112,7 @@ def main():
         ss.assumptions_data_pf3.loc[0, ["Low Case" ,"Base Case" ,"High Case"]] = [ -investments_at_entry ,-investments_at_entry ,-investments_at_entry]
     
     with column1:
-        st.markdown("<h2 style='color: #19105B; font-size:28px;'>Casual Assumptions:</h2>", unsafe_allow_html=True)
+        st.markdown("<h2 style='color: #19105B; font-size:28px;'>Cashflow Assumptions:</h2>", unsafe_allow_html=True)
 
         assumptions_edited_df_v2 = de(ss.assumptions_data_pf3)
 

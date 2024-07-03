@@ -17,8 +17,8 @@ st.set_page_config(
 
 
 def creds_edtered():
-    if st.session_state['user'].strip() == 'JMAN-Client' and st.session_state['pass'].strip() == 'JMAN-PoC':
-    # if st.session_state['user'].strip() == 'admin' and st.session_state['pass'].strip() == 'admin':
+    # if st.session_state['user'].strip() == 'JMAN-Client' and st.session_state['pass'].strip() == 'JMAN-PoC':
+    if st.session_state['user'].strip() == 'admin' and st.session_state['pass'].strip() == 'admin':
 
         st.session_state['authenticated'] = True
      
@@ -69,7 +69,7 @@ def main():
         
         [data-testid="stSidebarNavLink"] > span {
             color: white !important;
-            font-size:18px;
+            font-size:22px;
         }
 
         [data-testid="stSidebarNavSeparator"]{
@@ -113,7 +113,7 @@ def main():
         #     margin-top:300px !important;
         # }
     LOGO_URL_LARGE = "images\jman-logo.png"
-    # st.logo(LOGO_URL_LARGE, link="https://streamlit.io/gallery", icon_image=LOGO_URL_LARGE)
+    st.logo(LOGO_URL_LARGE, link="https://streamlit.io/gallery", icon_image=LOGO_URL_LARGE)
 
     if authenticate_user():
 

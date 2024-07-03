@@ -38,7 +38,7 @@ def main():
         
         [data-testid="stSidebarNavLink"] > span {
             color: white !important;
-            font-size:20px;
+            font-size:22px;
         }
 
         [data-testid="stSidebarNavSeparator"]{
