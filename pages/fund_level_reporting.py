@@ -18,7 +18,12 @@ st.set_page_config(
     # }
 )
 
+
+HORIZONTAL_RED = "images/jman-logo.png"
+ICON_RED = "images/jman-logo2.jpg"
+
 def main(): 
+    st.logo(HORIZONTAL_RED, icon_image=ICON_RED)
 
     st.markdown(
         """
