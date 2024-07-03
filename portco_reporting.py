@@ -15,8 +15,8 @@ st.set_page_config(
     # }
 )
 
-LOGO_URL_SMALL = "images\jman-logo2.jpg"
-LOGO_URL_LARGE = "images\jman-logo.png"
+HORIZONTAL_RED = "images/jman-logo.png"
+ICON_RED = "images/jman-logo2.jpg"
 
 
 def creds_edtered():
@@ -53,7 +53,7 @@ def authenticate_user():
             return False
 
 def main():
-    st.logo(LOGO_URL_LARGE, icon_image=LOGO_URL_SMALL)
+    st.logo(HORIZONTAL_RED, icon_image=ICON_RED)
 
     st.markdown(
         """
