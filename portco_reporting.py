@@ -15,6 +15,10 @@ st.set_page_config(
     # }
 )
 
+LOGO_URL_SMALL = "images\jman-logo2.jpg"
+LOGO_URL_LARGE = "images\jman-logo.png"
+
+st.logo(LOGO_URL_LARGE, icon_image=LOGO_URL_SMALL)
 
 def creds_edtered():
     # if st.session_state['user'].strip() == 'JMAN-Client' and st.session_state['pass'].strip() == 'JMAN-PoC':
@@ -50,6 +54,8 @@ def authenticate_user():
             return False
 
 def main():
+
+
     st.markdown(
         """
         <style>
@@ -112,10 +118,7 @@ def main():
         # [data-testid="stVerticalBlock"] > [data-testid="stHorizontalBlock"]{
         #     margin-top:300px !important;
         # }
-    LOGO_URL_SMALL = "images\jman-logo2.jpg"
-    LOGO_URL_LARGE = "images\jman-logo.png"
 
-    st.logo(LOGO_URL_LARGE, icon_image=LOGO_URL_SMALL)
 
     if authenticate_user():
 
