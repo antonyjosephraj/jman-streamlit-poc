@@ -179,13 +179,15 @@ def main():
 
     def calculation_value(df):
 
-        df['Date'] = pd.to_datetime(df['Date'])
-        df['year'] = df['Date'].dt.year
+        df['Date1'] = pd.to_datetime(df['Date'])
+        df['year'] = df['Date1'].dt.year
 
-        past_values = df[df['Date'] < today]
-        future_values = df[df['Date'] >= today]
+        past_values = df[df['Date1'] < today]
+        future_values = df[df['Date1'] >= today]
 
         years = sorted(df['year'].unique())  # List of all years in the data
+        df = df.drop(columns=['Date1', 'year'], inplace=True)
+
         past_value = []
         future_value = []
 
@@ -208,11 +210,12 @@ def main():
     df3 = calculation_value(assumptions_data_portco3)
 
     def calculation_investment(df):
-        df['Date'] = pd.to_datetime(df['Date'])
+        df['Date1'] = pd.to_datetime(df['Date'])
 
         first_row = df.iloc[0]
-        year = [first_row['Date'].year]
+        year = [first_row['Date1'].year]
         value = [first_row[['Low Case', 'Base Case', 'High Case']].sum()]
+        df = df.drop(columns=['Date1'], inplace=True)
 
         return_data = pd.DataFrame({
             'year': year,
@@ -299,6 +302,7 @@ def main():
 
     with col2:
 
+
         # # Create the bar chart
         fig1, ax1 = plt.subplots(figsize=(9, 6))
 
@@ -311,11 +315,11 @@ def main():
 
         # Plot the net values line on the same x-axis
         ax2 = ax1.twinx()
-        ax2.plot(fund_level_report_df_v3['Year'], fund_level_report_df_v3['Total Returns'], color='b')
+        ax2.plot(fund_level_report_df_v3['Year'], fund_level_report_df_v3['Total Returns'], color='b', marker='o')
         
         # Synchronize the y-axis limits
-        # ax2.set_ylim(ax1.get_ylim())
-        ax2.set_ylim(bottom=0)
+        ax2.set_ylim(ax1.get_ylim())
+        # ax2.set_ylim(bottom=0)
 
         
         # Add labels and title
