@@ -113,7 +113,9 @@ def main():
         #     margin-top:300px !important;
         # }
     LOGO_URL_LARGE = "images\jman-logo.png"
-    st.logo(LOGO_URL_LARGE, icon_image=LOGO_URL_LARGE)
+    LOGO_URL_SMALL = "images\jman-logo2.jpg"
+
+    st.logo(LOGO_URL_LARGE, icon_image=LOGO_URL_SMALL)
 
     if authenticate_user():
 
