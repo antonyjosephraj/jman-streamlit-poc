@@ -72,19 +72,19 @@ def main():
 
         with col1:
             portco1_options = ['Low Case', 'Base Case', 'High Case']
-            portco1_selected_option = st.selectbox('PortCo1:', portco1_options)
+            portco1_selected_option = st.selectbox('PortCo 1:', portco1_options)
             ss.portco1_selected_option = portco1_selected_option
 
 
         with col2:
             portco2_options = ['Base Case', 'Low Case', 'High Case' ]
-            portco2_selected_option = st.selectbox('PortCo2', portco2_options)
+            portco2_selected_option = st.selectbox('PortCo 2', portco2_options)
             ss.portco2_selected_option = portco2_selected_option
 
 
         with col3:
             portco3_options = ['High Case', 'Low Case', 'Base Case']
-            portco3_selected_option = st.selectbox('PortCo3:', portco3_options)
+            portco3_selected_option = st.selectbox('PortCo 3:', portco3_options)
             ss.portco3_selected_option = portco3_selected_option
 
 

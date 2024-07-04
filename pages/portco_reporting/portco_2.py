@@ -9,14 +9,17 @@ def main():
 
     applyCss = """
         <style>
+
         [data-testid="stAppViewBlockContainer"]{
-        padding:30px;
+            padding:30px;
         }
+        
         [data-testid="stHorizontalBlock"] {
             border: 1px solid #19105B;
             border-radius: 10px;
             padding: 10px;
         } 
+        
         hr {
             margin: 5px 0 20px 0;
             padding: 1px;
@@ -368,7 +371,7 @@ def main():
         investments_at_entry_amount = ss.investments_amount_pf1['Investment at entry'].sum()
 
         waterfall_options_pf2 = ['Low Case', 'Base Case', 'High Case']
-        selected_option_pf2 = st.selectbox('Select a scenario for Prorto 2:', waterfall_options_pf2)
+        selected_option_pf2 = st.selectbox('Select a scenario for PortCo 2:', waterfall_options_pf2)
         ss.selected_option_pf2 = selected_option_pf2
 
         ebitda_value = 0

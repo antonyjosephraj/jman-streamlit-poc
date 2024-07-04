@@ -388,7 +388,7 @@ def main():
         investments_at_entry_amount = ss.investments_amount_pf1['Investment at entry'].sum()
 
         waterfall_options_pf1 = ['Low Case', 'Base Case', 'High Case']
-        selected_option_pf1 = st.selectbox('Select a scenario for Prorto 1:', waterfall_options_pf1)
+        selected_option_pf1 = st.selectbox('Select a scenario for PortCo 1:', waterfall_options_pf1)
 
         ss.selected_option_pf1 = selected_option_pf1
 
