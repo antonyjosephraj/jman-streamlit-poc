@@ -371,7 +371,7 @@ def main():
         investments_at_entry_amount = ss.investments_amount_pf1['Investment at entry'].sum()
 
         waterfall_options_pf2 = ['Low Case', 'Base Case', 'High Case']
-        selected_option_pf2 = st.selectbox('Select a scenario for PortCo 2:', waterfall_options_pf2)
+        selected_option_pf2 = st.selectbox('Select a Scenario for PortCo 2:', waterfall_options_pf2)
         ss.selected_option_pf2 = selected_option_pf2
 
         ebitda_value = 0

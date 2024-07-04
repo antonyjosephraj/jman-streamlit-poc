@@ -78,7 +78,7 @@ def main():
 
         with col2:
             portco2_options = ['Base Case', 'Low Case', 'High Case' ]
-            portco2_selected_option = st.selectbox('PortCo 2', portco2_options)
+            portco2_selected_option = st.selectbox('PortCo 2:', portco2_options)
             ss.portco2_selected_option = portco2_selected_option
 
 
