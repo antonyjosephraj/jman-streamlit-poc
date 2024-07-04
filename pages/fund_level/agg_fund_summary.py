@@ -60,14 +60,20 @@ def main():
     with col1:
         portco1_options = ['Low Case', 'Base Case', 'High Case']
         portco1_selected_option = st.selectbox('Choose an Portco 1 option:', portco1_options)
+        ss.portco1_selected_option = portco1_selected_option
+
 
     with col2:
         portco2_options = ['Base Case', 'Low Case', 'High Case' ]
         portco2_selected_option = st.selectbox('Choose an Portco 2 option:', portco2_options)
+        ss.portco2_selected_option = portco2_selected_option
+
 
     with col3:
         portco3_options = ['High Case', 'Low Case', 'Base Case']
         portco3_selected_option = st.selectbox('Choose an Portco 3 option:', portco3_options)
+        ss.portco3_selected_option = portco3_selected_option
+
 
     col11= st.columns(1)
 
@@ -75,8 +81,8 @@ def main():
     for i in df.index:
         if i  == 0:
             for pf1 in data_investments_details_pf1.index:
-                if portco1_selected_option == data_investments_details_pf1.at[pf1, 'Scenario']:
-                    df.at[0, 'Scenario'] = portco1_selected_option
+                if ss.portco1_selected_option == data_investments_details_pf1.at[pf1, 'Scenario']:
+                    df.at[0, 'Scenario'] = ss.portco1_selected_option
                     df.at[0, 'Date of Investment'] = data_investments_amount_pf1.iloc[0]['Date of Investment']
                     df.at[0, 'Invested Amount'] = data_investments_details_pf1.at[pf1, 'Invested Amount']
                     df.at[0, 'EBITDA at Entry'] = data_investments_amount_pf1.iloc[0]['EBITDA at entry']
@@ -84,22 +90,22 @@ def main():
                     df.at[0, 'Multiple at entry'] = data_investments_amount_pf1.iloc[0]['Multiple at Entry']
                     df.at[0, 'Multiple at Exit'] = data_investments_details_pf1.at[pf1, 'Multiple at Exit']
                     df.at[0, 'Exit Date'] = data_investments_details_pf1.at[pf1, 'Exit Date']
-                    if portco1_selected_option == 'Low Case':
+                    if ss.portco1_selected_option == 'Low Case':
                         df.at[0, 'Return (calculated)'] = data_revenue_return_pf1.at[0, 'Return (calculated)']
                         df.at[0, 'IRR (calculated)'] = data_revenue_return_pf1.at[0, 'IRR (calculated)']
 
-                    if portco1_selected_option == 'Base Case':
+                    if ss.portco1_selected_option == 'Base Case':
                         df.at[0, 'Return (calculated)'] = data_revenue_return_pf1.at[1, 'Return (calculated)']
                         df.at[0, 'IRR (calculated)'] = data_revenue_return_pf1.at[1, 'IRR (calculated)']
 
-                    if portco1_selected_option == 'High Case':
+                    if ss.portco1_selected_option == 'High Case':
                         df.at[0, 'Return (calculated)'] = data_revenue_return_pf1.at[2, 'Return (calculated)']
                         df.at[0, 'IRR (calculated)'] = data_revenue_return_pf1.at[2, 'IRR (calculated)']
 
         if i  == 1:
             for pf1 in data_investments_details_pf2.index:
-                if portco2_selected_option == data_investments_details_pf2.at[pf1, 'Scenario']:
-                    df.at[1, 'Scenario'] = portco2_selected_option
+                if ss.portco2_selected_option == data_investments_details_pf2.at[pf1, 'Scenario']:
+                    df.at[1, 'Scenario'] = ss.portco2_selected_option
                     df.at[1, 'Date of Investment'] = data_investments_amount_pf2.iloc[0]['Date of Investment']
                     df.at[1, 'Invested Amount'] = data_investments_details_pf2.at[pf1, 'Invested Amount']
                     df.at[1, 'EBITDA at Entry'] = data_investments_amount_pf2.iloc[0]['EBITDA at entry']
@@ -107,23 +113,23 @@ def main():
                     df.at[1, 'Multiple at entry'] = data_investments_amount_pf2.iloc[0]['Multiple at Entry']
                     df.at[1, 'Multiple at Exit'] = data_investments_details_pf2.at[pf1, 'Multiple at Exit']
                     df.at[1, 'Exit Date'] = data_investments_details_pf2.at[pf1, 'Exit Date']
-                    if portco2_selected_option == 'Low Case':
+                    if ss.portco2_selected_option == 'Low Case':
                         df.at[1, 'Return (calculated)'] = data_revenue_return_pf2.at[0, 'Return (calculated)']
                         df.at[1, 'IRR (calculated)'] = data_revenue_return_pf2.at[0, 'IRR (calculated)']
 
-                    if portco2_selected_option == 'Base Case':
+                    if ss.portco2_selected_option == 'Base Case':
                         df.at[1, 'Return (calculated)'] = data_revenue_return_pf2.at[1, 'Return (calculated)']
                         df.at[1, 'IRR (calculated)'] = data_revenue_return_pf2.at[1, 'IRR (calculated)']
 
-                    if portco2_selected_option == 'High Case':
+                    if ss.portco2_selected_option == 'High Case':
                         df.at[1, 'Return (calculated)'] = data_revenue_return_pf2.at[2, 'Return (calculated)']
                         df.at[1, 'IRR (calculated)'] = data_revenue_return_pf2.at[2, 'IRR (calculated)']
 
         
         if i  == 2:
             for pf1 in data_investments_details_pf3.index:
-                if portco3_selected_option == data_investments_details_pf3.at[pf1, 'Scenario']:
-                    df.at[2, 'Scenario'] = portco3_selected_option
+                if ss.portco3_selected_option == data_investments_details_pf3.at[pf1, 'Scenario']:
+                    df.at[2, 'Scenario'] = ss.portco3_selected_option
                     df.at[2, 'Date of Investment'] = data_investments_amount_pf3.iloc[0]['Date of Investment']
                     df.at[2, 'Invested Amount'] = data_investments_details_pf3.at[pf1, 'Invested Amount']
                     df.at[2, 'EBITDA at Entry'] = data_investments_amount_pf3.iloc[0]['EBITDA at entry']
@@ -131,15 +137,15 @@ def main():
                     df.at[2, 'Multiple at entry'] = data_investments_amount_pf3.iloc[0]['Multiple at Entry']
                     df.at[2, 'Multiple at Exit'] = data_investments_details_pf3.at[pf1, 'Multiple at Exit']
                     df.at[2, 'Exit Date'] = data_investments_details_pf3.at[pf1, 'Exit Date']
-                    if portco3_selected_option == 'Low Case':
+                    if ss.portco3_selected_option == 'Low Case':
                         df.at[2, 'Return (calculated)'] = data_revenue_return_pf3.at[0, 'Return (calculated)']
                         df.at[2, 'IRR (calculated)'] = data_revenue_return_pf3.at[0, 'IRR (calculated)']
 
-                    if portco3_selected_option == 'Base Case':
+                    if ss.portco3_selected_option == 'Base Case':
                         df.at[2, 'Return (calculated)'] = data_revenue_return_pf3.at[1, 'Return (calculated)']
                         df.at[2, 'IRR (calculated)'] = data_revenue_return_pf3.at[1, 'IRR (calculated)']
 
-                    if portco3_selected_option == 'High Case':
+                    if ss.portco3_selected_option == 'High Case':
                         df.at[2, 'Return (calculated)'] = data_revenue_return_pf3.at[2, 'Return (calculated)']
                         df.at[2, 'IRR (calculated)'] = data_revenue_return_pf3.at[2, 'IRR (calculated)']
     
@@ -173,11 +179,12 @@ def main():
 
     today = pd.Timestamp(datetime.datetime.now().date())
 
-    def sum_positive_values(df_subset):
-        positive_sum = df_subset[['Low Case', 'Base Case', 'High Case']].apply(lambda x: x[x > 0].sum(), axis=1).sum()
-        return positive_sum
+    def sum_positive_values(df_subset, option):
+        if option in df_subset.columns:
+            positive_sum = df_subset[[option]].apply(lambda x: x[x > 0].sum(), axis=1).sum()
+            return positive_sum
 
-    def calculation_value(df):
+    def calculation_value(df, option):
 
         df['Date1'] = pd.to_datetime(df['Date'])
         df['year'] = df['Date1'].dt.year
@@ -192,8 +199,8 @@ def main():
         future_value = []
 
         for year in years:
-            past_sum = sum_positive_values(past_values[past_values['year'] == year])
-            future_sum = sum_positive_values(future_values[future_values['year'] == year])
+            past_sum = sum_positive_values(past_values[past_values['year'] == year], option)
+            future_sum = sum_positive_values(future_values[future_values['year'] == year], option)
             past_value.append(past_sum)
             future_value.append(future_sum)
 
@@ -205,16 +212,19 @@ def main():
         
         return return_data
         
-    df1 = calculation_value(assumptions_data_portco1)
-    df2 = calculation_value(assumptions_data_portco2)
-    df3 = calculation_value(assumptions_data_portco3)
+    df1 = calculation_value(assumptions_data_portco1, ss.portco1_selected_option)
+    df2 = calculation_value(assumptions_data_portco2, ss.portco2_selected_option)
+    df3 = calculation_value(assumptions_data_portco3, ss.portco3_selected_option)
 
-    def calculation_investment(df):
+    def calculation_investment(df, option):
         df['Date1'] = pd.to_datetime(df['Date'])
 
         first_row = df.iloc[0]
         year = [first_row['Date1'].year]
-        value = [first_row[['Low Case', 'Base Case', 'High Case']].sum()]
+        value = 0
+        if option in df.columns:
+            value = df[[option]].apply(lambda x: x[x < 0].sum(), axis=1).sum()
+
         df = df.drop(columns=['Date1'], inplace=True)
 
         return_data = pd.DataFrame({
@@ -222,9 +232,10 @@ def main():
             'investment': value
         })
         return return_data
-    in_df1 = calculation_investment(assumptions_data_portco1)
-    in_df2 = calculation_investment(assumptions_data_portco2)
-    in_df3 = calculation_investment(assumptions_data_portco3)
+    
+    in_df1 = calculation_investment(assumptions_data_portco1, ss.portco1_selected_option)
+    in_df2 = calculation_investment(assumptions_data_portco2, ss.portco2_selected_option)
+    in_df3 = calculation_investment(assumptions_data_portco3, ss.portco3_selected_option)
 
     # Merge the dataframes on 'id' column
     merged_df = pd.merge(df1, df2, on='year', how='outer')
@@ -254,7 +265,7 @@ def main():
     fund_level_report_df_v3 = fund_level_report_df_v2[['Year', 'Invested Capital', 'Asset Value', 'Distributions', 'Residual Value', 'Total Returns']]
 
     fund_level_report_df_v4 = fund_level_report_df_v3[['Invested Capital', 'Distributions', 'Asset Value', 'Residual Value']]
-    fund_level_report_df_v4['Invested Capital'] = fund_level_report_df_v3['Invested Capital'].abs()
+    fund_level_report_df_v4['Invested Capital'] = fund_level_report_df_v4['Invested Capital'].abs()
     
     sum_invested_captital_amount = fund_level_report_df_v4['Invested Capital'].sum()
     sum_asset_value_amount = fund_level_report_df_v4['Asset Value'].sum()

@@ -395,7 +395,9 @@ def main():
         ebitda_value = 0
 
         if ss.selected_option_pf1 in waterfall_data_pf1.columns:
-            case_value = waterfall_data_pf1[ss.selected_option_pf1].iloc[0]
+            case_value = waterfall_data_pf1.loc[waterfall_data_pf1['Calc'] == 'ARR /Rev /EBITDA', ss.selected_option_pf1].values
+            if case_value == None:
+                case_value = 0
             entry_value = waterfall_data_pf1.loc[waterfall_data_pf1['Calc'] == 'ARR /Rev /EBITDA', 'Entry'].values
             actual_entry_value = int(case_value) - int(entry_value)
             multiple = waterfall_data_pf1.loc[waterfall_data_pf1['Calc'] == 'Multiple', ss.selected_option_pf1].values
