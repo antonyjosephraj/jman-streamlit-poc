@@ -34,7 +34,7 @@ def main():
     """
     st.markdown(applyCss, unsafe_allow_html=True)
 
-    st.markdown("<h1 style='color: #19105B;padding:0;'>Agg Fund Summary</h1>", unsafe_allow_html=True)
+    st.markdown("<h1 style='color: #19105B;padding:0;'>Aggregated Fund Summary</h1>", unsafe_allow_html=True)
     st.divider()
 
     # Collecting All Data
@@ -54,24 +54,27 @@ def main():
     data = {'Name': ['Portco 1', 'Portco 2', 'Portco 3']}
     df = pd.DataFrame(data)
 
+    st.markdown("<h5 style='color: #19105B;padding:0;'>Select a Scenario for Each PortCo</h5>", unsafe_allow_html=True)
+    st.markdown("<div style='marging:2px 0;'></div>", unsafe_allow_html=True)
+
     # Columns - 1  
     col1, col2, col3 = st.columns(3)
 
     with col1:
         portco1_options = ['Low Case', 'Base Case', 'High Case']
-        portco1_selected_option = st.selectbox('Choose an Portco 1 option:', portco1_options)
+        portco1_selected_option = st.selectbox('PortCo1:', portco1_options)
         ss.portco1_selected_option = portco1_selected_option
 
 
     with col2:
         portco2_options = ['Base Case', 'Low Case', 'High Case' ]
-        portco2_selected_option = st.selectbox('Choose an Portco 2 option:', portco2_options)
+        portco2_selected_option = st.selectbox('PortCo2', portco2_options)
         ss.portco2_selected_option = portco2_selected_option
 
 
     with col3:
         portco3_options = ['High Case', 'Low Case', 'Base Case']
-        portco3_selected_option = st.selectbox('Choose an Portco 3 option:', portco3_options)
+        portco3_selected_option = st.selectbox('PortCo3:', portco3_options)
         ss.portco3_selected_option = portco3_selected_option
 
 
@@ -295,8 +298,8 @@ def main():
         ax.set_ylabel('Fund Level Values', color='#19105B', fontsize=10)
         ax.set_title('Bar Chart with Fund Level Data', color='#FF6196', fontsize=10)
 
-        ax.tick_params(axis='x', labelsize=7, color='#19105B')
-        ax.tick_params(axis='y', labelsize=7, color='#19105B')
+        ax.tick_params(axis='x', labelsize=7, labelcolor='#19105B')
+        ax.tick_params(axis='y', labelsize=7, labelcolor='#19105B')
 
         ax.grid(True, axis='y', linestyle='-', color='#19105B', alpha=0.1)  # Change axis to 'x' or 'both' if needed
         ax.spines['top'].set_visible(False)
@@ -345,8 +348,8 @@ def main():
         ax1.legend(loc='upper left')
         ax2.legend(loc='upper right')
 
-        ax1.tick_params(axis='x', labelsize=7, color='#19105B')
-        ax1.tick_params(axis='y', labelsize=7, color='#19105B')
+        ax1.tick_params(axis='x', labelsize=7, labelcolor='#19105B')
+        ax1.tick_params(axis='y', labelsize=7, labelcolor='#19105B')
         ax2.tick_params(axis='y', labelsize=0)
 
         ax2.grid(True, axis='y', linestyle='-', color='#19105B', alpha=0.1)  # Change axis to 'x' or 'both' if needed

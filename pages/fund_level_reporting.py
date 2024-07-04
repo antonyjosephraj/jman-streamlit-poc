@@ -54,6 +54,10 @@ def main():
             width: 100px;
             height: 50px;
         }
+        [data-testid="stMarkdownContainer"] > p {
+            color: #19105b;
+            font-weight: 700;
+        }
 
         """,
         unsafe_allow_html=True,

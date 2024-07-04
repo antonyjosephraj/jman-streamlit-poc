@@ -105,7 +105,7 @@ def main():
         }
 
 
-        [data-testid="stMarkdownContainer"] > p{
+        [data-testid="stMarkdownContainer"] > p {
             color: #19105b;
             font-weight: 700;
         }
