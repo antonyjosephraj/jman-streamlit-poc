@@ -50,10 +50,16 @@ def main():
             background-color: white;
             height: 1px;
         }
-        [data-testid="stLogo"]{
+        
+        [data-testid="collapsedControl"] > [data-testid="stLogo"]{
+            width: 40px;
+            height: 40px;
+        }
+        [data-testid="stSidebarHeader"] > [data-testid="stLogo"]{
             width: 100px;
             height: 50px;
         }
+        
         [data-testid="stMarkdownContainer"] > p {
             color: #19105b;
             font-weight: 700;

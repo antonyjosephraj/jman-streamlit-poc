@@ -29,14 +29,23 @@ def main():
         padding: 1px;
         background-color: #19105B;
     }
+    
     div[data-testid="stDataFrameResizable"] > canvas > table > thead > tr > th {
         padding: 12px 15px;
         border:none;
     }
+    
     div[data-testid="stDataFrameResizable"] > canvas > table >tbody > tr {
         text-align: center;
         background-color: green; 
     }
+
+    .st-emotion-cache-r421ms{
+        border: 2px solid #19105B;
+        border-radius: 10px;
+        padding: 20px;
+    }
+
     </style>
     """
     st.markdown(applyCss, unsafe_allow_html=True)
@@ -165,7 +174,7 @@ def main():
         
 
 
-        st.markdown("<h2 style='color: #19105B; font-size:28px;'>Total of Fund Level:</h2>", unsafe_allow_html=True)
+        st.markdown("<h2 style='color: #19105B; font-size:28px;'>Total of Fund Level</h2>", unsafe_allow_html=True)
 
 
 
@@ -174,7 +183,9 @@ def main():
         df1['Return (calculated)'] = pd.to_numeric(df1['Return (calculated)'].str.replace('x', ''))
 
         total_investment_amout = df1['Invested Amount'].sum()
+        total_investment_amout = f"{total_investment_amout:.1f}"
         total_return_amount = df1['Return (calculated)'].sum()
+        total_return_amount = f"{total_return_amount:.1f}"
         total_return_amount_v2 = str(total_return_amount) + ' x'
 
         fun_level_data = {
@@ -184,9 +195,31 @@ def main():
         
         fun_level_data_df = pd.DataFrame(fun_level_data)
 
-        st.markdown("<h2 style='color: #19105B; font-size:28px;'>Total of Fund Level - Amount:</h2>", unsafe_allow_html=True)
 
-        st.write(fun_level_data_df)
+        def style_dataframe(df):
+                return df.style.set_table_styles(
+                    [{
+                        'selector': 'th',
+                        'props': [
+                            ('background-color', '#19105B'),
+                            ('color', 'white'),
+                            ('font-family', 'Arial, sans-serif'),
+                                ('font-size', '16px')
+                            ]
+                        }, 
+                        {
+                            'selector': 'td, th',
+                            'props': [
+                                ('border', '2px solid #19105B')
+                            ]
+                        }]
+                    )
+
+        fun_level_data_styled_df = style_dataframe(fun_level_data_df)
+
+        st.markdown("<h2 style='color: #19105B; font-size:28px;'>Total of Fund Level - Amount</h2>", unsafe_allow_html=True)
+
+        st.write(fun_level_data_styled_df.hide(axis="index").to_html(), unsafe_allow_html=True)
 
         st.markdown('</div>', unsafe_allow_html=True)
 
@@ -296,7 +329,7 @@ def main():
     with st.container(border=True):
 
         # st.markdown("<div style='background-color: #19105B; padding:0.3px; marging:5px 0;'></div>", unsafe_allow_html=True)
-        st.markdown("<h2 style='color: #19105B; font-size:28px;'>Agg Fun Summary Chart:</h2>", unsafe_allow_html=True)
+        st.markdown("<h2 style='color: #19105B; font-size:28px;'>Agg Fun Summary Chart</h2>", unsafe_allow_html=True)
         st.markdown("<div style='marging:5px 0;'></div>", unsafe_allow_html=True)
 
         # Columns - 2:
@@ -317,6 +350,8 @@ def main():
 
             ax.tick_params(axis='x', labelsize=7, labelcolor='#19105B')
             ax.tick_params(axis='y', labelsize=7, labelcolor='#19105B')
+
+            ax.set_yticklabels([f'{int(val//1000)}k' for val in ax.get_yticks()])
 
             ax.grid(True, axis='y', linestyle='-', color='#19105B', alpha=0.1)  # Change axis to 'x' or 'both' if needed
             ax.spines['top'].set_visible(False)
@@ -340,26 +375,24 @@ def main():
             unique_years = fund_level_report_df_v3['Year'].apply(int).unique()
             
             # Create stacked bars
-            ax1.bar(fund_level_report_df_v3['Year'], fund_level_report_df_v3['Invested Capital'], color='#19105B')
-            ax1.bar(fund_level_report_df_v3['Year'], fund_level_report_df_v3['Distributions'], color='#3411A3')
-            ax1.bar(fund_level_report_df_v3['Year'], fund_level_report_df_v3['Residual Value'], color='#FF6196')
+            ax1.bar(fund_level_report_df_v3['Year'], fund_level_report_df_v3['Invested Capital'], color='#19105B', label='Invested Capital')
+            ax1.bar(fund_level_report_df_v3['Year'], fund_level_report_df_v3['Distributions'], color='#3411A3', label='Distributions')
+            ax1.bar(fund_level_report_df_v3['Year'], fund_level_report_df_v3['Residual Value'], color='#FF6196', label='Residual Value')
 
             # Plot the net values line on the same x-axis
             ax2 = ax1.twinx()
-            ax2.plot(fund_level_report_df_v3['Year'], fund_level_report_df_v3['Total Returns'], color='b', marker='o')
+            ax2.plot(fund_level_report_df_v3['Year'], fund_level_report_df_v3['Total Returns'], color='b', marker='o', label='Total Returns'    )
             
             # Synchronize the y-axis limits
             ax2.set_ylim(ax1.get_ylim())
             # ax2.set_ylim(bottom=0)
 
-            
             # Add labels and title
-            ax1.set_xlabel('Categories', color='#19105B', fontsize=10)
+            ax1.set_xlabel('Years', color='#19105B', fontsize=10)
             ax1.set_ylabel('Bar Values', color='#19105B', fontsize=10)
             # ax2.set_ylabel('Net Values', color='#19105B', fontsize=10)
             plt.title('Stacked Bar Chart with Net Values Line Graph', color='#FF6196', fontsize=10)
             
-
             plt.xticks(unique_years)
             # Add legend
             ax1.legend(loc='upper left')
@@ -368,6 +401,8 @@ def main():
             ax1.tick_params(axis='x', labelsize=7, labelcolor='#19105B')
             ax1.tick_params(axis='y', labelsize=7, labelcolor='#19105B')
             ax2.tick_params(axis='y', labelsize=0)
+
+            ax1.set_yticklabels([f'{int(val//1000)}k' for val in ax1.get_yticks()])
 
             ax2.grid(True, axis='y', linestyle='-', color='#19105B', alpha=0.1)  # Change axis to 'x' or 'both' if needed
             ax1.spines['top'].set_visible(False)

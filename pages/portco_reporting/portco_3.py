@@ -4,6 +4,8 @@ import pandas as pd
 import numpy_financial as npf
 from streamlit import session_state as ss, data_editor as de, rerun as rr
 import plotly.graph_objects as go
+import string
+import random
 
 def main():
 
@@ -50,6 +52,13 @@ def main():
             color: white;
             margin-left: 5px;
         }
+
+        .st-emotion-cache-r421ms {
+            border: 2px solid #19105B;
+            border-radius: 10px;
+            padding: 20px 300px;
+        }
+
         </style>
     """
 
@@ -80,10 +89,10 @@ def main():
     col1, col2 = st.columns(2)
 
     with col1:
-        st.markdown("<h2 style='color: #19105B; font-size:28px;'>Investments:</h2>", unsafe_allow_html=True)
+        st.markdown("<h2 style='color: #19105B; font-size:28px;'>Investments</h2>", unsafe_allow_html=True)
         investments_edited_df = de(ss.investments_amount_pf3)
         
-        st.markdown("<h2 style='color: #19105B; font-size:28px;'>Investments Details:</h2>", unsafe_allow_html=True)
+        st.markdown("<h2 style='color: #19105B; font-size:28px;'>Investments Details</h2>", unsafe_allow_html=True)
         investments_details_v2 = de(ss.investments_data_pf3)
 
     # Columns - 2
@@ -98,7 +107,15 @@ def main():
     date_range = pd.date_range(start=min_date, end=max_date, freq='M')
     assumptions = pd.DataFrame(date_range, columns=['Date'])
     assumptions['Date'] = pd.to_datetime(assumptions['Date'], format='%Y-%m-%d').dt.strftime('%Y-%m-%d')
-    assumptions[["Low Case" ,"Base Case" ,"High Case" ,"Comments"]] = None
+    num_rows = assumptions.shape[0]
+    sample_values = np.random.randint(1000, 10000, size=(num_rows, 3))
+    mask = np.random.rand(*sample_values.shape) < 0.9
+    sample_values[mask] = 0
+    # assumptions[["Low Case" ,"Base Case" ,"High Case" ,"Comments"]] = None
+    assumptions["Low Case"] = sample_values[:, 0]
+    assumptions["Base Case"] = sample_values[:, 1]
+    assumptions["High Case"] = sample_values[:, 2]
+    assumptions["Comments"] = None
     assumptions.loc[0, ["Low Case" ,"Base Case" ,"High Case"]] = [ -investments_at_entry ,-investments_at_entry ,-investments_at_entry]
 
     if 'assumptions_data_pf3' not in ss:
@@ -112,7 +129,7 @@ def main():
         ss.assumptions_data_pf3.loc[0, ["Low Case" ,"Base Case" ,"High Case"]] = [ -investments_at_entry ,-investments_at_entry ,-investments_at_entry]
     
     with column1:
-        st.markdown("<h2 style='color: #19105B; font-size:28px;'>Cashflow Assumptions:</h2>", unsafe_allow_html=True)
+        st.markdown("<h2 style='color: #19105B; font-size:28px;'>Cashflow Assumptions</h2>", unsafe_allow_html=True)
 
         assumptions_edited_df_v2 = de(ss.assumptions_data_pf3)
 
@@ -138,7 +155,9 @@ def main():
         date_range = pd.date_range(start=min_date, end=max_date, freq='M')
         ss.assumptions_data_pf3 = pd.DataFrame(date_range, columns=['Date'])
         ss.assumptions_data_pf3['Date'] = pd.to_datetime(ss.assumptions_data_pf3['Date'], format='%Y-%m-%d').dt.strftime('%Y-%m-%d')
-        ss.assumptions_data_pf3[["Low Case" ,"Base Case" ,"High Case" ,"Comments"]] = None
+        ss.assumptions_data_pf3[["Low Case" ,"Base Case" ,"High Case"]] = None
+        ss.assumptions_data_pf3[["Comments"]] = None
+
         merged_df = pd.merge(ss.assumptions_data_pf3, sample_data, on=['Date'], suffixes=('_df1', '_df2'), how='left')
 
         # Update 'Salary' in df1 where 'Salary_df2' is not NaN (indicating a match)
@@ -168,7 +187,7 @@ def main():
 
     editda_multiple = {
         'Calc': ['ARR /Rev /EBITDA', 'Multiple'],
-        'Entry': [200,10]
+        'Entry': [240,130]
     }
     editda_multiple_df = pd.DataFrame(editda_multiple)
     editda_multiple_df[column_values_list] = None
@@ -179,11 +198,14 @@ def main():
 
     netdebt_and_cashflow = {
         'Calc': ['Net Debt', 'Cash flow adj'],
-        'Entry': [None,None]
+        'Entry': [200,190]
     }
     netdebt_and_cashflow_df_pf3 = pd.DataFrame(netdebt_and_cashflow)
 
-    netdebt_and_cashflow_df_pf3[column_values_list] = None
+    netdebt_and_cashflow_df_pf3['Low Case'] = [29, 18]
+    netdebt_and_cashflow_df_pf3['Base Case'] = [9, 15]
+    netdebt_and_cashflow_df_pf3['High Case'] = [11, 13]
+
 
     if 'netdebt_and_cashflow_df_pf3' not in ss:
         ss.netdebt_and_cashflow_df_pf3 = netdebt_and_cashflow_df_pf3
@@ -221,16 +243,26 @@ def main():
         value = 1 if value == None else value
         investments = 1 if investments == None else investments
 
-        return str(value / investments) + 'x' 
+        value_invt = value / investments
+        value_invt_v2 = f"{value_invt:.1f}"
+        value_invt_v3 = str(value_invt_v2) + 'x' 
+        return value_invt_v3
 
 
-    with column1:
-        st.markdown("<h2 style='color: #19105B; font-size:28px;'>Valuation Waterfall Output:</h2>", unsafe_allow_html=True)
+    with column2:
+        st.markdown("<h2 style='color: #19105B; font-size:28px;'>Valuation Waterfall Output</h2>", unsafe_allow_html=True)
 
-        with st.container(height=300, border=True):
+        with st.container(height=400, border=True):
 
-            st.write(ss.editda_multiple_df_pf3)
-            netdebt_and_cashflow_df_pf3 = de(ss.netdebt_and_cashflow_df_pf3)
+            tab1, tab2, tab3, tab4, tab5, tab6 = st.tabs(["EBITDA", "Cash Flow", "Equity", "Ownership", "Value & Invt", "MM"])
+
+            with tab1:
+                st.markdown("<h2 style='color: #19105B; font-size:28px;'>EBITDA</h2>", unsafe_allow_html=True)
+                st.write(ss.editda_multiple_df_pf3)
+            
+            with tab2:
+                st.markdown("<h2 style='color: #19105B; font-size:28px;'>Cash Flow</h2>", unsafe_allow_html=True)
+                netdebt_and_cashflow_df_pf3 = de(ss.netdebt_and_cashflow_df_pf3)
 
             if not ss.netdebt_and_cashflow_df_pf3.equals(netdebt_and_cashflow_df_pf3):
                 ss.netdebt_and_cashflow_df_pf3 = netdebt_and_cashflow_df_pf3
@@ -255,14 +287,16 @@ def main():
             equity_df = pd.DataFrame(equity_data)
             ss.equity_df_pf3 = equity_df
 
-            st.write(ss.equity_df_pf3)
+            with tab3:
+                st.markdown("<h2 style='color: #19105B; font-size:28px;'>Equity</h2>", unsafe_allow_html=True)
+                st.write(ss.equity_df_pf3)
 
             ownership_data_pf3 = {
                 'Calc': ['Ownership %'],
-                'Entry': None,
-                'Low Case':None,
-                'Base Case':None,
-                'High Case':None
+                'Entry': 5,
+                'Low Case':13,
+                'Base Case':9,
+                'High Case':11
             }
 
             ownership_df_pf3 = pd.DataFrame(ownership_data_pf3)
@@ -270,7 +304,9 @@ def main():
             if 'ownership_df_pf3' not in ss:
                 ss.ownership_df_pf3 = ownership_df_pf3
 
-            ownership_edited_df_pf3 = st.data_editor(ss.ownership_df_pf3)
+            with tab4:
+                st.markdown("<h2 style='color: #19105B; font-size:28px;'>Ownership</h2>", unsafe_allow_html=True)
+                ownership_edited_df_pf3 = st.data_editor(ss.ownership_df_pf3)
 
             if not ss.ownership_df_pf3.equals(ownership_edited_df_pf3):
                 ss.ownership_df_pf3 = ownership_edited_df_pf3
@@ -294,7 +330,11 @@ def main():
             }
 
             value_and_investment_df = pd.DataFrame(value_and_investment)
-            st.write(value_and_investment_df)
+            
+            with tab5:
+                st.markdown("<h2 style='color: #19105B; font-size:28px;'>Value & Investments</h2>", unsafe_allow_html=True)
+                st.write(value_and_investment_df)
+            
             ss.value_and_investment_df_pf3 = value_and_investment_df
 
                 # Calculate Equity for each case
@@ -313,9 +353,11 @@ def main():
             }
 
             money_multiple_df = pd.DataFrame(money_multiple)
-            st.write(money_multiple_df)
+            
+            with tab6:
+                st.markdown("<h2 style='color: #19105B; font-size:28px;'>Money Mutiple</h2>", unsafe_allow_html=True)
+                st.write(money_multiple_df)
             ss.money_multiple_df_pf3 = money_multiple_df
-
 
 
     money_multiple_value = money_multiple_df.iloc[0].tolist()
@@ -347,22 +389,47 @@ def main():
     base_case_irr = npf.irr(df3['Base Case Cash Flow'])
     high_case_irr = npf.irr(df3['High Case Cash Flow'])
 
+    low_case_irr_v2 = f"{low_case_irr:.1f}"
+    base_case_irr_v2 = f"{base_case_irr:.1f}"
+    high_case_irr_v2 = f"{high_case_irr:.1f}"
+
     revenue_return = {
         'Scenario': ['Low Case', 'Base Case', 'High Case'],
         'Return (calculated)': money_multiple_value[2:],
-        'IRR (calculated)': [low_case_irr, base_case_irr, high_case_irr ]
+        'IRR (calculated)': [low_case_irr_v2, base_case_irr_v2, high_case_irr_v2]
     }
+
     revenue_return_df = pd.DataFrame(revenue_return)
+    ss.revenue_return_pf3 = revenue_return_df
+
+
+    def style_dataframe(df):
+        return df.style.set_table_styles(
+            [{
+                'selector': 'th',
+                'props': [
+                    ('background-color', '#19105B'),
+                    ('color', 'white'),
+                    ('font-family', 'Arial, sans-serif'),
+                        ('font-size', '16px')
+                    ]
+                }, 
+                {
+                    'selector': 'td, th',
+                    'props': [
+                        ('border', '2px solid #19105B')
+                    ]
+                }]
+            )
+
+    revenue_return_pf3_styled_df = style_dataframe(ss.revenue_return_pf3)
+
     with col2:
-        st.markdown("<h2 style='color: #19105B; font-size:28px;'>Return Revenue:</h2>", unsafe_allow_html=True)
+        st.markdown("<h2 style='color: #19105B; font-size:28px;'>Return Revenue</h2>", unsafe_allow_html=True)
+        st.write(revenue_return_pf3_styled_df.hide(axis="index").set_table_attributes('style="margin: 0 auto; text-align: center;"').to_html(), unsafe_allow_html=True)
 
-        st.write(revenue_return_df)
-
-    if 'revenue_return_pf3' not in ss:
-        ss.revenue_return_pf3 = revenue_return_df
-
-    with column2:
-        st.markdown("<h2 style='color: #19105B; font-size:28px;'>Waterfall Chart:</h2>", unsafe_allow_html=True)
+    with st.container(border=True):
+        st.markdown("<h2 style='color: #19105B; font-size:28px;'>Waterfall Chart</h2>", unsafe_allow_html=True)
 
         # Waterfall Data 
         waterfall_data_pf3 = pd.concat([ss.editda_multiple_df_pf3, ss.netdebt_and_cashflow_df_pf3, ss.equity_df_pf3, ss.ownership_df_pf3, ss.value_and_investment_df_pf3, ss.money_multiple_df_pf3], ignore_index=True)
