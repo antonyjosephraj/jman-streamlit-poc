@@ -83,7 +83,7 @@ def main():
             position: absolute;
             z-index: 1;
             top: calc(100% + -12px);
-            right: -175px;
+            right   : -175px;
             opacity: 0;
             transition: opacity 0.3s;
         }
@@ -101,7 +101,7 @@ def main():
 
         .streamlit-tooltip:hover .tooltiptext {
             visibility: visible;
-            opacity: 0.6;
+            opacity: 0.8;
         }
         </style>
     """
