@@ -53,7 +53,7 @@ def main():
             margin-left: 5px;
         }
 
-        .st-emotion-cache-r421ms {
+        .st-emotion-cache-4uzi61 {
             border: 2px solid #19105B;
             border-radius: 10px;
             padding: 20px 300px;
