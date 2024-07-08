@@ -85,7 +85,7 @@ def main():
         [data-testid="collapsedControl"] > [data-testid="stLogo"]{
             width: 40px;
             height: 40px;
-            border-radius:8px;
+            border-radius:5px;
         }
         [data-testid="stSidebarHeader"] > [data-testid="stLogo"]{
             width: 100px;
