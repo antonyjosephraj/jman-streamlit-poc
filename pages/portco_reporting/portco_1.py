@@ -105,10 +105,10 @@ def main():
     with st.container(border=True):
         with col1:
             
-            st.markdown("<h2 style='color: #19105B; font-size:28px;'>Investments</h2>", unsafe_allow_html=True)
+            st.markdown("<h2 style='color: #19105B; font-size:28px;'>Investments 📝</h2>", unsafe_allow_html=True)
             investments_edited_df = de(ss.investments_amount_pf1)
 
-            st.markdown("<h2 style='color: #19105B; font-size:28px;'>Investments Details</h2>", unsafe_allow_html=True)
+            st.markdown("<h2 style='color: #19105B; font-size:28px;'>Investments Details 📝</h2>", unsafe_allow_html=True)
             investments_details_v2 = de(ss.investments_data_pf1)
 
     # Columns - 2
@@ -150,7 +150,7 @@ def main():
     with st.container(border=True):
 
         with column1:
-            st.markdown("<h2 style='color: #19105B; font-size:28px;'>Cashflow Assumptions</h2>", unsafe_allow_html=True)
+            st.markdown("<h2 style='color: #19105B; font-size:28px;'>Cashflow Assumptions 📝</h2>", unsafe_allow_html=True)
             assumptions_edited_df_v2 = de(ss.assumptions_data_pf1)
 
         investment_update = assumptions_edited_df_v2
@@ -280,7 +280,7 @@ def main():
                     st.write(ss.editda_multiple_df_pf1)
 
                 with tab2:
-                    st.markdown("<h2 style='color: #19105B; font-size:28px;'>Cash Flow</h2>", unsafe_allow_html=True)
+                    st.markdown("<h2 style='color: #19105B; font-size:28px;'>Cash Flow 📝</h2>", unsafe_allow_html=True)
                     netdebt_and_cashflow_edited_df_pf1 = de(ss.netdebt_and_cashflow_df_pf1)
 
                 if not ss.netdebt_and_cashflow_df_pf1.equals(netdebt_and_cashflow_edited_df_pf1):
@@ -325,7 +325,7 @@ def main():
                     ss.ownership_df_pf1 = ownership_df_pf1
 
                 with tab4:
-                    st.markdown("<h2 style='color: #19105B; font-size:28px;'>Ownership</h2>", unsafe_allow_html=True)
+                    st.markdown("<h2 style='color: #19105B; font-size:28px;'>Ownership 📝</h2>", unsafe_allow_html=True)
                     ownership_edited_df_pf1 = de(ss.ownership_df_pf1)
 
                 if not ss.ownership_df_pf1.equals(ownership_edited_df_pf1):
