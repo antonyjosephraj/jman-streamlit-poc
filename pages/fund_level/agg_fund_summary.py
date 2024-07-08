@@ -408,8 +408,6 @@ def main():
             # Show plot in Streamlit
             st.pyplot(fig)
 
-
-
             # st.bar_chart(fund_level_report_df_v5, x="Index", y=['Invested Capital', 'Asset Value'])
 
         with col2:
