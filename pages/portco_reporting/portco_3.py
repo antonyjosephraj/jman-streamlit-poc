@@ -179,13 +179,13 @@ def main():
 
         assumptions_edited_df_v2 = de(ss.assumptions_data_pf3)
 
-    investment_update = assumptions_edited_df_v2
-
-    low_case_sum_of_negatives = investment_update[investment_update['Low Case'] < 0]['Low Case'].sum()
-    base_case_sum_of_negatives = investment_update[investment_update['Base Case'] < 0]['Base Case'].sum()
-    high_case_sum_of_negatives = investment_update[investment_update['High Case'] < 0]['High Case'].sum()
-
     if not ss.assumptions_data_pf3.equals(assumptions_edited_df_v2):
+
+        investment_update = assumptions_edited_df_v2
+        low_case_sum_of_negatives = investment_update[investment_update['Low Case'] < 0]['Low Case'].sum()
+        base_case_sum_of_negatives = investment_update[investment_update['Base Case'] < 0]['Base Case'].sum()
+        high_case_sum_of_negatives = investment_update[investment_update['High Case'] < 0]['High Case'].sum()
+
         ss.assumptions_data_pf3 = assumptions_edited_df_v2
         ss.investments_data_pf3.loc[ss.investments_data_pf3['Scenario'] == 'Low Case', 'Invested Amount'] = abs(low_case_sum_of_negatives)
         ss.investments_data_pf3.loc[ss.investments_data_pf3['Scenario'] == 'Base Case', 'Invested Amount'] = abs(base_case_sum_of_negatives)
