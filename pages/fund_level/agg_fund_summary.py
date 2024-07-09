@@ -220,7 +220,7 @@ def main():
         
 
 
-        st.markdown("<h2 style='color: #19105B; font-size:28px;' class='streamlit-tooltip'>Total of Fund Level <span class='tooltiptext'>Can View the Total Fund Amounts</span></h2>", unsafe_allow_html=True)
+        st.markdown("<h2 style='color: #19105B; font-size:28px;' class='streamlit-tooltip'>Total of Fund Level <span class='tooltiptext'>View the total fund amounts</span></h2>", unsafe_allow_html=True)
 
 
 
@@ -263,7 +263,7 @@ def main():
 
         fun_level_data_styled_df = style_dataframe(fun_level_data_df)
 
-        st.markdown("<h2 style='color: #19105B; font-size:28px;' class='streamlit-tooltip'>Total of Fund Level - Amount <span class='tooltiptext'>Can View the Total Fund Amounts</span></h2>", unsafe_allow_html=True)
+        st.markdown("<h2 style='color: #19105B; font-size:28px;' class='streamlit-tooltip'>Total of Fund Level - Amount <span class='tooltiptext'>View the total fund amounts</span></h2>", unsafe_allow_html=True)
 
         st.write(fun_level_data_styled_df.hide(axis="index").to_html(), unsafe_allow_html=True)
 
@@ -375,7 +375,7 @@ def main():
     with st.container(border=True):
 
         # st.markdown("<div style='background-color: #19105B; padding:0.3px; marging:5px 0;'></div>", unsafe_allow_html=True)
-        st.markdown("<h2 style='color: #19105B; font-size:28px;' class='streamlit-tooltip'>Agg Fund Summary Chart <span class='tooltiptext'>Can View the Agg Fund Charts</span></h2>", unsafe_allow_html=True)
+        st.markdown("<h2 style='color: #19105B; font-size:28px;' class='streamlit-tooltip'>Agg Fund Summary Chart <span class='tooltiptext'>View the gg fund charts</span></h2>", unsafe_allow_html=True)
         st.markdown("<div style='marging:5px 0;'></div>", unsafe_allow_html=True)
 
         # Columns - 2:
