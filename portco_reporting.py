@@ -19,8 +19,8 @@ HORIZONTAL_RED = "images/jman-logo.png"
 ICON_RED = "images/jman-logo2.jpg"
 
 def creds_edtered():
-    # if st.session_state['user'].strip() == 'JMAN-Client' and st.session_state['pass'].strip() == 'JMAN-PoC':
-    if st.session_state['user'].strip() == 'admin' and st.session_state['pass'].strip() == 'admin':
+    if st.session_state['user'].strip() == 'JMAN-Client' and st.session_state['pass'].strip() == 'JMAN-PoC':
+    # if st.session_state['user'].strip() == 'admin' and st.session_state['pass'].strip() == 'admin':
 
         st.session_state['authenticated'] = True
      
@@ -36,7 +36,7 @@ def creds_edtered():
 def authenticate_user():
 
     if 'authenticated' not in st.session_state:
-        st.markdown("<h3 style='color: #19105B;'>Login</h3>", unsafe_allow_html=True)
+        st.markdown("<h3 style='color: #19105B;'>Login Page</h3>", unsafe_allow_html=True)
         st.text_input(label='Username: ',value='', key='user', on_change=creds_edtered)
         st.text_input(label='Password: ',value='', key='pass', type="password", on_change=creds_edtered)
 
@@ -46,7 +46,7 @@ def authenticate_user():
         if st.session_state['authenticated']:
             return True
         else:
-            st.markdown("<h3 style='color: #19105B;'>Login</h3>", unsafe_allow_html=True)
+            st.markdown("<h3 style='color: #19105B;'>Login Page</h3>", unsafe_allow_html=True)
             st.text_input(label='Username: ',value='', key='user', on_change=creds_edtered)
             st.text_input(label='Password: ',value='', key='pass', type="password", on_change=creds_edtered)
             return False
@@ -123,6 +123,8 @@ def main():
         #     margin-top:300px !important;
         # }
 
+    if "authenticated" not in st.session_state:
+        st.session_state["authenticated"] = False
 
     if authenticate_user():
 

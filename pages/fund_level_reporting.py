@@ -59,7 +59,7 @@ def main():
             width: 100px;
             height: 50px;
         }
-        
+
         [data-testid="stMarkdownContainer"] > p {
             color: #19105b;
             font-weight: 700;
@@ -69,30 +69,34 @@ def main():
         unsafe_allow_html=True, 
     )
 
-    LOGO_URL_LARGE = "images\jman-logo.png"
+    if "authenticated" not in st.session_state:
+        st.session_state["authenticated"] = False
     # st.logo(LOGO_URL_LARGE, link="https://streamlit.io/gallery", icon_image=LOGO_URL_LARGE)
     
-    v_menu = ['Agg Fund Summary']
+    if st.session_state["authenticated"]:
+        v_menu = ['Agg Fund Summary']
 
-    with st.sidebar:
-        st.markdown("<h3 style='color: white;'>Fund Level Reporting</h3>", unsafe_allow_html=True)
+        with st.sidebar:
+            st.markdown("<h3 style='color: white;'>Fund Level Reporting</h3>", unsafe_allow_html=True)
 
-        selected = option_menu(
-            menu_title = None,
-            options = v_menu,
-            icons = None,
-            menu_icon = 'menu-down',
-            default_index = 0,
-            styles={
-                    # "container": {"padding": "0!important", "background-color": "#fafafa"},
-                    # "icon": {"color": "orange", "font-size": "25px"}, 
-                    # "nav-link": {"font-size": "25px", "text-align": "left", "margin":"0px", "--hover-color": "#eee"},
-                    "nav-link-selected": {"background-color": "#19105B"},
-                }
-        )
+            selected = option_menu(
+                menu_title = None,
+                options = v_menu,
+                icons = None,
+                menu_icon = 'menu-down',
+                default_index = 0,
+                styles={
+                        # "container": {"padding": "0!important", "background-color": "#fafafa"},
+                        # "icon": {"color": "orange", "font-size": "25px"}, 
+                        # "nav-link": {"font-size": "25px", "text-align": "left", "margin":"0px", "--hover-color": "#eee"},
+                        "nav-link-selected": {"background-color": "#19105B"},
+                    }
+            )
 
-    if selected == 'Agg Fund Summary':
-        agg_fund_summary.main()
+        if selected == 'Agg Fund Summary':
+            agg_fund_summary.main()
+    else:
+        st.markdown("<div style='text-align: center;'> <h4 style='color: #19105b;'>⚠️ Please do Login in Portco Reporting </h4></div>", unsafe_allow_html=True)
 
 if __name__ == '__main__':
     main()
