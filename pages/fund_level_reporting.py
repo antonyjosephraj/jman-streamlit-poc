@@ -18,7 +18,6 @@ st.set_page_config(
     # }
 )
 
-
 HORIZONTAL_RED = "images/jman-logo.png"
 ICON_RED = "images/jman-logo2.jpg"
 
