@@ -177,7 +177,40 @@ def main():
         min_date = ss.investments_amount_pf2['Date of Investment'].min()
         investments_at_entry = ss.investments_amount_pf2['Investment at entry'].sum()
 
+        ss.assumptions_data_pf2.loc[0, ["Low Case" ,"Base Case" ,"High Case"]] = [0, 0, 0]
+
+        max_date = ss.investments_data_pf2['Exit Date'].max()
+        sample_data = ss.assumptions_data_pf2
+
+        date_range = pd.date_range(start=min_date, end=max_date, freq='M')
+        ss.assumptions_data_pf2 = pd.DataFrame(date_range, columns=['Date'])
+        ss.assumptions_data_pf2['Date'] = pd.to_datetime(ss.assumptions_data_pf2['Date'], format='%Y-%m-%d').dt.strftime('%Y-%m-%d')
+        ss.assumptions_data_pf2[["Low Case" ,"Base Case" ,"High Case"]] = 0
+        ss.assumptions_data_pf2[["Comments"]] = None
+
+        merged_df = pd.merge(ss.assumptions_data_pf2, sample_data, on=['Date'], suffixes=('_df1', '_df2'), how='left')
+
+        # Update 'Salary' in df1 where 'Salary_df2' is not NaN (indicating a match)
+        merged_df['Low Case'] = merged_df.apply(lambda row: row['Low Case_df2'] if not pd.isna(row['Low Case_df2']) else row['Low Case_df1'], axis=1)
+        merged_df['Base Case'] = merged_df.apply(lambda row: row['Base Case_df2'] if not pd.isna(row['Base Case_df2']) else row['Base Case_df1'], axis=1)
+        merged_df['High Case'] = merged_df.apply(lambda row: row['High Case_df2'] if not pd.isna(row['High Case_df2']) else row['High Case_df1'], axis=1)
+        merged_df['Comments'] = merged_df.apply(lambda row: row['Comments_df2'] if not pd.isna(row['Comments_df2']) else row['Comments_df1'], axis=1)
+
+        # Select final columns and drop duplicates
+        ss.assumptions_data_pf2 = merged_df[['Date', "Low Case" ,"Base Case" ,"High Case" ,"Comments"]].drop_duplicates()
+
         ss.assumptions_data_pf2.loc[0, ["Low Case" ,"Base Case" ,"High Case"]] = [ -investments_at_entry ,-investments_at_entry ,-investments_at_entry]
+
+        investment_update = ss.assumptions_data_pf2
+
+        low_case_sum_of_negatives = investment_update[investment_update['Low Case'] < 0]['Low Case'].sum()
+        base_case_sum_of_negatives = investment_update[investment_update['Base Case'] < 0]['Base Case'].sum()
+        high_case_sum_of_negatives = investment_update[investment_update['High Case'] < 0]['High Case'].sum()
+
+        ss.investments_data_pf2.loc[ss.investments_data_pf2['Scenario'] == 'Low Case', 'Invested Amount'] = abs(low_case_sum_of_negatives)
+        ss.investments_data_pf2.loc[ss.investments_data_pf2['Scenario'] == 'Base Case', 'Invested Amount'] = abs(base_case_sum_of_negatives)
+        ss.investments_data_pf2.loc[ss.investments_data_pf2['Scenario'] == 'High Case', 'Invested Amount'] = abs(high_case_sum_of_negatives)
+        rr()
 
     with column1:
         st.markdown("<h2 style='color: #19105B; font-size:28px;' class='streamlit-tooltip'>Cashflow Assumptions 📝 <span class='tooltiptext'>Please input the cashflow amounts</span></h2>", unsafe_allow_html=True)
