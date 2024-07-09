@@ -139,10 +139,10 @@ def main():
     col1, col2 = st.columns(2)
 
     with col1:
-        st.markdown("<h2 style='color: #19105B; font-size:28px;' class='streamlit-tooltip'>Investments 📝 <span class='tooltiptext'>Can Enter the Investment Values</span></h2>", unsafe_allow_html=True)
+        st.markdown("<h2 style='color: #19105B; font-size:28px;' class='streamlit-tooltip'>Investments 📝 <span class='tooltiptext'>Please input the investment values</span></h2>", unsafe_allow_html=True)
         investments_edited_df = de(ss.investments_amount_pf2)
 
-        st.markdown("<h2 style='color: #19105B; font-size:28px;' class='streamlit-tooltip'>Investments Details 📝<span class='tooltiptext'>Can Enter the Investment Details</span></h2>", unsafe_allow_html=True)
+        st.markdown("<h2 style='color: #19105B; font-size:28px;' class='streamlit-tooltip'>Investments Details 📝<span class='tooltiptext'>Please input the investment details</span></h2>", unsafe_allow_html=True)
         investments_details_v2 = de(ss.investments_data_pf2)
 
     column1, column2 = st.columns(2)
@@ -180,7 +180,7 @@ def main():
         ss.assumptions_data_pf2.loc[0, ["Low Case" ,"Base Case" ,"High Case"]] = [ -investments_at_entry ,-investments_at_entry ,-investments_at_entry]
 
     with column1:
-        st.markdown("<h2 style='color: #19105B; font-size:28px;' class='streamlit-tooltip'>Cashflow Assumptions 📝 <span class='tooltiptext'>Can Enter the Cashflow Amounts</span></h2>", unsafe_allow_html=True)
+        st.markdown("<h2 style='color: #19105B; font-size:28px;' class='streamlit-tooltip'>Cashflow Assumptions 📝 <span class='tooltiptext'>Please input the cashflow amounts</span></h2>", unsafe_allow_html=True)
 
         assumptions_edited_df_v2 = de(ss.assumptions_data_pf2)
 
@@ -301,17 +301,17 @@ def main():
         return value_invt_v3
 
     with column2:
-        st.markdown("<h2 style='color: #19105B; font-size:28px;' class='streamlit-tooltip'>Valuation Waterfall Output <span class='tooltiptext'>Can View the Waterfall values</span></h2>", unsafe_allow_html=True)
+        st.markdown("<h2 style='color: #19105B; font-size:28px;' class='streamlit-tooltip'>Valuation Waterfall Output <span class='tooltiptext'>View the waterfall values</span></h2>", unsafe_allow_html=True)
 
         with st.container(height=400, border=True):
             tab1, tab2, tab3, tab4, tab5, tab6 = st.tabs(["EBITDA", "Cash Flow", "Equity", "Ownership", "Value & Invt", "Multiple"])
             
             with tab1:
-                st.markdown("<h2 style='color: #19105B; font-size:28px;' class='streamlit-tooltip'>EBITDA <span class='tooltiptext'>Can View the EDITDA Values</span></h2>", unsafe_allow_html=True)
+                st.markdown("<h2 style='color: #19105B; font-size:28px;' class='streamlit-tooltip'>EBITDA <span class='tooltiptext'>View the EDITDA values</span></h2>", unsafe_allow_html=True)
                 st.write(ss.editda_multiple_df_pf2)
 
             with tab2:
-                st.markdown("<h2 style='color: #19105B; font-size:28px;' class='streamlit-tooltip'>Cash Flow 📝 <span class='tooltiptext'>Can Enter the Cashflow Values</span></h2>", unsafe_allow_html=True)
+                st.markdown("<h2 style='color: #19105B; font-size:28px;' class='streamlit-tooltip'>Cash Flow 📝 <span class='tooltiptext'>Please input the cashflow values</span></h2>", unsafe_allow_html=True)
                 netdebt_and_cashflow_edited_df_pf2 = de(ss.netdebt_and_cashflow_df_pf2)
 
             if not ss.netdebt_and_cashflow_df_pf2.equals(netdebt_and_cashflow_edited_df_pf2):
@@ -338,7 +338,7 @@ def main():
             ss.equity_df_pf2 = equity_df
 
             with tab3:
-                st.markdown("<h2 style='color: #19105B; font-size:28px;' class='streamlit-tooltip'>Equity <span class='tooltiptext'>Can View the Equity Values</span></h2>", unsafe_allow_html=True)
+                st.markdown("<h2 style='color: #19105B; font-size:28px;' class='streamlit-tooltip'>Equity <span class='tooltiptext'>View the equity values</span></h2>", unsafe_allow_html=True)
                 st.write(ss.equity_df_pf2)
 
             ownership_data_pf2 = {
@@ -353,7 +353,7 @@ def main():
             if 'ownership_df_pf2' not in ss:
                 ss.ownership_df_pf2 = ownership_df_pf2
             with tab4:
-                st.markdown("<h2 style='color: #19105B; font-size:28px;' class='streamlit-tooltip'>Ownership 📝 <span class='tooltiptext'>Can Enter the Ownership Values</span></h2>", unsafe_allow_html=True)
+                st.markdown("<h2 style='color: #19105B; font-size:28px;' class='streamlit-tooltip'>Ownership 📝 <span class='tooltiptext'>Please input the ownership values</span></h2>", unsafe_allow_html=True)
                 ownership_edited_df_pf2 = de(ss.ownership_df_pf2)
 
             if not ss.ownership_df_pf2.equals(ownership_edited_df_pf2):
@@ -382,7 +382,7 @@ def main():
             ss.value_and_investment_df_pf2 = value_and_investment_df
             
             with tab5:
-                st.markdown("<h2 style='color: #19105B; font-size:28px;' class='streamlit-tooltip'>Value & Investments <span class='tooltiptext'>Can View the Investment Values</span></h2>", unsafe_allow_html=True)
+                st.markdown("<h2 style='color: #19105B; font-size:28px;' class='streamlit-tooltip'>Value & Investments <span class='tooltiptext'>View the investment values</span></h2>", unsafe_allow_html=True)
                 st.write(value_and_investment_df)
 
             # Calculate Equity for each case
@@ -401,7 +401,7 @@ def main():
 
             money_multiple_df = pd.DataFrame(money_multiple)
             with tab6:
-                st.markdown("<h2 style='color: #19105B; font-size:28px;' class='streamlit-tooltip'>Money Multiple <span class='tooltiptext'>Can View the Multiple Values</span></h2>", unsafe_allow_html=True)
+                st.markdown("<h2 style='color: #19105B; font-size:28px;' class='streamlit-tooltip'>Money Multiple <span class='tooltiptext'>View the money multiple values</span></h2>", unsafe_allow_html=True)
                 st.write(money_multiple_df)
             ss.money_multiple_df_pf2 = money_multiple_df
 
@@ -468,11 +468,11 @@ def main():
 
     revenue_return_pf2_styled_df = style_dataframe(ss.revenue_return_pf2)
     with col2:
-        st.markdown("<h2 style='color: #19105B; font-size:28px;' class='streamlit-tooltip'>Return Revenue <span class='tooltiptext'>Can View the Return Revenue Value</span></h2>", unsafe_allow_html=True)
+        st.markdown("<h2 style='color: #19105B; font-size:28px;' class='streamlit-tooltip'>Return Revenue <span class='tooltiptext'>View the return revenue value</span></h2>", unsafe_allow_html=True)
         st.write(revenue_return_pf2_styled_df.hide(axis="index").set_table_attributes('style="margin: 0 auto; text-align: center;"').to_html(), unsafe_allow_html=True)
 
     with st.container(border=True):
-        st.markdown("<h2 style='color: #19105B; font-size:28px;' class='streamlit-tooltip'>Waterfall Chart <span class='tooltiptext'>Can View the Waterfall Chart for PortCo 2</span></h2>", unsafe_allow_html=True)
+        st.markdown("<h2 style='color: #19105B; font-size:28px;' class='streamlit-tooltip'>Waterfall Chart <span class='tooltiptext'>View the waterfall chart for PortCo 2</span></h2>", unsafe_allow_html=True)
 
         # Waterfall Data 
         waterfall_data_pf2 = pd.concat([ss.editda_multiple_df_pf2, ss.netdebt_and_cashflow_df_pf2, ss.equity_df_pf2, ss.ownership_df_pf2, ss.value_and_investment_df_pf2, ss.money_multiple_df_pf2], ignore_index=True)
