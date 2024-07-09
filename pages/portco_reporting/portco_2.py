@@ -472,7 +472,7 @@ def main():
         st.write(revenue_return_pf2_styled_df.hide(axis="index").set_table_attributes('style="margin: 0 auto; text-align: center;"').to_html(), unsafe_allow_html=True)
 
     with st.container(border=True):
-        st.markdown("<h2 style='color: #19105B; font-size:28px;' class='streamlit-tooltip'>Waterfall Chart <span class='tooltiptext'>View the waterfall chart for PortCo 2</span></h2>", unsafe_allow_html=True)
+        st.markdown("<h2 style='color: #19105B; font-size:28px;' class='streamlit-tooltip'>Waterfall Chart <span class='tooltiptext'>View the PortCo 2 waterfall chart </span></h2>", unsafe_allow_html=True)
 
         # Waterfall Data 
         waterfall_data_pf2 = pd.concat([ss.editda_multiple_df_pf2, ss.netdebt_and_cashflow_df_pf2, ss.equity_df_pf2, ss.ownership_df_pf2, ss.value_and_investment_df_pf2, ss.money_multiple_df_pf2], ignore_index=True)

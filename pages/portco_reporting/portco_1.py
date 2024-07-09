@@ -498,7 +498,7 @@ def main():
    
     with st.container(border=True):
 
-        st.markdown("<h2 style='color: #19105B; font-size:28px;'class='streamlit-tooltip'>Waterfall Chart <span class='tooltiptext'>View the waterfall chart for PortCo 1</span></h2>", unsafe_allow_html=True)
+        st.markdown("<h2 style='color: #19105B; font-size:28px;'class='streamlit-tooltip'>Waterfall Chart <span class='tooltiptext'>View the PortCo 1 waterfall chart</span></h2>", unsafe_allow_html=True)
 
         # Waterfall Data 
         waterfall_data_pf1 = pd.concat([ss.editda_multiple_df_pf1, ss.netdebt_and_cashflow_df_pf1, ss.equity_df_pf1, ss.ownership_df_pf1, ss.value_and_investment_df_pf1, ss.money_multiple_df_pf1], ignore_index=True)
