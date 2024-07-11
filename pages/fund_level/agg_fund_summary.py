@@ -397,7 +397,7 @@ def main():
             # Customize labels and title
             ax.set_xlabel('Fund Level Categories', color='#19105B', fontsize=10)
             ax.set_ylabel('$s', color='#19105B', fontsize=10)
-            ax.set_title('Bar Chart with Fund Level Data', color='#FF6196', fontsize=10)
+            ax.set_title('Fund Performance Metrics', color='#FF6196', fontsize=14)
 
             ax.tick_params(axis='x', labelsize=7, labelcolor='#19105B')
             ax.tick_params(axis='y', labelsize=7, labelcolor='#19105B')
@@ -449,7 +449,7 @@ def main():
             # Add labels and title
             ax1.set_xlabel('Years', color='#19105B', fontsize=10)
             ax1.set_ylabel('$s', color='#19105B', fontsize=10)
-            plt.title('Stacked Bar Chart with Net Values Line Graph', color='#FF6196', fontsize=10)
+            plt.title('Visualizing Net Capital and Asset Insights', color='#FF6196', fontsize=14)
             
             plt.xticks(unique_years)
             # Add legend
