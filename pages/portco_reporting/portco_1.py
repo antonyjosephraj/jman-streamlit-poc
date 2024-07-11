@@ -602,9 +602,10 @@ def main():
         financial_engineering = (investments_at_entry_amount + ebitda_value + multiple_growth ) -  asset_value_total
 
         waterfall_data_flow_pf1 = {
-            'Category': ['Value at invetsment', 'EBITDA growth', 'Multiple growth', 'Financial engineering', 'Asset value'],
+            'Category': ['Value at investment', 'EBITDA growth', 'Multiple growth', 'Financial engineering', 'Asset value'],
             'Values': [investments_at_entry_amount, ebitda_value, multiple_growth, financial_engineering, asset_value_total  ]
         }
+
 
         waterfall_data_flow_df_pf1 = pd.DataFrame(waterfall_data_flow_pf1)
 
