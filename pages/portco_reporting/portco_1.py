@@ -6,6 +6,8 @@ from streamlit import session_state as ss, data_editor as de, rerun as rr
 import plotly.graph_objects as go
 import string
 import random
+import datetime as dt
+from datetime import datetime
 
 def main():
 
@@ -97,8 +99,8 @@ def main():
         .streamlit-tooltip .tooltiptext::after {
             content: "";
             position: absolute;
-            top: -60%; /* Adjust this value to position the arrow vertically */
-            left: 10%; /* Adjust this value to position the arrow horizontally */
+            top: -60%;
+            left: 10%;
             margin-left: -10px;
             border-width: 10px;
             border-style: solid;
@@ -192,6 +194,7 @@ def main():
         ss.investments_amount_pf1 = investments_edited_df
         
         min_date = ss.investments_amount_pf1['Date of Investment'].min()
+        # min_date = min(datetime.strptime(date_str, '%Y-%m-%d').date() for date_str in ss.investments_amount_pf1['Date of Investment'])
         investments_at_entry = ss.investments_amount_pf1['Investment at entry'].sum()
 
         ss.assumptions_data_pf1.loc[0, ["Low Case" ,"Base Case" ,"High Case"]] = [0 , 0 , 0]
@@ -290,7 +293,7 @@ def main():
 
         editda_multiple = {
             'Calc': ['ARR /Rev /EBITDA', 'Multiple'],
-            'Entry': [200, 120]
+            'Entry': [100, 5]
         }
         editda_multiple_df = pd.DataFrame(editda_multiple)
         editda_multiple_df[column_values_list] = None
@@ -324,9 +327,10 @@ def main():
             net_debt = 0 if net_debt == None or net_debt == '' else net_debt
             cash_flow_adj = 0 if cash_flow_adj == None or cash_flow_adj == ''  else cash_flow_adj
 
-            a = int(arr_rev_ebitda * multiple)
-            b = int(net_debt) + int(cash_flow_adj)
-            result = a + b
+            # a = int(arr_rev_ebitda * multiple)
+            # b = int(net_debt) + int(cash_flow_adj)
+
+            result = arr_rev_ebitda * (multiple + net_debt + cash_flow_adj)
             return result
 
         def calculate_value(df, case):
@@ -335,7 +339,7 @@ def main():
 
             equity = 1 if equity == None else equity
             ownership = 1 if ownership == None else ownership
-            return (int(equity) * int(ownership))
+            return (int(equity) * (int(ownership) / 100)) 
 
 
         def calculate_money_multiple(df, case):
@@ -568,16 +572,15 @@ def main():
             ownership_data_v2 = waterfall_data_pf1.loc[waterfall_data_pf1['Calc'] == 'Ownership %', ss.selected_option_pf1].values[0]
             if ownership_data_v2 == None:
                 ownership_data_v2 = 0
-
-            ebitda_value = (actual_entry_value * total_value) * int(ownership_data_v2)
+            ebitda_value = (actual_entry_value * total_value) * (int(ownership_data_v2) / 100)
 
         multiple_growth = 0
         if ss.selected_option_pf1 in waterfall_data_pf1.columns:
             case_value1 = waterfall_data_pf1.loc[waterfall_data_pf1['Calc'] == 'Multiple', 'Entry'].values
             case_value2 = waterfall_data_pf1.loc[waterfall_data_pf1['Calc'] == 'Multiple', ss.selected_option_pf1].values
             multi_minus_value = int(case_value2) - int(case_value1)
-            total_value1 = waterfall_data_pf1.loc[waterfall_data_pf1['Calc'] == 'ARR /Rev /EBITDA', 'Entry'].values
-            total_value2 = waterfall_data_pf1.loc[waterfall_data_pf1['Calc'] == 'Cash flow adj', ss.selected_option_pf1].values
+            total_value1 = waterfall_data_pf1.loc[waterfall_data_pf1['Calc'] == 'ARR /Rev /EBITDA', ss.selected_option_pf1].values
+            total_value2 = waterfall_data_pf1.loc[waterfall_data_pf1['Calc'] == 'Net Debt', 'Entry'].values
 
             if total_value1 == None:
                 total_value1 = 0
@@ -588,7 +591,7 @@ def main():
             ownership_data_v2 = waterfall_data_pf1.loc[waterfall_data_pf1['Calc'] == 'Ownership %', ss.selected_option_pf1].values[0]
             if ownership_data_v2 == None:
                 ownership_data_v2 = 0
-            multiple_growth = (multi_minus_value * total_value3) * int(ownership_data_v2)
+            multiple_growth = (multi_minus_value * total_value3) * (int(ownership_data_v2)/ 100)
 
         asset_value_v1 = waterfall_data_pf1.loc[waterfall_data_pf1['Calc'] == 'Value', 'Low Case'].values
         asset_value_v2 = waterfall_data_pf1.loc[waterfall_data_pf1['Calc'] == 'Value', 'Base Case'].values

@@ -316,18 +316,20 @@ def main():
     def calculation_investment(df, option):
         df['Date1'] = pd.to_datetime(df['Date'])
 
-        first_row = df.iloc[0]
-        year = [first_row['Date1'].year]
+        df['year'] = df['Date1'].dt.year
         value = 0
         if option in df.columns:
-            value = df[[option]].apply(lambda x: x[x < 0].sum(), axis=1).sum()
+            value = df.loc[df[option] < 0].groupby('year')[option].sum()
 
-        df = df.drop(columns=['Date1'], inplace=True)
+        
+        columns_to_drop = ['Date1', 'year']
+        df.drop(columns=columns_to_drop, inplace=True)
 
         return_data = pd.DataFrame({
-            'year': year,
-            'investment': value
+            'year': value.index,
+            'investment': value.values
         })
+
         return return_data
     
     in_df1 = calculation_investment(assumptions_data_portco1, ss.portco1_selected_option)
@@ -357,7 +359,9 @@ def main():
     fund_level_report_df_v2['Distributions'] = fund_level_report_df_v2['past_value']
     fund_level_report_df_v2['Residual Value'] = fund_level_report_df_v2['future_value']
     fund_level_report_df_v2['Asset Value'] = (fund_level_report_df_v2['past_value'] + fund_level_report_df_v2['future_value'])
-    fund_level_report_df_v2['Total Returns'] = (fund_level_report_df_v2['past_value'] + fund_level_report_df_v2['future_value']) + fund_level_report_df_v2['investment']
+    fund_level_report_df_v2['Total Returns'] =  np.where(fund_level_report_df_v2['Invested Capital'] < 0, fund_level_report_df_v2['Invested Capital'], (fund_level_report_df_v2['past_value'] + fund_level_report_df_v2['future_value']))
+    
+    # fund_level_report_df_v2['Total Returns'] = (fund_level_report_df_v2['past_value'] + fund_level_report_df_v2['future_value']) + fund_level_report_df_v2['investment']
 
     fund_level_report_df_v3 = fund_level_report_df_v2[['Year', 'Invested Capital', 'Asset Value', 'Distributions', 'Residual Value', 'Total Returns']]
 
@@ -413,28 +417,37 @@ def main():
         with col2:
 
 
-            # # Create the bar chart
+            # Create the bar chart
             fig1, ax1 = plt.subplots(figsize=(9, 6))
 
             unique_years = fund_level_report_df_v3['Year'].apply(int).unique()
             
             # Create stacked bars
             ax1.bar(fund_level_report_df_v3['Year'], fund_level_report_df_v3['Invested Capital'], color='#19105B', label='Invested Capital')
-            ax1.bar(fund_level_report_df_v3['Year'], fund_level_report_df_v3['Distributions'], color='#3411A3', label='Distributions')
+            ax1.bar(fund_level_report_df_v3['Year'], fund_level_report_df_v3['Asset Value'], color='#3411A3', label='Asset Value')
             ax1.bar(fund_level_report_df_v3['Year'], fund_level_report_df_v3['Residual Value'], color='#FF6196', label='Residual Value')
+
+
+            # bottom = None
+            # for col, color in zip(['Invested Capital', 'Distributions', 'Residual Value'], ['#19105B', '#3411A3', '#FF6196']):
+            #     if bottom is None:
+            #         ax1.bar(fund_level_report_df_v3['Year'], fund_level_report_df_v3[col], color=color, label=col.replace(' ', '\n'))
+            #         bottom = fund_level_report_df_v3[col]
+            #     else:
+            #         ax1.bar(fund_level_report_df_v3['Year'], fund_level_report_df_v3[col], bottom=bottom, color=color, label=col.replace(' ', '\n'))
+            #         bottom += fund_level_report_df_v3[col]
 
             # Plot the net values line on the same x-axis
             ax2 = ax1.twinx()
-            ax2.plot(fund_level_report_df_v3['Year'], fund_level_report_df_v3['Total Returns'], color='b', marker='o', label='Total Returns'    )
+            ax1.plot(fund_level_report_df_v3['Year'], fund_level_report_df_v3['Total Returns'],  color='b', marker='o', label='Total Returns')
             
             # Synchronize the y-axis limits
-            ax2.set_ylim(ax1.get_ylim())
+            # ax2.set_ylim(ax1.get_ylim())
             # ax2.set_ylim(bottom=0)
 
             # Add labels and title
             ax1.set_xlabel('Years', color='#19105B', fontsize=10)
             ax1.set_ylabel('Bar Values', color='#19105B', fontsize=10)
-            # ax2.set_ylabel('Net Values', color='#19105B', fontsize=10)
             plt.title('Stacked Bar Chart with Net Values Line Graph', color='#FF6196', fontsize=10)
             
             plt.xticks(unique_years)
@@ -447,17 +460,14 @@ def main():
             ax2.tick_params(axis='y', labelsize=0)
 
             ax1.set_yticklabels([f'{int(val//1000)}k' for val in ax1.get_yticks()])
+            # ax2.set_yticklabels([f'{int(val//1000)}k' for val in ax1.get_yticks()])
 
-            ax2.grid(True, axis='y', linestyle='-', color='#19105B', alpha=0.1)  # Change axis to 'x' or 'both' if needed
+            ax1.grid(True, axis='y', linestyle='-', color='#19105B', alpha=0.1)  # Change axis to 'x' or 'both' if needed
             ax1.spines['top'].set_visible(False)
             ax1.spines['right'].set_visible(False)
-            # ax1.spines['bottom'].set_visible(False)
-            # ax1.spines['left'].set_visible(False)
 
             ax2.spines['top'].set_visible(False)
             ax2.spines['right'].set_visible(False)
-            # ax2.spines['bottom'].set_visible(False)
-            # ax2.spines['left'].set_visible(False)
             # Show the plot
             st.pyplot(fig1)
 

@@ -19,8 +19,8 @@ HORIZONTAL_RED = "images/jman-logo.png"
 ICON_RED = "images/jman-logo2.jpg"
 
 def creds_edtered():
-    if st.session_state['user'].strip() == 'JMAN-Client' and st.session_state['pass'].strip() == 'JMAN-PoC':
-    # if st.session_state['user'].strip() == 'admin' and st.session_state['pass'].strip() == 'admin':
+    # if st.session_state['user'].strip() == 'JMAN-Client' and st.session_state['pass'].strip() == 'JMAN-PoC':
+    if st.session_state['user'].strip() == 'admin' and st.session_state['pass'].strip() == 'admin':
 
         st.session_state['authenticated'] = True
      
@@ -140,7 +140,7 @@ def main():
                 menu_icon = 'menu-down',
                 default_index = 0,
                 styles={
-                    # "container": {"padding": "0!important", "background-color": "#fafafa"},
+                    "container": {"border-radius": "25px"},
                     # "icon": {"color": "orange", "font-size": "25px"}, 
                     # "nav-link": {"font-size": "25px", "text-align": "left", "margin":"0px", "--hover-color": "#eee"},
                     "nav-link-selected": {"background-color": "#19105B"},

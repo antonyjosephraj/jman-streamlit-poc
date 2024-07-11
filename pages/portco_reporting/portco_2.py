@@ -273,7 +273,7 @@ def main():
 
     editda_multiple = {
         'Calc': ['ARR /Rev /EBITDA', 'Multiple'],
-        'Entry': [200, 100]
+        'Entry': [120, 10]
     }
     editda_multiple_df = pd.DataFrame(editda_multiple)
     editda_multiple_df[column_values_list] = None
@@ -307,9 +307,10 @@ def main():
         net_debt = 0 if net_debt == None or net_debt == '' else net_debt
         cash_flow_adj = 0 if cash_flow_adj == None or cash_flow_adj == ''  else cash_flow_adj
 
-        a = int(arr_rev_ebitda * multiple)
-        b = int(net_debt) + int(cash_flow_adj)
-        result = a + b
+        # a = int(arr_rev_ebitda * multiple)
+        # b = int(net_debt) + int(cash_flow_adj)
+        # result = a + b
+        result = arr_rev_ebitda * (multiple + net_debt + cash_flow_adj)
         return result
 
     def calculate_value(df, case):
@@ -318,7 +319,7 @@ def main():
 
         equity = 1 if equity == None else equity
         ownership = 1 if ownership == None else ownership
-        return (int(equity) * int(ownership))
+        return (int(equity) * (int(ownership) / 100)) 
 
 
     def calculate_money_multiple(df, case):
@@ -540,15 +541,15 @@ def main():
             if ownership_data_v2 == None:
                 ownership_data_v2 = 0
 
-            ebitda_value = (actual_entry_value * total_value) * int(ownership_data_v2)
+            ebitda_value = (actual_entry_value * total_value) * (int(ownership_data_v2) / 100)
 
         multiple_growth = 0
         if ss.selected_option_pf2 in waterfall_data_pf2.columns:
             case_value1 = waterfall_data_pf2.loc[waterfall_data_pf2['Calc'] == 'Multiple', 'Entry'].values
             case_value2 = waterfall_data_pf2.loc[waterfall_data_pf2['Calc'] == 'Multiple', ss.selected_option_pf2].values
             multi_minus_value = int(case_value2) - int(case_value1)
-            total_value1 = waterfall_data_pf2.loc[waterfall_data_pf2['Calc'] == 'ARR /Rev /EBITDA', 'Entry'].values
-            total_value2 = waterfall_data_pf2.loc[waterfall_data_pf2['Calc'] == 'Cash flow adj', ss.selected_option_pf2].values
+            total_value1 = waterfall_data_pf2.loc[waterfall_data_pf2['Calc'] == 'ARR /Rev /EBITDA', ss.selected_option_pf2].values
+            total_value2 = waterfall_data_pf2.loc[waterfall_data_pf2['Calc'] == 'Net Debt', 'Entry'].values
 
             if total_value1 == None:
                 total_value1 = 0
@@ -559,7 +560,7 @@ def main():
             ownership_data_v2 = waterfall_data_pf2.loc[waterfall_data_pf2['Calc'] == 'Ownership %', ss.selected_option_pf2].values[0]
             if ownership_data_v2 == None:
                 ownership_data_v2 = 0
-            multiple_growth = (multi_minus_value * total_value3) * int(ownership_data_v2)
+            multiple_growth = (multi_minus_value * total_value3) * (int(ownership_data_v2)/ 100)
 
         asset_value_v1 = waterfall_data_pf2.loc[waterfall_data_pf2['Calc'] == 'Value', 'Low Case'].values
         asset_value_v2 = waterfall_data_pf2.loc[waterfall_data_pf2['Calc'] == 'Value', 'Base Case'].values
