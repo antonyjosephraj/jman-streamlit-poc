@@ -514,7 +514,7 @@ def main():
         waterfall_data_pf2 = pd.concat([ss.editda_multiple_df_pf2, ss.netdebt_and_cashflow_df_pf2, ss.equity_df_pf2, ss.ownership_df_pf2, ss.value_and_investment_df_pf2, ss.money_multiple_df_pf2], ignore_index=True)
 
         print('WATERFALL DATA - PF2: ', waterfall_data_pf2)
-        investments_at_entry_amount = ss.investments_amount_pf1['Investment at entry'].sum()
+        investments_at_entry_amount = ss.investments_amount_pf2['Investment at entry'].sum()
 
         waterfall_options_pf2 = ['Low Case', 'Base Case', 'High Case']
         selected_option_pf2 = st.selectbox('Select a Scenario for PortCo 2:', waterfall_options_pf2)
@@ -523,7 +523,7 @@ def main():
         ebitda_value = 0
 
         if ss.selected_option_pf2 in waterfall_data_pf2.columns:
-            case_value = waterfall_data_pf2.loc[waterfall_data_pf2['Calc'] == 'ARR /Rev /EBITDA', ss.selected_option_pf1].values
+            case_value = waterfall_data_pf2.loc[waterfall_data_pf2['Calc'] == 'ARR /Rev /EBITDA', ss.selected_option_pf2].values
             if case_value == None:
                 case_value = 0
             entry_value = waterfall_data_pf2.loc[waterfall_data_pf2['Calc'] == 'ARR /Rev /EBITDA', 'Entry'].values
