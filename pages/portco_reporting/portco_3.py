@@ -15,7 +15,7 @@ def main():
         padding:30px;
         }
         [data-testid="stHorizontalBlock"] {
-            border: 2px solid #19105B;F
+            border: 1px solid #19105B;
             border-radius: 10px;
             padding: 10px;
         } 
