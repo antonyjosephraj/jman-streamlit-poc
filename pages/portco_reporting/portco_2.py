@@ -267,13 +267,15 @@ def main():
 
         rr()
 
+    ebitda_entry_value = ss.investments_amount_pf2['EBITDA at Entry'].sum()
+    ebitda_multiple_entry_value = ss.investments_amount_pf2['Multiple at Entry'].sum()
     column_values_list = investments_details_v2['Scenario'].tolist()
     column_values_values = investments_details_v2['EBITDA at Exit'].tolist()
     column_values_values2 = investments_details_v2['Multiple at Exit'].tolist()
 
     editda_multiple = {
         'Calc': ['ARR /Rev /EBITDA', 'Multiple'],
-        'Entry': [120, 10]
+        'Entry': [ebitda_entry_value, ebitda_multiple_entry_value]
     }
     editda_multiple_df = pd.DataFrame(editda_multiple)
     editda_multiple_df[column_values_list] = None

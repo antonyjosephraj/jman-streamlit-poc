@@ -154,7 +154,7 @@ def main():
                         df.at[0, 'Scenario'] = ss.portco1_selected_option
                         df.at[0, 'Date of Investment'] = data_investments_amount_pf1.iloc[0]['Date of Investment']
                         df.at[0, 'Invested Amount'] = data_investments_details_pf1.at[pf1, 'Invested Amount']
-                        df.at[0, 'EBITDA at Entry'] = data_investments_amount_pf1.iloc[0]['EBITDA at entry']
+                        df.at[0, 'EBITDA at Entry'] = data_investments_amount_pf1.iloc[0]['EBITDA at Entry']
                         df.at[0, 'EBITDA at Exit'] = data_investments_details_pf1.at[pf1, 'EBITDA at Exit']
                         df.at[0, 'Multiple at entry'] = data_investments_amount_pf1.iloc[0]['Multiple at Entry']
                         df.at[0, 'Multiple at Exit'] = data_investments_details_pf1.at[pf1, 'Multiple at Exit']
@@ -177,7 +177,7 @@ def main():
                         df.at[1, 'Scenario'] = ss.portco2_selected_option
                         df.at[1, 'Date of Investment'] = data_investments_amount_pf2.iloc[0]['Date of Investment']
                         df.at[1, 'Invested Amount'] = data_investments_details_pf2.at[pf1, 'Invested Amount']
-                        df.at[1, 'EBITDA at Entry'] = data_investments_amount_pf2.iloc[0]['EBITDA at entry']
+                        df.at[1, 'EBITDA at Entry'] = data_investments_amount_pf2.iloc[0]['EBITDA at Entry']
                         df.at[1, 'EBITDA at Exit'] = data_investments_details_pf2.at[pf1, 'EBITDA at Exit']
                         df.at[1, 'Multiple at entry'] = data_investments_amount_pf2.iloc[0]['Multiple at Entry']
                         df.at[1, 'Multiple at Exit'] = data_investments_details_pf2.at[pf1, 'Multiple at Exit']
@@ -201,7 +201,7 @@ def main():
                         df.at[2, 'Scenario'] = ss.portco3_selected_option
                         df.at[2, 'Date of Investment'] = data_investments_amount_pf3.iloc[0]['Date of Investment']
                         df.at[2, 'Invested Amount'] = data_investments_details_pf3.at[pf1, 'Invested Amount']
-                        df.at[2, 'EBITDA at Entry'] = data_investments_amount_pf3.iloc[0]['EBITDA at entry']
+                        df.at[2, 'EBITDA at Entry'] = data_investments_amount_pf3.iloc[0]['EBITDA at Entry']
                         df.at[2, 'EBITDA at Exit'] = data_investments_details_pf3.at[pf1, 'EBITDA at Exit']
                         df.at[2, 'Multiple at entry'] = data_investments_amount_pf3.iloc[0]['Multiple at Entry']
                         df.at[2, 'Multiple at Exit'] = data_investments_details_pf3.at[pf1, 'Multiple at Exit']
@@ -359,8 +359,9 @@ def main():
     fund_level_report_df_v2['Distributions'] = fund_level_report_df_v2['past_value']
     fund_level_report_df_v2['Residual Value'] = fund_level_report_df_v2['future_value']
     fund_level_report_df_v2['Asset Value'] = (fund_level_report_df_v2['past_value'] + fund_level_report_df_v2['future_value'])
-    fund_level_report_df_v2['Total Returns'] =  np.where(fund_level_report_df_v2['Invested Capital'] < 0, fund_level_report_df_v2['Invested Capital'], (fund_level_report_df_v2['past_value'] + fund_level_report_df_v2['future_value']))
-    
+    # fund_level_report_df_v2['Total Returns'] =  fund_level_report_df_v2['investment'] - (fund_level_report_df_v2['past_value'] + fund_level_report_df_v2['future_value'])
+    fund_level_report_df_v2['Total Returns'] =  np.where(fund_level_report_df_v2['Invested Capital'] < 0,  fund_level_report_df_v2['investment'] + (fund_level_report_df_v2['past_value'] + fund_level_report_df_v2['future_value']), (fund_level_report_df_v2['past_value'] + fund_level_report_df_v2['future_value']))
+
     # fund_level_report_df_v2['Total Returns'] = (fund_level_report_df_v2['past_value'] + fund_level_report_df_v2['future_value']) + fund_level_report_df_v2['investment']
 
     fund_level_report_df_v3 = fund_level_report_df_v2[['Year', 'Invested Capital', 'Asset Value', 'Distributions', 'Residual Value', 'Total Returns']]
@@ -395,7 +396,7 @@ def main():
 
             # Customize labels and title
             ax.set_xlabel('Fund Level Categories', color='#19105B', fontsize=10)
-            ax.set_ylabel('Fund Level Values', color='#19105B', fontsize=10)
+            ax.set_ylabel('$s', color='#19105B', fontsize=10)
             ax.set_title('Bar Chart with Fund Level Data', color='#FF6196', fontsize=10)
 
             ax.tick_params(axis='x', labelsize=7, labelcolor='#19105B')
@@ -447,7 +448,7 @@ def main():
 
             # Add labels and title
             ax1.set_xlabel('Years', color='#19105B', fontsize=10)
-            ax1.set_ylabel('Bar Values', color='#19105B', fontsize=10)
+            ax1.set_ylabel('$s', color='#19105B', fontsize=10)
             plt.title('Stacked Bar Chart with Net Values Line Graph', color='#FF6196', fontsize=10)
             
             plt.xticks(unique_years)
