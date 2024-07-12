@@ -9,3 +9,4 @@ numpy_financial
 streamlit-authenticator
 streamlit-option-menu
 matplotlib
+pyxirr

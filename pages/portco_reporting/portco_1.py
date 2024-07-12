@@ -8,6 +8,7 @@ import string
 import random
 import datetime as dt
 from datetime import datetime
+from pyxirr import xirr
 
 def main():
 
@@ -495,9 +496,9 @@ def main():
     # df3['High Case Cash Flow'] = df3['High Case Cash Flow'].fillna(1)
 
     # Calculate IRR based on adjusted cash flows
-    low_case_irr = npf.irr(df3['Low Case'])
-    base_case_irr = npf.irr(df3['Base Case'])
-    high_case_irr = npf.irr(df3['High Case'])
+    low_case_irr =xirr(df3['Date'], df3['Low Case'])
+    base_case_irr =xirr(df3['Date'], df3['Base Case'])
+    high_case_irr =xirr(df3['Date'], df3['High Case'])
 
     low_case_irr_v2 = f"{low_case_irr:.1f}"
     base_case_irr_v2 = f"{base_case_irr:.1f}"
