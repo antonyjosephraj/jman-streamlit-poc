@@ -482,22 +482,22 @@ def main():
     # # Calculate days from the start date for each cash flow
     df3['Date'] = pd.to_datetime(df3['Date'])
 
-    df3['Days'] = (df3['Date'] - df3['Date'].iloc[0]).dt.days
+    # df3['Days'] = (df3['Date'] - df3['Date'].iloc[0]).dt.days
 
-    # Adjusted cash flows considering time value of money
-    df3['Low Case Cash Flow'] = df3['Low Case'] / (1 + 0.05)**(df3['Days'] / 365)
-    df3['Low Case Cash Flow'] = df3['Low Case Cash Flow'].fillna(1)
+    # # Adjusted cash flows considering time value of money
+    # df3['Low Case Cash Flow'] = df3['Low Case'] / (1 + 0.05)**(df3['Days'] / 365)
+    # df3['Low Case Cash Flow'] = df3['Low Case Cash Flow'].fillna(1)
 
-    df3['Base Case Cash Flow'] = df3['Base Case'] / (1 + 0.05)**(df3['Days'] / 365)
-    df3['Base Case Cash Flow'] = df3['Base Case Cash Flow'].fillna(1)
+    # df3['Base Case Cash Flow'] = df3['Base Case'] / (1 + 0.05)**(df3['Days'] / 365)
+    # df3['Base Case Cash Flow'] = df3['Base Case Cash Flow'].fillna(1)
 
-    df3['High Case Cash Flow'] = df3['High Case'] / (1 + 0.05)**(df3['Days'] / 365)
-    df3['High Case Cash Flow'] = df3['High Case Cash Flow'].fillna(1)
+    # df3['High Case Cash Flow'] = df3['High Case'] / (1 + 0.05)**(df3['Days'] / 365)
+    # df3['High Case Cash Flow'] = df3['High Case Cash Flow'].fillna(1)
 
     # Calculate IRR based on adjusted cash flows
-    low_case_irr = npf.irr(df3['Low Case Cash Flow'])
-    base_case_irr = npf.irr(df3['Base Case Cash Flow'])
-    high_case_irr = npf.irr(df3['High Case Cash Flow'])
+    low_case_irr = npf.irr(df3['Low Case'])
+    base_case_irr = npf.irr(df3['Base Case'])
+    high_case_irr = npf.irr(df3['High Case'])
 
     low_case_irr_v2 = f"{low_case_irr:.1f}"
     base_case_irr_v2 = f"{base_case_irr:.1f}"
