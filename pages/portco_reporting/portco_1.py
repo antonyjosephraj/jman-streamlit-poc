@@ -500,6 +500,8 @@ def main():
     base_case_irr =xirr(df3['Date'], df3['Base Case'])
     high_case_irr =xirr(df3['Date'], df3['High Case'])
 
+    print('low_case_irr, base_case_irr, high_case_irr ::::: ', low_case_irr, base_case_irr, high_case_irr)
+
     low_case_irr_v2 = f"{low_case_irr:.1f}"
     base_case_irr_v2 = f"{base_case_irr:.1f}"
     high_case_irr_v2 = f"{high_case_irr:.1f}"
