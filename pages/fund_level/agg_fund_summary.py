@@ -425,8 +425,8 @@ def main():
             
             # Create stacked bars
             ax1.bar(fund_level_report_df_v3['Year'], fund_level_report_df_v3['Invested Capital'], color='#19105B', label='Invested Capital')
-            ax1.bar(fund_level_report_df_v3['Year'], fund_level_report_df_v3['Asset Value'], color='#3411A3', label='Asset Value')
-            ax1.bar(fund_level_report_df_v3['Year'], fund_level_report_df_v3['Residual Value'], color='#FF6196', label='Residual Value')
+            ax1.bar(fund_level_report_df_v3['Year'], fund_level_report_df_v3['Asset Value'], color='#FF6196', label='Asset Value')
+            ax1.bar(fund_level_report_df_v3['Year'], fund_level_report_df_v3['Residual Value'], color='#FFA0C0', label='Residual Value')
 
 
             # bottom = None
