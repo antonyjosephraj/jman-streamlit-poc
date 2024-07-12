@@ -96,7 +96,7 @@ def main():
     st.markdown(applyCss, unsafe_allow_html=True)
     st.markdown(tooltip_css, unsafe_allow_html=True)
 
-    st.markdown("<h1 style='color: #19105B;padding:0;' >Aggregated Fund Summary</h1>", unsafe_allow_html=True)
+    st.markdown("<h1 style='color: #19105B;padding:0; text-align:center;' >Aggregated Fund Summary</h1>", unsafe_allow_html=True)
     st.divider()
 
     # Collecting All Data
