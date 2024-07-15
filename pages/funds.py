@@ -67,6 +67,7 @@ def main():
 
         [data-testid="stSelectbox"] {
             width:300px!important;
+            margin: 5px 0;
         }
 
         """,

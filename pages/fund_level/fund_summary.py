@@ -123,7 +123,7 @@ def main():
         with col1:
             st.markdown('<div class="custom-container1">', unsafe_allow_html=True)
 
-            st.markdown("<h5 style='color: #19105B;padding:0;'>Select a Scenario for Each PortCo</h5>", unsafe_allow_html=True)
+            st.markdown("<h2 style='color: #19105B; padding:0; font-size:28px;' class='streamlit-tooltip' >Select a Scenario for Each PortCo</h2>", unsafe_allow_html=True)
             st.markdown("<div style='marging:2px 0;'></div>", unsafe_allow_html=True)
 
             portco1_options = ['Low Case', 'Base Case', 'High Case']
