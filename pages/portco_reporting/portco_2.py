@@ -140,7 +140,7 @@ def main():
     col1, col2 = st.columns(2)
 
     with col1:
-        st.markdown("<h2 style='color: #19105B; font-size:28px;' class='streamlit-tooltip'>Entry Metrics 📝 <span class='tooltiptext'>Please input the entry metrics values</span></h2>", unsafe_allow_html=True)
+        st.markdown("<h2 style='color: #19105B; font-size:28px;' class='streamlit-tooltip'>Entry Metrics 📝<span class='tooltiptext'>Please input the entry metrics values</span></h2>", unsafe_allow_html=True)
         investments_edited_df = de(ss.investments_amount_pf2)
 
         st.markdown("<h2 style='color: #19105B; font-size:28px;' class='streamlit-tooltip'>Scenario Assumptions 📝<span class='tooltiptext'>Please input the scenario assumptions</span></h2>", unsafe_allow_html=True)
@@ -160,8 +160,8 @@ def main():
     assumptions = pd.DataFrame(date_range, columns=['Date'])
     assumptions['Date'] = pd.to_datetime(assumptions['Date'], format='%Y-%m-%d').dt.strftime('%Y-%m-%d')
     num_rows = assumptions.shape[0]
-    sample_values = np.random.randint(1000, 10000, size=(num_rows, 3))
-    mask = np.random.rand(*sample_values.shape) < 0.5
+    sample_values = np.random.randint(1000, 3000, size=(num_rows, 3))
+    mask = np.random.rand(*sample_values.shape) < 0.7
     sample_values[mask] = 0
     # assumptions[["Low Case" ,"Base Case" ,"High Case" ,"Comments"]] = None
     assumptions["Low Case"] = sample_values[:, 0]

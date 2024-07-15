@@ -175,8 +175,8 @@ def main():
     assumptions = pd.DataFrame(date_range, columns=['Date'])
     assumptions['Date'] = pd.to_datetime(assumptions['Date'], format='%Y-%m-%d').dt.strftime('%Y-%m-%d')
     num_rows = assumptions.shape[0]
-    sample_values = np.random.randint(1000, 10000, size=(num_rows, 3))
-    mask = np.random.rand(*sample_values.shape) < 0.5
+    sample_values = np.random.randint(1000, 4000, size=(num_rows, 3))
+    mask = np.random.rand(*sample_values.shape) < 0.7
     sample_values[mask] = 0
     # def generate_random_string():
     #     return random.choice([random.choices(string.ascii_letters + string.digits, k=random.randint(5, 15)), None])  

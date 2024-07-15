@@ -117,27 +117,23 @@ def main():
     df = pd.DataFrame(data)
 
     with st.container(border=True):
-        st.markdown('<div class="custom-container1">', unsafe_allow_html=True)
 
-        st.markdown("<h5 style='color: #19105B;padding:0;'>Select a Scenario for Each PortCo</h5>", unsafe_allow_html=True)
-        st.markdown("<div style='marging:2px 0;'></div>", unsafe_allow_html=True)
-
-        # Columns - 1  
-        col1, col2, col3 = st.columns(3)
+        col1, col2 = st.columns(2)
 
         with col1:
+            st.markdown('<div class="custom-container1">', unsafe_allow_html=True)
+
+            st.markdown("<h5 style='color: #19105B;padding:0;'>Select a Scenario for Each PortCo</h5>", unsafe_allow_html=True)
+            st.markdown("<div style='marging:2px 0;'></div>", unsafe_allow_html=True)
+
             portco1_options = ['Low Case', 'Base Case', 'High Case']
             portco1_selected_option = st.selectbox('PortCo 1:', portco1_options)
             ss.portco1_selected_option = portco1_selected_option
 
-
-        with col2:
             portco2_options = ['Base Case', 'Low Case', 'High Case' ]
             portco2_selected_option = st.selectbox('PortCo 2:', portco2_options)
             ss.portco2_selected_option = portco2_selected_option
-
-
-        with col3:
+            
             portco3_options = ['High Case', 'Low Case', 'Base Case']
             portco3_selected_option = st.selectbox('PortCo 3:', portco3_options)
             ss.portco3_selected_option = portco3_selected_option
@@ -217,12 +213,11 @@ def main():
                         if ss.portco3_selected_option == 'High Case':
                             df.at[2, 'Return (calculated)'] = data_revenue_return_pf3.at[2, 'Return (calculated)']
                             df.at[2, 'IRR (calculated)'] = data_revenue_return_pf3.at[2, 'IRR (calculated)']
-        
 
+        with col2:
+            st.markdown("<h2 style='color: #19105B; font-size:28px;' class='streamlit-tooltip'>PortCo Assumptions <span class='tooltiptext'>View the portCo assumptions values</span></h2>", unsafe_allow_html=True)
+            st.write(df)
 
-        st.markdown("<h2 style='color: #19105B; font-size:28px;' class='streamlit-tooltip'>PortCo Assumptions <span class='tooltiptext'>View the portCo assumptions values</span></h2>", unsafe_allow_html=True)
-
-        st.write(df)
         df1 = df
         df1['Return (calculated)'] = pd.to_numeric(df1['Return (calculated)'].str.replace('x', ''))
 
@@ -261,9 +256,9 @@ def main():
 
         fun_level_data_styled_df = style_dataframe(fun_level_data_df)
 
-        st.markdown("<h2 style='color: #19105B; font-size:28px;' class='streamlit-tooltip'>Fund Returns<span class='tooltiptext'>View the fund returns values</span></h2>", unsafe_allow_html=True)
-
-        st.write(fun_level_data_styled_df.hide(axis="index").to_html(), unsafe_allow_html=True)
+        with col2:
+            st.markdown("<h2 style='color: #19105B; font-size:28px;' class='streamlit-tooltip'>Fund Returns<span class='tooltiptext'>View the fund returns values</span></h2>", unsafe_allow_html=True)
+            st.write(fun_level_data_styled_df.hide(axis="index").to_html(), unsafe_allow_html=True)
 
         st.markdown('</div>', unsafe_allow_html=True)
 

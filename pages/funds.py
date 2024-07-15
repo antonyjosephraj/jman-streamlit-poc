@@ -62,6 +62,11 @@ def main():
         [data-testid="stMarkdownContainer"] > p {
             color: #19105b;
             font-weight: 700;
+            font-size: 16px;
+        }
+
+        [data-testid="stSelectbox"] {
+            width:300px!important;
         }
 
         """,
