@@ -141,7 +141,6 @@ def main():
 
         # col11= st.columns(1)
 
-
         # Add a column with a dropdown list
         for i in df.index:
             if i  == 0:
@@ -389,11 +388,11 @@ def main():
 
             # Customize labels and title
             # ax.set_xlabel('Fund Level Categories', color='#19105B', fontsize=10)
-            ax.set_ylabel('£', color='#19105B', fontsize=10)
+            ax.set_ylabel('£', color='#19105B', fontsize=14)
             ax.set_title('Fund Returns', color='#FF6196', fontsize=14)
 
-            ax.tick_params(axis='x', labelsize=7, labelcolor='#19105B')
-            ax.tick_params(axis='y', labelsize=7, labelcolor='#19105B')
+            ax.tick_params(axis='x', labelsize=8, labelcolor='#19105B')
+            ax.tick_params(axis='y', labelsize=8, labelcolor='#19105B')
 
             ax.set_yticklabels([f'{int(val//1000)}k' for val in ax.get_yticks()])
 
@@ -440,8 +439,8 @@ def main():
             # ax2.set_ylim(bottom=0)
 
             # Add labels and title
-            ax1.set_xlabel('Years', color='#19105B', fontsize=10)
-            ax1.set_ylabel('£', color='#19105B', fontsize=10)
+            # ax1.set_xlabel('Years', color='#19105B', fontsize=10)
+            ax1.set_ylabel('£', color='#19105B', fontsize=14)
             plt.title('Returns Overtime', color='#FF6196', fontsize=14)
             
             plt.xticks(unique_years)
@@ -449,8 +448,8 @@ def main():
             ax1.legend(loc='lower right')
             # ax2.legend(loc='upper right')
 
-            ax1.tick_params(axis='x', labelsize=7, labelcolor='#19105B')
-            ax1.tick_params(axis='y', labelsize=7, labelcolor='#19105B')
+            ax1.tick_params(axis='x', labelsize=8, labelcolor='#19105B')
+            ax1.tick_params(axis='y', labelsize=8, labelcolor='#19105B')
             ax2.tick_params(axis='y', labelsize=0)
 
             ax1.set_yticklabels([f'{int(val//1000)}k' for val in ax1.get_yticks()])

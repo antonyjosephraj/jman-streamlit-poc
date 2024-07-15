@@ -448,7 +448,6 @@ def main():
             ss.money_multiple_df_pf2 = money_multiple_df
 
         def highlight_row_colors(s):
-            print('111111111111', s)
             return ['background-color: #FF6196']*len(s) if s['Calc'] == 'Net Debt' or s['Calc'] == 'Cash flow adj' or s['Calc'] == 'Ownership %' else ['background-color: white']*len(s)
 
         concatenated_df = pd.concat([ss.editda_multiple_df_pf2, ss.netdebt_and_cashflow_df_pf2, ss.equity_df_pf2, ss.ownership_df_pf2, ss.value_and_investment_df_pf2, ss.money_multiple_df_pf2], ignore_index=True)
@@ -616,25 +615,25 @@ def main():
                 #     size=20,  # Title font size
                 #     color='#FF6196'  # Title color
                 # ),
-                # xaxis=dict(
-                #     title='Categories',  # X-axis title
-                #     title_font=dict(
-                #         size=14,  # X-axis title font size
-                #         color='#19105B'  # X-axis title color
-                #     ),
-                #     tickfont=dict(
-                #         size=12,  # X-axis tick font size
-                #         color='#19105B'  # X-axis tick color
-                #     ),
-                # ),
+                xaxis=dict(
+                    # title='Categories',  # X-axis title
+                    title_font=dict(
+                        size=14,  # X-axis title font size
+                        color='#19105B'  # X-axis title color
+                    ),
+                    tickfont=dict(
+                        size=14,  # X-axis tick font size
+                        color='#19105B'  # X-axis tick color
+                    ),
+                ),
                 yaxis=dict(
                     title='£',  # Y-axis title
                     title_font=dict(
-                        size=14,  # Y-axis title font size
+                        size=18,  # Y-axis title font size
                         color='#19105B'  # Y-axis title color
                     ),
                     tickfont=dict(
-                        size=12,  # Y-axis tick font size
+                        size=14,  # Y-axis tick font size
                         color='#19105B'  # Y-axis tick color
                     ),
                 ),

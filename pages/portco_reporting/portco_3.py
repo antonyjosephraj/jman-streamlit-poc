@@ -616,25 +616,25 @@ def main():
                 #     size=20,  # Title font size
                 #     color='#FF6196'  # Title color
                 # ),
-                # xaxis=dict(
-                #     title='Categories',  # X-axis title
-                #     title_font=dict(
-                #         size=14,  # X-axis title font size
-                #         color='#19105B'  # X-axis title color
-                #     ),
-                #     tickfont=dict(
-                #         size=12,  # X-axis tick font size
-                #         color='#19105B'  # X-axis tick color
-                #     ),
-                # ),
+                xaxis=dict(
+                    # title='Categories',  # X-axis title
+                    title_font=dict(
+                        size=14,  # X-axis title font size
+                        color='#19105B'  # X-axis title color
+                    ),
+                    tickfont=dict(
+                        size=14,  # X-axis tick font size
+                        color='#19105B'  # X-axis tick color
+                    ),
+                ),
                 yaxis=dict(
                     title='£',  # Y-axis title
                     title_font=dict(
-                        size=14,  # Y-axis title font size
+                        size=18,  # Y-axis title font size
                         color='#19105B'  # Y-axis title color
                     ),
                     tickfont=dict(
-                        size=12,  # Y-axis tick font size
+                        size=14,  # Y-axis tick font size
                         color='#19105B'  # Y-axis tick color
                     ),
                 ),
