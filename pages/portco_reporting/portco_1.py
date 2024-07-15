@@ -113,6 +113,11 @@ def main():
             visibility: visible;
             opacity: 0.8;
         }
+
+        .st-emotion-cache-1y6asi2{
+            display:None;
+        }
+
         </style>
     """
 
@@ -469,6 +474,12 @@ def main():
                     st.write(money_multiple_df)
 
                 ss.money_multiple_df_pf1 = money_multiple_df
+
+            def highlight_row_colors(s):
+                return ['background-color: #FF6196']*len(s) if s['Calc'] == 'Net Debt' or s['Calc'] == 'Cash flow adj' or s['Calc'] == 'Ownership %' else ['background-color: white']*len(s)
+
+            concatenated_df = pd.concat([ss.editda_multiple_df_pf1, ss.netdebt_and_cashflow_df_pf1, ss.equity_df_pf1, ss.ownership_df_pf1, ss.value_and_investment_df_pf1, ss.money_multiple_df_pf1], ignore_index=True)
+            st.dataframe(concatenated_df.style.apply(highlight_row_colors, axis=1))
 
 
     money_multiple_value = money_multiple_df.iloc[0].tolist()
