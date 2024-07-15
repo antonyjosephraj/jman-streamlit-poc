@@ -4,7 +4,7 @@ import pandas as pd
 import numpy_financial as npf
 from streamlit import session_state as ss, data_editor as de, rerun as rr
 from streamlit_option_menu import option_menu
-from pages.fund_level import agg_fund_summary
+from pages.fund_level import fund_summary
 
 st.set_page_config(
     page_title="JMAN App",
@@ -73,10 +73,10 @@ def main():
     # st.logo(LOGO_URL_LARGE, link="https://streamlit.io/gallery", icon_image=LOGO_URL_LARGE)
     
     if st.session_state["authenticated"]:
-        v_menu = ['Agg Fund Summary']
+        v_menu = ['Fund Summary']
 
         with st.sidebar:
-            st.markdown("<h3 style='color: white;'>Fund Level Reporting</h3>", unsafe_allow_html=True)
+            st.markdown("<h3 style='color: white;'>Fund Summary</h3>", unsafe_allow_html=True)
 
             selected = option_menu(
                 menu_title = None,
@@ -92,8 +92,8 @@ def main():
                     }
             )
 
-        if selected == 'Agg Fund Summary':
-            agg_fund_summary.main()
+        if selected == 'Fund Summary':
+            fund_summary.main()
     else:
         st.markdown("<div style='text-align: center;'> <h4 style='color: #19105b;'>⚠️ Please do Login in Portco Reporting </h4></div>", unsafe_allow_html=True)
 

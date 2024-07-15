@@ -113,6 +113,7 @@ def main():
         [data-testid="stMarkdownContainer"] > p {
             color: #19105b;
             font-weight: 700;
+            font-size: 16px;
         }
 
         """,
@@ -131,7 +132,7 @@ def main():
         v_menu = ['PortCo 1', 'PortCo 2', 'PortCo 3']
 
         with st.sidebar:
-            st.markdown("<h3 style='color: white;'>Portfolio Reporting</h3>", unsafe_allow_html=True)
+            st.markdown("<h3 style='color: white;'>Portfolio Companies</h3>", unsafe_allow_html=True)
 
             selected = option_menu(
                 menu_title = None,

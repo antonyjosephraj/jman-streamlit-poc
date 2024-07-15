@@ -12,12 +12,14 @@ def main():
 
     applyCss = """
         <style>
+        
         [data-testid="stAppViewBlockContainer"]{
         padding:30px;
         }
+
         [data-testid="stHorizontalBlock"] {
-            border: 1px solid #19105B;
-            border-radius: 10px;
+            border-radius: 2px;
+            box-shadow: 0px 0px 2px 1px #19105B;
             padding: 10px;
         } 
         hr {
@@ -29,6 +31,7 @@ def main():
             padding: 12px 15px;
             border:none;
         }
+        
         div[data-testid="stDataFrameResizable"] > canvas > table >tbody > tr {
             text-align: center;
             background-color: green; 
@@ -37,6 +40,7 @@ def main():
             position: absolute; top: -80px; right: 5px;
             flex:row;
         } 
+        
         .top-right > button:first-child {
             background-color: #19105B ;
             border: 1px solid black;
@@ -54,9 +58,9 @@ def main():
             margin-left: 5px;
         }
 
-        .st-emotion-cache-4uzi61 {
-            border: 2px solid #19105B;
-            border-radius: 10px;
+        .st-emotion-cache-4uzi61, .st-emotion-cache-r421ms {
+            border-radius: 2px;
+            box-shadow: 0px 0px 2px 1px #19105B;
             padding: 20px 300px;
         }
 
@@ -110,7 +114,7 @@ def main():
     st.markdown(applyCss, unsafe_allow_html=True)
     st.markdown(tooltip_css, unsafe_allow_html=True)
 
-    st.markdown("<h1 style='color: #19105B; padding:0;'>Portfolio Reporting 3</h1>", unsafe_allow_html=True)
+    st.markdown("<h1 style='color: #19105B; padding:0;'>Portfolio Company 3</h1>", unsafe_allow_html=True)
     st.divider()
 
     st.markdown('<div class="top-right"><button>Upload</button> <button>Download</button> </div>', unsafe_allow_html=True)
@@ -136,10 +140,10 @@ def main():
     col1, col2 = st.columns(2)
 
     with col1:
-        st.markdown("<h2 style='color: #19105B; font-size:28px;' class='streamlit-tooltip'>Investments 📝 <span class='tooltiptext'>Please input the investment values</span></h2>", unsafe_allow_html=True)
+        st.markdown("<h2 style='color: #19105B; font-size:28px;' class='streamlit-tooltip'>Entry Metrics 📝<span class='tooltiptext'>Please input the entry metrics values</span></h2>", unsafe_allow_html=True)
         investments_edited_df = de(ss.investments_amount_pf3)
         
-        st.markdown("<h2 style='color: #19105B; font-size:28px;' class='streamlit-tooltip'>Investments Details 📝 <span class='tooltiptext'>Please input the investment details</span></h2>", unsafe_allow_html=True)
+        st.markdown("<h2 style='color: #19105B; font-size:28px;' class='streamlit-tooltip'>Scenario Assumptions 📝<span class='tooltiptext'>Please input the scenario assumptions</span></h2>", unsafe_allow_html=True)
         investments_details_v2 = de(ss.investments_data_pf3)
 
     # Columns - 2
@@ -156,7 +160,7 @@ def main():
     assumptions['Date'] = pd.to_datetime(assumptions['Date'], format='%Y-%m-%d').dt.strftime('%Y-%m-%d')
     num_rows = assumptions.shape[0]
     sample_values = np.random.randint(1000, 10000, size=(num_rows, 3))
-    mask = np.random.rand(*sample_values.shape) < 0.9
+    mask = np.random.rand(*sample_values.shape) < 0.5
     sample_values[mask] = 0
     # assumptions[["Low Case" ,"Base Case" ,"High Case" ,"Comments"]] = None
     assumptions["Low Case"] = sample_values[:, 0]
@@ -329,7 +333,7 @@ def main():
 
 
     with column2:
-        st.markdown("<h2 style='color: #19105B; font-size:28px;' class='streamlit-tooltip'>Valuation Waterfall Output <span class='tooltiptext'>View the waterfall values</span></h2>", unsafe_allow_html=True)
+        st.markdown("<h2 style='color: #19105B; font-size:28px;' class='streamlit-tooltip'>Valuation Assumptions<span class='tooltiptext'>View the valuation assumptions values</span></h2>", unsafe_allow_html=True)
 
         with st.container(height=400, border=True):
 
@@ -504,11 +508,11 @@ def main():
     revenue_return_pf3_styled_df = style_dataframe(ss.revenue_return_pf3)
 
     with col2:
-        st.markdown("<h2 style='color: #19105B; font-size:28px;' class='streamlit-tooltip'>Return Revenue <span class='tooltiptext'>View the return revenue value</span></h2>", unsafe_allow_html=True)
+        st.markdown("<h2 style='color: #19105B; font-size:28px;' class='streamlit-tooltip'>Returns Calculations <span class='tooltiptext'>View the returns calculations value</span></h2>", unsafe_allow_html=True)
         st.write(revenue_return_pf3_styled_df.hide(axis="index").set_table_attributes('style="margin: 0 auto; text-align: center;"').to_html(), unsafe_allow_html=True)
 
     with st.container(border=True):
-        st.markdown("<h2 style='color: #19105B; font-size:28px;' class='streamlit-tooltip'>Waterfall Chart <span class='tooltiptext'>View the PortCo 3 waterfall chart</span></h2>", unsafe_allow_html=True)
+        st.markdown("<h2 style='color: #19105B; font-size:28px;' class='streamlit-tooltip'>Valuation Waterfall <span class='tooltiptext'>View the PortCo 3 Valuation Waterfall chart</span></h2>", unsafe_allow_html=True)
 
         # Waterfall Data 
         waterfall_data_pf3 = pd.concat([ss.editda_multiple_df_pf3, ss.netdebt_and_cashflow_df_pf3, ss.equity_df_pf3, ss.ownership_df_pf3, ss.value_and_investment_df_pf3, ss.money_multiple_df_pf3], ignore_index=True)
@@ -597,24 +601,24 @@ def main():
             ))
 
             fig.update_layout(
-                title="Portfolio Insights Dashboard",
-                title_font=dict(
-                    size=20,  # Title font size
-                    color='#FF6196'  # Title color
-                ),
-                xaxis=dict(
-                    title='Categories',  # X-axis title
-                    title_font=dict(
-                        size=14,  # X-axis title font size
-                        color='#19105B'  # X-axis title color
-                    ),
-                    tickfont=dict(
-                        size=12,  # X-axis tick font size
-                        color='#19105B'  # X-axis tick color
-                    ),
-                ),
+                # title="Portfolio Insights Dashboard",
+                # title_font=dict(
+                #     size=20,  # Title font size
+                #     color='#FF6196'  # Title color
+                # ),
+                # xaxis=dict(
+                #     title='Categories',  # X-axis title
+                #     title_font=dict(
+                #         size=14,  # X-axis title font size
+                #         color='#19105B'  # X-axis title color
+                #     ),
+                #     tickfont=dict(
+                #         size=12,  # X-axis tick font size
+                #         color='#19105B'  # X-axis tick color
+                #     ),
+                # ),
                 yaxis=dict(
-                    title='Values',  # Y-axis title
+                    title='£',  # Y-axis title
                     title_font=dict(
                         size=14,  # Y-axis title font size
                         color='#19105B'  # Y-axis title color

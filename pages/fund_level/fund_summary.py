@@ -15,8 +15,8 @@ def main():
     <style> 
 
     .st-emotion-cache-4uzi61 {
-        border: 2px solid #19105B;
-        border-radius: 10px;
+        border-radius: 2px;
+        box-shadow: 0px 0px 2px 1px #19105B;
         padding: 20px;
     }
 
@@ -41,8 +41,8 @@ def main():
     }
 
     .st-emotion-cache-r421ms{
-        border: 2px solid #19105B;
-        border-radius: 10px;
+        border-radius: 2px;
+        box-shadow: 0px 0px 2px 1px #19105B;
         padding: 20px;
     }
 
@@ -96,7 +96,7 @@ def main():
     st.markdown(applyCss, unsafe_allow_html=True)
     st.markdown(tooltip_css, unsafe_allow_html=True)
 
-    st.markdown("<h1 style='color: #19105B;padding:0; text-align:center;' >Aggregated Fund Summary</h1>", unsafe_allow_html=True)
+    st.markdown("<h1 style='color: #19105B;padding:0; text-align:center;' >Fund Summary</h1>", unsafe_allow_html=True)
     st.divider()
 
     # Collecting All Data
@@ -220,9 +220,7 @@ def main():
         
 
 
-        st.markdown("<h2 style='color: #19105B; font-size:28px;' class='streamlit-tooltip'>Total of Fund Level <span class='tooltiptext'>View the total fund level amounts</span></h2>", unsafe_allow_html=True)
-
-
+        st.markdown("<h2 style='color: #19105B; font-size:28px;' class='streamlit-tooltip'>PortCo Assumptions <span class='tooltiptext'>View the portCo assumptions values</span></h2>", unsafe_allow_html=True)
 
         st.write(df)
         df1 = df
@@ -263,7 +261,7 @@ def main():
 
         fun_level_data_styled_df = style_dataframe(fun_level_data_df)
 
-        st.markdown("<h2 style='color: #19105B; font-size:28px;' class='streamlit-tooltip'>Total of Fund Level - Amount <span class='tooltiptext'>View the total fund level return amounts</span></h2>", unsafe_allow_html=True)
+        st.markdown("<h2 style='color: #19105B; font-size:28px;' class='streamlit-tooltip'>Fund Returns<span class='tooltiptext'>View the fund returns values</span></h2>", unsafe_allow_html=True)
 
         st.write(fun_level_data_styled_df.hide(axis="index").to_html(), unsafe_allow_html=True)
 
@@ -380,8 +378,8 @@ def main():
     with st.container(border=True):
 
         # st.markdown("<div style='background-color: #19105B; padding:0.3px; marging:5px 0;'></div>", unsafe_allow_html=True)
-        st.markdown("<h2 style='color: #19105B; font-size:28px;' class='streamlit-tooltip'>Agg Fund Summary Chart <span class='tooltiptext'>View the agg fund summary chart</span></h2>", unsafe_allow_html=True)
-        st.markdown("<div style='marging:5px 0;'></div>", unsafe_allow_html=True)
+        # st.markdown("<h2 style='color: #19105B; font-size:28px;' class='streamlit-tooltip'>Agg Fund Summary Chart <span class='tooltiptext'>View the agg fund summary chart</span></h2>", unsafe_allow_html=True)
+        # st.markdown("<div style='marging:5px 0;'></div>", unsafe_allow_html=True)
 
         # Columns - 2:
         col1, col2 = st.columns(2)
@@ -395,9 +393,9 @@ def main():
             ax.bar(fund_level_report_df_v5['Category'], fund_level_report_df_v5['Values'], color=colors, width=bin_width)
 
             # Customize labels and title
-            ax.set_xlabel('Fund Level Categories', color='#19105B', fontsize=10)
-            ax.set_ylabel('$s', color='#19105B', fontsize=10)
-            ax.set_title('Fund Performance Metrics', color='#FF6196', fontsize=14)
+            # ax.set_xlabel('Fund Level Categories', color='#19105B', fontsize=10)
+            ax.set_ylabel('£', color='#19105B', fontsize=10)
+            ax.set_title('Fund Returns', color='#FF6196', fontsize=14)
 
             ax.tick_params(axis='x', labelsize=7, labelcolor='#19105B')
             ax.tick_params(axis='y', labelsize=7, labelcolor='#19105B')
@@ -448,13 +446,13 @@ def main():
 
             # Add labels and title
             ax1.set_xlabel('Years', color='#19105B', fontsize=10)
-            ax1.set_ylabel('$s', color='#19105B', fontsize=10)
-            plt.title('Visualizing Net Capital and Asset Insights', color='#FF6196', fontsize=14)
+            ax1.set_ylabel('£', color='#19105B', fontsize=10)
+            plt.title('Returns Overtime', color='#FF6196', fontsize=14)
             
             plt.xticks(unique_years)
             # Add legend
-            ax1.legend(loc='upper left')
-            ax2.legend(loc='upper right')
+            ax1.legend(loc='lower right')
+            # ax2.legend(loc='upper right')
 
             ax1.tick_params(axis='x', labelsize=7, labelcolor='#19105B')
             ax1.tick_params(axis='y', labelsize=7, labelcolor='#19105B')
