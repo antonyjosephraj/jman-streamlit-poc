@@ -10,3 +10,4 @@ streamlit-authenticator
 streamlit-option-menu
 matplotlib
 pyxirr
+streamlit-aggrid

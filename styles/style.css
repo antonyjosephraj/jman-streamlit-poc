@@ -1,0 +1,95 @@
+[data-testid="stAppViewBlockContainer"]{
+padding:30px;
+}
+[data-testid="stHorizontalBlock"] {
+    border-radius: 2px;
+    box-shadow: 0px 0px 2px 1px #19105B;
+    padding: 10px;
+} 
+hr {
+    margin: 5px 0 20px 0;
+    padding: 1px;
+    background-color: #19105B;
+}
+div[data-testid="stDataFrameResizable"] > canvas > table > thead > tr > th {
+    padding: 12px 15px;
+    border:none;
+}
+div[data-testid="stDataFrameResizable"] > canvas > table >tbody > tr {
+    text-align: center;
+    background-color: green; 
+}
+
+.block-container{
+    position: relative;
+}
+.top-right {
+    position: absolute; top: -80px; right: 5px;
+    flex:row;
+} 
+.top-right > button:first-child {
+    background-color: #19105B ;
+    border: 1px solid black;
+    padding: 8px 10px;
+    border-radius: 10px;
+    color: white;
+}
+
+.top-right > button:nth-child(2) {
+    background-color: #19105B ;
+    border: 1px solid black;
+    padding: 8px 10px;
+    border-radius: 10px;
+    color: white;
+    margin-left: 5px;
+}
+
+.dvn-scroll-inner{
+    border: 2px solid #19105B;
+}
+
+.st-emotion-cache-4uzi61, .st-emotion-cache-r421ms {
+    border-radius: 2px;
+    box-shadow: 0px 0px 2px 1px #19105B;
+    padding: 20px 300px;
+}
+
+/* Tooltip */
+.streamlit-tooltip {
+    position: relative;
+    display: inline-block;
+    text-decoration: none;
+}
+
+.streamlit-tooltip .tooltiptext {
+    visibility: hidden;
+    width: 280px;
+    background-color: #555;
+    font-size: 16px;
+    color: #fff;
+    text-align: center;
+    padding: 5px 0;
+    border-radius: 6px;
+    position: absolute;
+    z-index: 1;
+    top: calc(100% + -12px);
+    right: -175px;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+.streamlit-tooltip .tooltiptext::after {
+    content: "";
+    position: absolute;
+    top: -60%;
+    left: 10%;
+    margin-left: -10px;
+    border-width: 10px;
+    border-style: solid;
+    border-color: #555 transparent transparent transparent;
+    transform: rotate(180deg);
+}
+
+.streamlit-tooltip:hover .tooltiptext {
+    visibility: visible;
+    opacity: 0.8;
+}
