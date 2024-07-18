@@ -36,7 +36,7 @@ def creds_edtered():
 def authenticate_user():
 
     if 'authenticated' not in st.session_state:
-        st.markdown("<h3 style='color: #19105B;'>Login Page</h3>", unsafe_allow_html=True)
+        st.markdown("<div style='text-align: center;'><h3 style='color: #19105B;'>Login Page</h3></div>", unsafe_allow_html=True)
         st.text_input(label='Username: ',value='', key='user', on_change=creds_edtered)
         st.text_input(label='Password: ',value='', key='pass', type="password", on_change=creds_edtered)
 
@@ -46,7 +46,7 @@ def authenticate_user():
         if st.session_state['authenticated']:
             return True
         else:
-            st.markdown("<h3 style='color: #19105B;'>Login Page</h3>", unsafe_allow_html=True)
+            st.markdown("<div style='text-align: center;'><h3 style='color: #19105B;'>Login Page</h3></div>", unsafe_allow_html=True)
             st.text_input(label='Username: ',value='', key='user', on_change=creds_edtered)
             st.text_input(label='Password: ',value='', key='pass', type="password", on_change=creds_edtered)
             return False
