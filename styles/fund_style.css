@@ -1,0 +1,113 @@
+.st-emotion-cache-4uzi61 {
+    border-radius: 2px;
+    box-shadow: 0px 0px 2px 1px #19105B;
+    padding: 20px;
+}
+
+[data-testid="stAppViewBlockContainer"]{
+    padding:30px;
+}
+
+hr {
+    margin: 5px 0 20px 0;
+    padding: 1px;
+    background-color: #19105B;
+}
+
+div[data-testid="stDataFrameResizable"] > canvas > table > thead > tr > th {
+    padding: 12px 15px;
+    border:none;
+}
+
+div[data-testid="stDataFrameResizable"] > canvas > table >tbody > tr {
+    text-align: center;
+    background-color: green; 
+}
+
+.st-emotion-cache-r421ms{
+    border-radius: 2px;
+    box-shadow: 0px 0px 2px 1px #19105B;
+    padding: 20px;
+}
+
+/* TOOLTIP */
+.streamlit-tooltip {
+    position: relative;
+    display: inline-block;
+    text-decoration: none;
+}
+
+.streamlit-tooltip .tooltiptext {
+    visibility: hidden;
+    width: 280px;
+    background-color: #555;
+    font-size: 16px;
+    color: #fff;
+    font-weight: 100;
+    letter-spacing: 0.3px;
+    text-align: center;
+    padding: 5px 0;
+    border-radius: 6px;
+    position: absolute;
+    z-index: 1;
+    top: calc(100% + 5px);
+    right: -175px;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+.streamlit-tooltip .tooltiptext::after {
+    content: "";
+    position: absolute;
+    top: -60%;
+    left: 10%;
+    margin-left: -10px;
+    border-width: 10px;
+    border-style: solid;
+    border-color: #555 transparent transparent transparent;
+    transform: rotate(180deg);
+}
+
+.streamlit-tooltip:hover .tooltiptext {
+    visibility: visible;
+    opacity: 0.8;
+}
+
+/* TABLE HEADER TITLES */
+[data-testid="stHeadingWithActionElements"] > h2 { 
+    color: #19105b !important;
+    font-size: 24px !important;
+    margin: 5px 0 !important;
+    padding: 0 !important;
+}   
+
+/* SELECT BOX */
+
+[data-testid="stSelectbox"] > div {
+    width: 280px !important;
+}
+
+[data-testid="stSelectbox"] > [data-testid="stWidgetLabel"]  { 
+    display: flex !important;
+    justify-content: center !important;
+    flex-direction: column !important;
+    /* text-align: center !important; */
+    align-items: flex-start !important;
+}
+
+[data-testid="stSelectbox"] > div > div { 
+    border-radius: 0 !important;
+    border: none !important;
+    box-shadow: 0px 0px 0.9px 0.3px #605f5f !important;
+}
+
+
+
+[data-testid="stMarkdownContainer"] > p {
+    color: #19105b !important;
+    font-weight: 700 !important;
+    font-size: 18px !important;
+    margin: 2px 0 !important;
+}
+
+
+
