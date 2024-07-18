@@ -49,7 +49,7 @@ def main():
     max_date_str_pf3 = max_date.strftime('%Y-%m-%d')
     max_date = datetime.strptime(max_date_str_pf3, '%Y-%m-%d').date()
     ss.max_date_pf3 = max_date
-
+ 
     # Assumptions
     date_range = pd.date_range(start=min_date, end=max_date, freq='ME')
     assumptions = pd.DataFrame(date_range, columns=['Date'])
