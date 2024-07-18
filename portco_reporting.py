@@ -119,35 +119,35 @@ def main():
     if "authenticated" not in st.session_state:
         st.session_state["authenticated"] = False
 
-    # if authenticate_user():
+    if authenticate_user():
 
-    v_menu = ['PortCo 1', 'PortCo 2', 'PortCo 3']
+        v_menu = ['PortCo 1', 'PortCo 2', 'PortCo 3']
 
-    with st.sidebar:
-        st.markdown("<h3 style='color: white;'>Portfolio Companies</h3>", unsafe_allow_html=True)
+        with st.sidebar:
+            st.markdown("<h3 style='color: white;'>Portfolio Companies</h3>", unsafe_allow_html=True)
 
-        selected = option_menu(
-            menu_title = None,
-            options = v_menu,
-            icons = None,
-            menu_icon = 'menu-down',
-            default_index = 0,
-            styles={
-                "container": {"border-radius": "25px"},
-                # "icon": {"color": "orange", "font-size": "25px"}, 
-                # "nav-link": {"font-size": "25px", "text-align": "left", "margin":"0px", "--hover-color": "#eee"},
-                "nav-link-selected": {"background-color": "#19105B"},
-            }
-        )
-    
-    if selected == 'PortCo 1':
-        portco_1.main()
+            selected = option_menu(
+                menu_title = None,
+                options = v_menu,
+                icons = None,
+                menu_icon = 'menu-down',
+                default_index = 0,
+                styles={
+                    "container": {"border-radius": "25px"},
+                    # "icon": {"color": "orange", "font-size": "25px"}, 
+                    # "nav-link": {"font-size": "25px", "text-align": "left", "margin":"0px", "--hover-color": "#eee"},
+                    "nav-link-selected": {"background-color": "#19105B"},
+                }
+            )
+        
+        if selected == 'PortCo 1':
+            portco_1.main()
 
-    if selected == 'PortCo 2':
-        portco_2.main()
+        if selected == 'PortCo 2':
+            portco_2.main()
 
-    if selected == 'PortCo 3':
-        portco_3.main()
+        if selected == 'PortCo 3':
+            portco_3.main()
 
 if __name__ == '__main__':
     main()
