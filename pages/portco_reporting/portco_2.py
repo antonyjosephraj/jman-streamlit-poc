@@ -50,7 +50,7 @@ def main():
     max_date = datetime.strptime(max_date_str_pf2, '%Y-%m-%d').date()
     ss.max_date_pf2 = max_date
 
-    date_range = pd.date_range(start=min_date, end=max_date, freq='M')
+    date_range = pd.date_range(start=min_date, end=max_date, freq='ME')
     assumptions = pd.DataFrame(date_range, columns=['Date'])
     assumptions['Date'] = pd.to_datetime(assumptions['Date'], format='%Y-%m-%d').dt.strftime('%Y-%m-%d')
     num_rows = assumptions.shape[0]
