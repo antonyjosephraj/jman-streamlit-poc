@@ -14,7 +14,7 @@ st.set_page_config(
     #     'About': "# This is a header. This is an *extremely* cool app!"
     # }
 )
-
+ 
 HORIZONTAL_RED = "images/jman-logo.png"
 ICON_RED = "images/jman-logo2.jpg"
 
