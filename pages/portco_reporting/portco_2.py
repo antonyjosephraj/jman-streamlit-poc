@@ -79,7 +79,7 @@ def main():
         sample_data['Date'] = pd.to_datetime(sample_data['Date'], format='%Y-%m-%d').dt.strftime('%Y-%m-%d')
         ss.max_date_pf2 = datetime.strptime(max_date.strftime('%Y-%m-%d'), '%Y-%m-%d').date()
 
-        date_range = pd.date_range(start=min_date, end=max_date, freq='M')
+        date_range = pd.date_range(start=min_date, end=max_date, freq='ME')
         ss.assumptions_data_pf2 = pd.DataFrame(date_range, columns=['Date'])
         ss.assumptions_data_pf2['Date'] = pd.to_datetime(ss.assumptions_data_pf2['Date'], format='%Y-%m-%d').dt.strftime('%Y-%m-%d')
         ss.assumptions_data_pf2[["Low Case" ,"Base Case" ,"High Case"]] = 0
