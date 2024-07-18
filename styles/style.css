@@ -1,11 +1,7 @@
 [data-testid="stAppViewBlockContainer"]{
 padding:30px;
 }
-[data-testid="stHorizontalBlock"] {
-    border-radius: 2px;
-    box-shadow: 0px 0px 2px 1px #19105B;
-    padding: 10px;
-} 
+ 
 hr {
     margin: 5px 0 20px 0;
     padding: 1px;
@@ -51,10 +47,10 @@ div[data-testid="stDataFrameResizable"] > canvas > table >tbody > tr {
 .st-emotion-cache-4uzi61, .st-emotion-cache-r421ms {
     border-radius: 2px;
     box-shadow: 0px 0px 2px 1px #19105B;
-    padding: 20px 300px;
+    padding: 20px;
 }
 
-/* Tooltip */
+/* TOOLTIP */
 .streamlit-tooltip {
     position: relative;
     display: inline-block;
@@ -67,12 +63,14 @@ div[data-testid="stDataFrameResizable"] > canvas > table >tbody > tr {
     background-color: #555;
     font-size: 16px;
     color: #fff;
+    font-weight: 100;
+    letter-spacing: 0.3px;
     text-align: center;
     padding: 5px 0;
     border-radius: 6px;
     position: absolute;
     z-index: 1;
-    top: calc(100% + -12px);
+    top: calc(100% + 5px);
     right: -175px;
     opacity: 0;
     transition: opacity 0.3s;
@@ -93,3 +91,125 @@ div[data-testid="stDataFrameResizable"] > canvas > table >tbody > tr {
     visibility: visible;
     opacity: 0.8;
 }
+
+/* SUBMIT BUTTON */
+[data-testid="baseButton-secondary"] {
+    margin: 10px 0 !important;
+    background-color: #FF6196 !important;
+    width: 150px !important;
+    border: none !important;
+    border-radius: 3px !important;
+    box-shadow: 0px 0px 2px 1px #FF6196 !important;
+}
+
+/* INPUT WIDGETS */
+[data-testid="baseButton-secondary"] > [data-testid="stMarkdownContainer"] > p {
+    color: #fff !important;
+    letter-spacing: 0.5px !important;
+    font-size: 20px !important;
+}
+
+[data-testid="stDateInput"] > [data-testid="stWidgetLabel"] , [data-testid="stDateInput"]  { 
+    display: flex !important;
+    justify-content: center !important;
+    flex-direction: column !important;
+    /* text-align: center !important; */
+    align-items: flex-start !important;
+}
+
+[data-testid="stDateInput"] > div { 
+    width: 295px !important;
+}
+
+[data-testid="stDateInput"] > div > div { 
+    border-radius: 0 !important;
+    border: none !important;
+    box-shadow: 0px 0px 0.6px 0.3px #605f5f !important;
+}
+
+[data-testid="stMarkdownContainer"] > p {
+    color: #19105b;
+    font-weight: 700;
+    font-size: 18px;
+    margin: 2px 0 !important;
+}
+
+.empty-space {
+    margin: 10px 0 !important;
+}
+
+/* #stDataEditor th {
+    background-color: #ffcc00 !important; 
+    color: #333 !important; 
+} */
+
+/* TABLE HEADER TITLES */
+[data-testid="stHeadingWithActionElements"] > h2 { 
+    color: #19105b !important;
+    font-size: 24px !important;
+    margin: 5px 0 !important;
+    padding: 0 !important;
+}   
+
+[data-testid="stHeadingWithActionElements"] > h3 { 
+    color: #19105b !important;
+    font-size: 24px !important;
+    margin: 5px 0 !important;
+    padding: 0 !important;
+}
+
+/* BUTTON */
+[data-testid="stButton"] {
+    text-align: center !important;
+}
+
+/* SELECT BOX */
+[data-testid="stSelectbox"] {
+    margin-left: 300px !important;
+}
+
+[data-testid="stSelectbox"] > div {
+    width: 295px !important;
+}
+
+[data-testid="stSelectbox"] > [data-testid="stWidgetLabel"]  { 
+    display: flex !important;
+    justify-content: center !important;
+    flex-direction: column !important;
+    /* text-align: center !important; */
+    align-items: flex-start !important;
+}
+
+[data-testid="stSelectbox"] > div > div { 
+    border-radius: 0 !important;
+    border: none !important;
+    box-shadow: 0px 0px 0.6px 0.3px #605f5f !important;
+}
+
+
+/* WATERFALL CHARTS */
+
+[data-testid="baseButton-secondaryFormSubmit"] {
+    display: none !important;
+}
+[data-testid="stForm"] {
+    box-shadow: none !important;
+    border: none !important;
+    padding: 0 300px !important;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

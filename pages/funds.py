@@ -59,12 +59,6 @@ def main():
             height: 50px;
         }
 
-        [data-testid="stMarkdownContainer"] > p {
-            color: #19105b;
-            font-weight: 700;
-            font-size: 16px;
-        }
-
         [data-testid="stSelectbox"] {
             width:300px!important;
             margin: 5px 0;

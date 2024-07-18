@@ -103,17 +103,9 @@ def main():
             width: 500px;
         }
         [data-testid="element-container"]{
-            text-align: center;
             display: flex;
             align-items: center;
             justify-content: center;
-        }
-
-
-        [data-testid="stMarkdownContainer"] > p {
-            color: #19105b;
-            font-weight: 700;
-            font-size: 16px;
         }
 
         """,
