@@ -83,7 +83,7 @@ div[data-testid="stDataFrameResizable"] > canvas > table >tbody > tr {
 /* SELECT BOX */
 
 [data-testid="stSelectbox"] > div {
-    width: 280px !important;
+    width: 240px !important;
 }
 
 [data-testid="stSelectbox"] > [data-testid="stWidgetLabel"]  { 

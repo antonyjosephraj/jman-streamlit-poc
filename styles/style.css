@@ -118,7 +118,7 @@ div[data-testid="stDataFrameResizable"] > canvas > table >tbody > tr {
 }
 
 [data-testid="stDateInput"] > div { 
-    width: 280px !important;
+    width: 240px !important;
 }
 
 [data-testid="stDateInput"] > div > div { 
@@ -169,7 +169,7 @@ div[data-testid="stDataFrameResizable"] > canvas > table >tbody > tr {
 }
 
 [data-testid="stSelectbox"] > div {
-    width: 280px !important;
+    width: 240px !important;
 }
 
 [data-testid="stSelectbox"] > [data-testid="stWidgetLabel"]  { 
