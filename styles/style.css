@@ -117,10 +117,6 @@ div[data-testid="stDataFrameResizable"] > canvas > table >tbody > tr {
     align-items: flex-start !important;
 }
 
-[data-testid="stDateInput"] > div { 
-    width: 240px !important;
-}
-
 [data-testid="stDateInput"] > div > div { 
     border-radius: 0 !important;
     border: none !important;
@@ -166,10 +162,6 @@ div[data-testid="stDataFrameResizable"] > canvas > table >tbody > tr {
 /* SELECT BOX */
 [data-testid="stSelectbox"] {
     margin-left: 300px !important;
-}
-
-[data-testid="stSelectbox"] > div {
-    width: 240px !important;
 }
 
 [data-testid="stSelectbox"] > [data-testid="stWidgetLabel"]  { 

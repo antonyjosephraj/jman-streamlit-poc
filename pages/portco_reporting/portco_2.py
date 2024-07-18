@@ -116,20 +116,26 @@ def main():
 
         with col1:
 
-            if 'min_date_pf2' not in ss:
-                investment_date = st.date_input('Investment Date', dt.date(2022, 7, 6), format="YYYY-MM-DD", min_value=None,  key='investment_min_date')
-                ss.min_date_pf2 = investment_date
-            
-            else:
-                # year, month, date = get_current_date(ss.min_date_pf2)
-                investment_date = st.date_input('Investment Date2',  value=ss.min_date_pf2,  format="YYYY-MM-DD" )
-                ss.min_date_pf2 = investment_date
+            input_column1, input_column2, input_column3 = st.columns(3)
+            with input_column1:
 
-            if ss.min_date_pf2 > ss.max_date_pf2:
-                st.error('Please ensure that the Investment Date is before the Exit Date')
-            else:
-                ss.investments_amount_pf2.at[0, 'Date of Investment'] = ss.min_date_pf2
-                # fetching_assumptions_data()
+            # Investment of Date
+            # investment_date = st.date_input('Investment Date', dt.date(2022, 7, 6), format="YYYY-MM-DD" )
+            # investment_date = ''
+                if 'min_date_pf2' not in ss:
+                    investment_date = st.date_input('Investment Date', dt.date(2022, 7, 6), format="YYYY-MM-DD", min_value=None,  key='investment_min_date')
+                    ss.min_date_pf2 = investment_date
+            
+                else:
+                    # year, month, date = get_current_date(ss.min_date_pf2)
+                    investment_date = st.date_input('Investment Date2',  value=ss.min_date_pf2,  format="YYYY-MM-DD" )
+                    ss.min_date_pf2 = investment_date
+
+                if ss.min_date_pf2 > ss.max_date_pf2:
+                    st.error('Please ensure that the Investment Date is before the Exit Date')
+                else:
+                    ss.investments_amount_pf2.at[0, 'Date of Investment'] = ss.min_date_pf2
+                    fetching_assumptions_data()
             
             input_col1, input_col2, input_col3 = st.columns(3)
 
@@ -167,19 +173,19 @@ def main():
 
             with input_col3:
 
-                if 'highcase_enddate_pf1' not in ss:
+                if 'highcase_enddate_pf2' not in ss:
                     highcase_enddate = st.date_input('High Case Exit Date', dt.date(2025, 9, 29), format="YYYY-MM-DD")
-                    ss.highcase_enddate_pf1 = highcase_enddate
+                    ss.highcase_enddate_pf2 = highcase_enddate
                 else:
-                    highcase_enddate = st.date_input('High Case Exit Date', ss.highcase_enddate_pf1, format="YYYY-MM-DD")
-                    ss.highcase_enddate_pf1 = highcase_enddate
+                    highcase_enddate = st.date_input('High Case Exit Date', ss.highcase_enddate_pf2, format="YYYY-MM-DD")
+                    ss.highcase_enddate_pf2 = highcase_enddate
 
-                if highcase_enddate < ss.min_date_pf1:
-                    ss.investments_data_pf1.at[2, 'Exit Date'] = ss.highcase_enddate_pf1
+                if highcase_enddate < ss.min_date_pf2:
+                    ss.investments_data_pf2.at[2, 'Exit Date'] = ss.highcase_enddate_pf2
                     st.error('Please ensure that the Investment Date is before the Exit Date3')
                 else:
-                    ss.highcase_enddate_pf1 = highcase_enddate
-                    ss.investments_data_pf1.at[2, 'Exit Date'] = ss.highcase_enddate_pf1
+                    ss.highcase_enddate_pf2 = highcase_enddate
+                    ss.investments_data_pf2.at[2, 'Exit Date'] = ss.highcase_enddate_pf2
                     fetching_assumptions_data()
             
             st.markdown("<div class='empty-space'></div>", unsafe_allow_html=True)

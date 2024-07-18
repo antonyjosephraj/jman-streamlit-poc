@@ -115,37 +115,26 @@ def main():
 
         with col1:
 
-            def handle_date_change(date):
-                # st.write("Selected date:", date)
-                print('JJJJJJJJJJJ', date)
-                ss.min_date_pf3 = date
-
-
-            def get_current_date(value):
-                year = value.year
-                month = value.month
-                day = value.day
-                return year, month,
+            input_column1, input_column2, input_column3 = st.columns(3)
+            with input_column1:
 
             # Investment of Date
             # investment_date = st.date_input('Investment Date', dt.date(2022, 7, 6), format="YYYY-MM-DD" )
             # investment_date = ''
-            if 'min_date_pf3' not in ss:
-                investment_date = st.date_input('Investment Date', dt.date(2022, 7, 6), format="YYYY-MM-DD", min_value=None,  key='investment_min_date')
-                ss.min_date_pf3 = investment_date
+                if 'min_date_pf2' not in ss:
+                    investment_date = st.date_input('Investment Date', dt.date(2022, 7, 6), format="YYYY-MM-DD", min_value=None,  key='investment_min_date')
+                    ss.min_date_pf2 = investment_date
             
-            else:
-                # year, month, date = get_current_date(ss.min_date_pf3)
-                investment_date = st.date_input('Investment Date2',  value=ss.min_date_pf3,  format="YYYY-MM-DD" )
-                ss.min_date_pf3 = investment_date
+                else:
+                    # year, month, date = get_current_date(ss.min_date_pf2)
+                    investment_date = st.date_input('Investment Date2',  value=ss.min_date_pf2,  format="YYYY-MM-DD" )
+                    ss.min_date_pf2 = investment_date
 
-            # ss.min_date_pf3= investment_date
-
-            if ss.min_date_pf3 > ss.max_date_pf3:
-                st.error('Please ensure that the Investment Date is before the Exit Date')
-            else:
-                ss.investments_amount_pf3.at[0, 'Date of Investment'] = ss.min_date_pf3
-                fetching_assumptions_data()
+                if ss.min_date_pf2 > ss.max_date_pf2:
+                    st.error('Please ensure that the Investment Date is before the Exit Date')
+                else:
+                    ss.investments_amount_pf2.at[0, 'Date of Investment'] = ss.min_date_pf2
+                    fetching_assumptions_data()
             
             input_col1, input_col2, input_col3 = st.columns(3)
 

@@ -46,18 +46,24 @@ def main():
             st.markdown("<h2 class='streamlit-tooltip'>Select a Scenario for Each PortCo<span class='tooltiptext'>Choose Scenario for Each PortCo</span></h2>", unsafe_allow_html=True)
 
             st.markdown("<div class='empty-space'></div>", unsafe_allow_html=True)
+            select_column1, select_column12, select_column3 = st.columns(3)
+            select_column21, select_column22, select_column23 = st.columns(3)
+            select_column31, select_column32, select_column33 = st.columns(3)
 
-            portco1_options = ['Low Case', 'Base Case', 'High Case']
-            portco1_selected_option = st.selectbox('PortCo 1:', portco1_options)
-            ss.portco1_selected_option = portco1_selected_option
+            with select_column1:
+                portco1_options = ['Low Case', 'Base Case', 'High Case']
+                portco1_selected_option = st.selectbox('PortCo 1:', portco1_options)
+                ss.portco1_selected_option = portco1_selected_option
 
-            portco2_options = ['Base Case', 'Low Case', 'High Case' ]
-            portco2_selected_option = st.selectbox('PortCo 2:', portco2_options)
-            ss.portco2_selected_option = portco2_selected_option
+            with select_column21:
+                portco2_options = ['Base Case', 'Low Case', 'High Case' ]
+                portco2_selected_option = st.selectbox('PortCo 2:', portco2_options)
+                ss.portco2_selected_option = portco2_selected_option
             
-            portco3_options = ['High Case', 'Low Case', 'Base Case']
-            portco3_selected_option = st.selectbox('PortCo 3:', portco3_options)
-            ss.portco3_selected_option = portco3_selected_option
+            with select_column31:
+                portco3_options = ['High Case', 'Low Case', 'Base Case']
+                portco3_selected_option = st.selectbox('PortCo 3:', portco3_options)
+                ss.portco3_selected_option = portco3_selected_option
 
 
         # col11= st.columns(1)
