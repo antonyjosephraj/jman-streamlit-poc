@@ -118,7 +118,7 @@ div[data-testid="stDataFrameResizable"] > canvas > table >tbody > tr {
 }
 
 [data-testid="stDateInput"] > div { 
-    width: 295px !important;
+    width: 280px !important;
 }
 
 [data-testid="stDateInput"] > div > div { 
@@ -169,7 +169,7 @@ div[data-testid="stDataFrameResizable"] > canvas > table >tbody > tr {
 }
 
 [data-testid="stSelectbox"] > div {
-    width: 295px !important;
+    width: 280px !important;
 }
 
 [data-testid="stSelectbox"] > [data-testid="stWidgetLabel"]  { 
@@ -183,7 +183,7 @@ div[data-testid="stDataFrameResizable"] > canvas > table >tbody > tr {
 [data-testid="stSelectbox"] > div > div { 
     border-radius: 0 !important;
     border: none !important;
-    box-shadow: 0px 0px 0.6px 0.3px #605f5f !important;
+    box-shadow: 0px 0px 0.9px 0.3px #605f5f !important;
 }
 
 

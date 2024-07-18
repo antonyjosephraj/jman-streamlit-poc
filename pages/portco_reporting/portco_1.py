@@ -35,11 +35,10 @@ def main():
     # Investments Details
     investments_details = pd.read_csv('./inputs/investments_details.csv') 
     investments_details['Exit Date'] = pd.to_datetime(investments_details['Exit Date'], format='%m/%d/%Y').dt.strftime('%Y-%m-%d')
-
     if 'investments_data_pf1' not in ss:
         ss.investments_data_pf1 = pd.DataFrame(investments_details)
 
-    if 'max_date_df1' not in ss:
+    if 'max_date_pf1' not in ss:
         max_date = investments_details['Exit Date'].max()
         ss.max_date_pf1 = datetime.strptime(max_date, '%Y-%m-%d').date()
     
@@ -78,8 +77,8 @@ def main():
         max_date = ss.investments_data_pf1['Exit Date'].max()
         sample_data = ss.assumptions_data_pf1
         sample_data['Date'] = pd.to_datetime(sample_data['Date'], format='%Y-%m-%d').dt.strftime('%Y-%m-%d')
-
         ss.max_date_pf1 = datetime.strptime(max_date.strftime('%Y-%m-%d'), '%Y-%m-%d').date()
+
         date_range = pd.date_range(start=min_date, end=max_date, freq='M')
         ss.assumptions_data_pf1 = pd.DataFrame(date_range, columns=['Date'])
         ss.assumptions_data_pf1['Date'] = pd.to_datetime(ss.assumptions_data_pf1['Date'], format='%Y-%m-%d').dt.strftime('%Y-%m-%d')
@@ -206,10 +205,10 @@ def main():
             st.markdown("<div class='empty-space'></div>", unsafe_allow_html=True)
 
             st.markdown("<h2 class='streamlit-tooltip'>Entry Metrics 📝<span class='tooltiptext'>Please input the entry metrics values</span></h2>", unsafe_allow_html=True)
-            investments_edited_df = de(ss.investments_amount_pf1, use_container_width=True, width=800, height=80, hide_index=True,  disabled=["Date of Investment"]) 
+            investments_edited_df = de(ss.investments_amount_pf1, use_container_width=True, width=800, height=80, hide_index=True, column_order=["Investment at Entry", "EBITDA at Entry", "Multiple at Entry"]) 
 
             st.markdown("<h2 class='streamlit-tooltip'>Scenario Assumptions 📝<span class='tooltiptext'>Please input the scenario assumptions</span></h2>", unsafe_allow_html=True)
-            investments_details_v2 = de(ss.investments_data_pf1, use_container_width=True, height=150, hide_index=True, disabled=["Exit Date"])
+            investments_details_v2 = de(ss.investments_data_pf1, use_container_width=True, height=150, hide_index=True, column_order=["Scenario", "Invested Amount", "EBITDA at Exit", "Multiple at Exit"],  disabled=["Scenario"])
 
         # Columns - 2
         column1, column2 = st.columns(2)
@@ -320,7 +319,6 @@ def main():
                 }
 
                 equity_df = pd.DataFrame(equity_data)
-
                 ss.equity_df_pf1 = equity_df
 
                 with tab3:
@@ -494,12 +492,10 @@ def main():
 
         # Waterfall Data 
         waterfall_data_pf1 = pd.concat([ss.editda_multiple_df_pf1, ss.netdebt_and_cashflow_df_pf1, ss.equity_df_pf1, ss.ownership_df_pf1, ss.value_and_investment_df_pf1, ss.money_multiple_df_pf1], ignore_index=True)
-
         investments_at_entry_amount = ss.investments_amount_pf1['Investment at Entry'].sum()
 
         waterfall_options_pf1 = ['Low Case', 'Base Case', 'High Case']
         selected_option_pf1 = st.selectbox('Select a Scenario for PortCo 1:', waterfall_options_pf1)
-
         ss.selected_option_pf1 = selected_option_pf1
 
         ebitda_value = 0
@@ -613,7 +609,6 @@ def main():
             submitted = st.form_submit_button("Submit")
             if submitted:
                 st.write("slider")
-
 
 
 if __name__ == '__main__':
