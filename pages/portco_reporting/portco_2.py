@@ -71,6 +71,7 @@ def main():
     def fetching_assumptions_data():
 
         min_date = ss.investments_amount_pf2['Date of Investment'].min()
+        ss.min_date_pf2 = min_date
         investments_at_entry = ss.investments_amount_pf2['Investment at Entry'].sum()
         ss.assumptions_data_pf2.loc[0, ["Low Case" ,"Base Case" ,"High Case"]] = [0, 0, 0]
 
@@ -133,8 +134,10 @@ def main():
 
                 if ss.min_date_pf2 > ss.max_date_pf2:
                     st.error('Please ensure that the Investment Date is before the Exit Date')
+                    ss.flagging_pf2 = False
                 else:
                     ss.investments_amount_pf2.at[0, 'Date of Investment'] = ss.min_date_pf2
+                    ss.flagging_pf2 = True
                     fetching_assumptions_data()
             
             input_col1, input_col2, input_col3 = st.columns(3)
@@ -147,7 +150,7 @@ def main():
                     lowcase_enddate = st.date_input('Low Case Exit Date', value=ss.lowcase_enddate_pf2, format="YYYY-MM-DD")
                     ss.lowcase_enddate_pf2 = lowcase_enddate
 
-                if lowcase_enddate < ss.min_date_pf2:
+                if lowcase_enddate < ss.min_date_pf2 and ss.flagging_pf2 == True:
                     ss.investments_data_pf2.at[0, 'Exit Date'] = ss.lowcase_enddate_pf2
                     st.error('Please ensure that the Investment Date is before the Exit Date1')
                 else:
@@ -163,7 +166,7 @@ def main():
                     basecase_enddate = st.date_input('Base Case Exit Date', value=ss.basecase_enddate_pf2, format="YYYY-MM-DD")
                     ss.basecase_enddate_pf2 = basecase_enddate
 
-                if basecase_enddate < ss.min_date_pf2:
+                if basecase_enddate < ss.min_date_pf2 and ss.flagging_pf2 == True:
                     ss.investments_data_pf2.at[1, 'Exit Date'] = ss.basecase_enddate_pf2
                     st.error('Please ensure that the Investment Date is before the Exit Date2')
                 else:
@@ -173,7 +176,7 @@ def main():
 
             with input_col3:
 
-                if 'highcase_enddate_pf2' not in ss:
+                if 'highcase_enddate_pf2' not in ss and ss.flagging_pf2 == True:
                     highcase_enddate = st.date_input('High Case Exit Date', dt.date(2025, 9, 29), format="YYYY-MM-DD")
                     ss.highcase_enddate_pf2 = highcase_enddate
                 else:
