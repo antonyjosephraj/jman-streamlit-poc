@@ -27,6 +27,10 @@ def main():
     st.markdown(
         """
         <style>
+        *{
+            font-family: Arial !important;
+        }
+
         [data-testid="stSidebar"][aria-expanded="true"] > div:first-child{
             # width: 320px;
             background: linear-gradient(#19105b, #472067, #7c3375, #FF6196) !important;
