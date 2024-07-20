@@ -115,9 +115,9 @@ div[data-testid="stDataFrameResizable"] > canvas > table >tbody > tr {
 
 
 .stright-line {
-    width: 99% !important;
     box-shadow: 0px 0px 1px 0.3px #19105b !important;
     margin: 0 auto !important;
+    margin-top: 15px !important;
 }
 
 .st-emotion-cache-isgwfk, .st-emotion-cache-nbjjx0, .st-emotion-cache-17mdqx7  {
@@ -127,7 +127,8 @@ div[data-testid="stDataFrameResizable"] > canvas > table >tbody > tr {
 }
 
 [data-testid="stHeadingWithActionElements"] > h1 {
-    height: 55px;
+    /* height: 55px; */
     color: #19105b !important;
-    margin: 0 0 20px 0 !important;
+    /* margin:2px 0 !important; */
+    padding: 0 !important;
 }    

@@ -19,6 +19,7 @@ def main():
 
     # Header
     st.markdown("<h1>Fund Summary</h1>", unsafe_allow_html=True)
+    st.markdown("<div class='stright-line'></div>", unsafe_allow_html=True)
 
     # Collecting All Data
     data_investments_details_pf1 = ss.investments_data_pf1
@@ -68,7 +69,6 @@ def main():
 
 
         # col11= st.columns(1)
-
         # Add a column with a dropdown list
         for i in df.index:
             if i  == 0:
@@ -76,11 +76,11 @@ def main():
                     if ss.portco1_selected_option == data_investments_details_pf1.at[pf1, 'Scenario']:
                         df.at[0, 'Scenario'] = ss.portco1_selected_option
                         df.at[0, 'Date of Investment'] = data_investments_amount_pf1.iloc[0]['Date of Investment']
-                        df.at[0, 'Invested Amount'] = data_investments_details_pf1.at[pf1, 'Invested Amount']
-                        df.at[0, 'EBITDA at Entry'] = data_investments_amount_pf1.iloc[0]['EBITDA at Entry']
-                        df.at[0, 'EBITDA at Exit'] = data_investments_details_pf1.at[pf1, 'EBITDA at Exit']
-                        df.at[0, 'Multiple at entry'] = data_investments_amount_pf1.iloc[0]['Multiple at Entry']
-                        df.at[0, 'Multiple at Exit'] = data_investments_details_pf1.at[pf1, 'Multiple at Exit']
+                        df.at[0, 'Invested Amount'] = format(data_investments_details_pf1.at[pf1, 'Invested Amount'], ",.1f")
+                        df.at[0, 'EBITDA at Entry'] = format(data_investments_amount_pf1.iloc[0]['EBITDA at Entry'], ",.1f")
+                        df.at[0, 'EBITDA at Exit'] = format(data_investments_details_pf1.at[pf1, 'EBITDA at Exit'], ",.1f")
+                        df.at[0, 'Multiple at entry'] = format(data_investments_amount_pf1.iloc[0]['Multiple at Entry'], ",.1f")
+                        df.at[0, 'Multiple at Exit'] = format(data_investments_details_pf1.at[pf1, 'Multiple at Exit'], ",.1f")
                         df.at[0, 'Exit Date'] = data_investments_details_pf1.at[pf1, 'Exit Date']
                         if ss.portco1_selected_option == 'Low Case':
                             df.at[0, 'Return (calculated)'] = data_revenue_return_pf1.at[0, 'Return (calculated)']
@@ -99,11 +99,11 @@ def main():
                     if ss.portco2_selected_option == data_investments_details_pf2.at[pf1, 'Scenario']:
                         df.at[1, 'Scenario'] = ss.portco2_selected_option
                         df.at[1, 'Date of Investment'] = data_investments_amount_pf2.iloc[0]['Date of Investment']
-                        df.at[1, 'Invested Amount'] = data_investments_details_pf2.at[pf1, 'Invested Amount']
-                        df.at[1, 'EBITDA at Entry'] = data_investments_amount_pf2.iloc[0]['EBITDA at Entry']
-                        df.at[1, 'EBITDA at Exit'] = data_investments_details_pf2.at[pf1, 'EBITDA at Exit']
-                        df.at[1, 'Multiple at entry'] = data_investments_amount_pf2.iloc[0]['Multiple at Entry']
-                        df.at[1, 'Multiple at Exit'] = data_investments_details_pf2.at[pf1, 'Multiple at Exit']
+                        df.at[1, 'Invested Amount'] = format(data_investments_details_pf2.at[pf1, 'Invested Amount'], ",.1f")
+                        df.at[1, 'EBITDA at Entry'] = format(data_investments_amount_pf2.iloc[0]['EBITDA at Entry'], ",.1f")
+                        df.at[1, 'EBITDA at Exit'] = format(data_investments_details_pf2.at[pf1, 'EBITDA at Exit'], ",.1f")
+                        df.at[1, 'Multiple at entry'] = format(data_investments_amount_pf2.iloc[0]['Multiple at Entry'], ",.1f")
+                        df.at[1, 'Multiple at Exit'] = format(data_investments_details_pf2.at[pf1, 'Multiple at Exit'], ",.1f")
                         df.at[1, 'Exit Date'] = data_investments_details_pf2.at[pf1, 'Exit Date']
                         if ss.portco2_selected_option == 'Low Case':
                             df.at[1, 'Return (calculated)'] = data_revenue_return_pf2.at[0, 'Return (calculated)']
@@ -123,11 +123,11 @@ def main():
                     if ss.portco3_selected_option == data_investments_details_pf3.at[pf1, 'Scenario']:
                         df.at[2, 'Scenario'] = ss.portco3_selected_option
                         df.at[2, 'Date of Investment'] = data_investments_amount_pf3.iloc[0]['Date of Investment']
-                        df.at[2, 'Invested Amount'] = data_investments_details_pf3.at[pf1, 'Invested Amount']
-                        df.at[2, 'EBITDA at Entry'] = data_investments_amount_pf3.iloc[0]['EBITDA at Entry']
-                        df.at[2, 'EBITDA at Exit'] = data_investments_details_pf3.at[pf1, 'EBITDA at Exit']
-                        df.at[2, 'Multiple at entry'] = data_investments_amount_pf3.iloc[0]['Multiple at Entry']
-                        df.at[2, 'Multiple at Exit'] = data_investments_details_pf3.at[pf1, 'Multiple at Exit']
+                        df.at[2, 'Invested Amount'] = format(data_investments_details_pf3.at[pf1, 'Invested Amount'], ",.1f")
+                        df.at[2, 'EBITDA at Entry'] = format(data_investments_amount_pf3.iloc[0]['EBITDA at Entry'], ",.1f")
+                        df.at[2, 'EBITDA at Exit'] = format(data_investments_details_pf3.at[pf1, 'EBITDA at Exit'], ",.1f")
+                        df.at[2, 'Multiple at entry'] = format(data_investments_amount_pf3.iloc[0]['Multiple at Entry'], ",.1f")
+                        df.at[2, 'Multiple at Exit'] = format(data_investments_details_pf3.at[pf1, 'Multiple at Exit'], ",.1f")
                         df.at[2, 'Exit Date'] = data_investments_details_pf3.at[pf1, 'Exit Date']
                         if ss.portco3_selected_option == 'Low Case':
                             df.at[2, 'Return (calculated)'] = data_revenue_return_pf3.at[0, 'Return (calculated)']
@@ -149,11 +149,12 @@ def main():
 
         df1 = df
         df1['Return (calculated)'] = pd.to_numeric(df1['Return (calculated)'].str.replace('x', ''))
+        df1['Invested Amount'] = pd.to_numeric(df1['Invested Amount'].str.replace(',', ''))
 
         total_investment_amout = df1['Invested Amount'].sum()
-        total_investment_amout = f"{total_investment_amout:.1f}"
+        total_investment_amout = format(total_investment_amout, ",.1f")
         total_return_amount = df1['Return (calculated)'].sum()
-        total_return_amount = f"{total_return_amount:.1f}"
+        total_return_amount = total_return_amount
         total_return_amount_v2 = str(total_return_amount) + ' x'
 
         fun_level_data = {
@@ -316,7 +317,7 @@ def main():
 
                 # Customize labels and title
                 # ax.set_xlabel('Fund Level Categories', color='#19105B', fontsize=10)
-                ax.set_ylabel('£', color='#19105B', fontsize=10)
+                ax.set_ylabel('£', rotation=0, color='#19105B', fontsize=10)
                 ax.set_title('Fund Returns', color='#FF6196', fontsize=10)
 
                 ax.tick_params(axis='x', labelsize=8, labelcolor='#19105B')
@@ -353,7 +354,7 @@ def main():
                 
                 # Add labels and title
                 # ax1.set_xlabel('Years', color='#19105B', fontsize=10)
-                ax1.set_ylabel('£', color='#19105B', fontsize=10)
+                ax1.set_ylabel('£', rotation=0, color='#19105B', fontsize=10)
                 plt.title('Returns Overtime', color='#FF6196', fontsize=10)
                 
                 plt.xticks(unique_years)

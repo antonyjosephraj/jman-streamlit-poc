@@ -24,6 +24,7 @@ def main():
 
     # Header Buttons
     st.markdown('<div class="top-right"><button>Upload</button> <button>Download</button> </div>', unsafe_allow_html=True)
+    st.markdown("<div class='stright-line'></div>", unsafe_allow_html=True)
 
     # Investments
     investments = pd.read_csv('./inputs/investments.csv')

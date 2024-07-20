@@ -203,10 +203,10 @@ div[data-testid="stDataFrameResizable"] > canvas > table >tbody > tr {
 
 
 /* LINES */
-
-.line {
-    width: 800px;
+.stright-line {
+    /* width: 99% !important; */
     box-shadow: 0px 0px 1px 0.3px #19105b !important;
+    margin: 0 auto !important;
 }
 
 
