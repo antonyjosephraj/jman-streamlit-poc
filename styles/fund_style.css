@@ -1,3 +1,7 @@
+*{
+    font-family: Arial !important;
+}
+
 .st-emotion-cache-4uzi61 {
     border-radius: 2px;
     box-shadow: 0px 0px 2px 1px #19105B;
@@ -89,6 +93,7 @@ div[data-testid="stDataFrameResizable"] > canvas > table >tbody > tr {
     flex-direction: column !important;
     /* text-align: center !important; */
     align-items: flex-start !important;
+    margin-bottom: 0 !important;
 }
 
 [data-testid="stSelectbox"] > div > div { 
@@ -103,8 +108,26 @@ div[data-testid="stDataFrameResizable"] > canvas > table >tbody > tr {
     color: #19105b !important;
     font-weight: 700 !important;
     font-size: 18px !important;
-    margin: 2px 0 !important;
+    margin: 0 !important;
+
 }
 
 
 
+.stright-line {
+    width: 99% !important;
+    box-shadow: 0px 0px 1px 0.3px #19105b !important;
+    margin: 0 auto !important;
+}
+
+.st-emotion-cache-isgwfk, .st-emotion-cache-nbjjx0, .st-emotion-cache-17mdqx7  {
+    border-radius: 2px !important;
+    border: none !important;
+    box-shadow: 0px 0px 3px 0.3px #19105b !important;
+}
+
+[data-testid="stHeadingWithActionElements"] > h1 {
+    height: 55px;
+    color: #19105b !important;
+    margin: 0 0 20px 0 !important;
+}    

@@ -20,8 +20,7 @@ def main():
     st.markdown(f'<style>{css}</style>', unsafe_allow_html=True)
 
     # Header
-    st.markdown("<h1 style='color: #19105B; padding:0;'>Portfolio Company 1</h1>", unsafe_allow_html=True)
-    st.divider()
+    st.markdown("<h1>Portfolio Company 1</h1>", unsafe_allow_html=True)
 
     # Header Buttons
     st.markdown('<div class="top-right"><button>Upload</button> <button>Download</button> </div>', unsafe_allow_html=True)
@@ -113,112 +112,102 @@ def main():
     with st.container(border=True):
         
         # columns - 1
-        col1, col2 = st.columns(2)
+        col1, col2 = st.columns(2, vertical_alignment="center")
 
         with col1:
 
-            def handle_date_change(date):
-                # st.write("Selected date:", date)
-                print('JJJJJJJJJJJ', date)
-                ss.min_date_pf1 = date
+            with st.container(height=200, border=True):
 
+                input_column1, input_column2, input_column3 = st.columns(3, vertical_alignment="center")
+                input_col1, input_col2, input_col3 = st.columns(3, vertical_alignment="center")
 
-            def get_current_date(value):
-                year = value.year
-                month = value.month
-                day = value.day
-                return year, month,
-        
-            input_column1, input_column2, input_column3 = st.columns(3)
-            with input_column1:
+                with input_column1:
 
-            # Investment of Date
-            # investment_date = st.date_input('Investment Date', dt.date(2022, 7, 6), format="YYYY-MM-DD" )
-            # investment_date = ''
-                if 'min_date_pf1' not in ss:
-                    investment_date = st.date_input('Investment Date', dt.date(2022, 7, 6), format="YYYY-MM-DD", min_value=None,  key='investment_min_date')
-                    ss.min_date_pf1 = investment_date
-            
-                else:
-                    # year, month, date = get_current_date(ss.min_date_pf1)
-                    investment_date = st.date_input('Investment Date2',  value=ss.min_date_pf1,  format="YYYY-MM-DD" )
-                    ss.min_date_pf1 = investment_date
+                    
+                # Investment of Date
+                # investment_date = st.date_input('Investment Date', dt.date(2022, 7, 6), format="YYYY-MM-DD" )
+                # investment_date = ''
+                    if 'min_date_pf1' not in ss:
+                        investment_date = st.date_input('Investment Date', dt.date(2022, 7, 6), format="YYYY-MM-DD", min_value=None,  key='investment_min_date')
+                        ss.min_date_pf1 = investment_date
+                
+                    else:
+                        # year, month, date = get_current_date(ss.min_date_pf1)
+                        investment_date = st.date_input('Investment Date',  value=ss.min_date_pf1,  format="YYYY-MM-DD" )
+                        ss.min_date_pf1 = investment_date
 
-                if ss.min_date_pf1 > ss.max_date_pf1:
-                    st.error('Please ensure that the Investment Date is before the Exit Date')
-                    ss.flagging_pf1 = False
-                else:
-                    ss.investments_amount_pf1.at[0, 'Date of Investment'] = ss.min_date_pf1
-                    ss.flagging_pf1 = True
-                    fetching_assumptions_data()
-            input_col1, input_col2, input_col3 = st.columns(3)
+                    if ss.min_date_pf1 > ss.max_date_pf1:
+                        st.error('Please ensure that the Investment Date is before the Exit Date')
+                        ss.flagging_pf1 = False
+                    else:
+                        ss.investments_amount_pf1.at[0, 'Date of Investment'] = ss.min_date_pf1
+                        ss.flagging_pf1 = True
+                        fetching_assumptions_data()
 
-            # lowcase_enddate = st.date_input('Low Case Date', dt.date(2023, 7, 16), format="YYYY-MM-DD")
-            # basecase_enddate = st.date_input('Base Case Date', dt.date(2024, 8, 4), format="YYYY-MM-DD")
-            # highcase_enddate = st.date_input('High Case Date', dt.date(2025, 9, 29), format="YYYY-MM-DD")
-            with input_col1:
-                if 'lowcase_enddate_pf1' not in ss:
-                    lowcase_enddate = st.date_input('Low Case Exit Date', dt.date(2023, 7, 16), format="YYYY-MM-DD")
-                    ss.lowcase_enddate_pf1 = lowcase_enddate
-                else:
-                    lowcase_enddate = st.date_input('Low Case Exit Date', value=ss.lowcase_enddate_pf1, format="YYYY-MM-DD")
-                    ss.lowcase_enddate_pf1 = lowcase_enddate
+                with input_col1:
+                    if 'lowcase_enddate_pf1' not in ss:
+                        lowcase_enddate = st.date_input('Low Case Exit Date', dt.date(2023, 7, 16), format="YYYY-MM-DD")
+                        ss.lowcase_enddate_pf1 = lowcase_enddate
+                    else:
+                        lowcase_enddate = st.date_input('Low Case Exit Date', value=ss.lowcase_enddate_pf1, format="YYYY-MM-DD")
+                        ss.lowcase_enddate_pf1 = lowcase_enddate
 
-                if lowcase_enddate < ss.min_date_pf1 and ss.flagging_pf1 == True:
-                    # ss.investments_data_pf1.at[0, 'Exit Date'] = ss.lowcase_enddate_pf1
-                    st.error('Please ensure that the Investment Date is before the Low Case Exit Date')
-                else:
-                    ss.lowcase_enddate_pf1 = lowcase_enddate
-                    ss.investments_data_pf1.at[0, 'Exit Date'] = ss.lowcase_enddate_pf1
-                    fetching_assumptions_data()
-            
-            with input_col2:
-                if 'basecase_enddate_pf1' not in ss:
-                    basecase_enddate = st.date_input('Base Case Exit Date', dt.date(2024, 8, 4), format="YYYY-MM-DD")
-                    ss.basecase_enddate_pf1 = basecase_enddate
-                else:
-                    basecase_enddate = st.date_input('Base Case Exit Date', value=ss.basecase_enddate_pf1, format="YYYY-MM-DD")
-                    ss.basecase_enddate_pf1 = basecase_enddate
+                    if lowcase_enddate < ss.min_date_pf1 and ss.flagging_pf1 == True:
+                        # ss.investments_data_pf1.at[0, 'Exit Date'] = ss.lowcase_enddate_pf1
+                        st.error('Please ensure that the Investment Date is before the Low Case Exit Date')
+                    else:
+                        ss.lowcase_enddate_pf1 = lowcase_enddate
+                        ss.investments_data_pf1.at[0, 'Exit Date'] = ss.lowcase_enddate_pf1
+                        fetching_assumptions_data()
+                
+                with input_col2:
+                    if 'basecase_enddate_pf1' not in ss:
+                        basecase_enddate = st.date_input('Base Case Exit Date', dt.date(2024, 8, 4), format="YYYY-MM-DD")
+                        ss.basecase_enddate_pf1 = basecase_enddate
+                    else:
+                        basecase_enddate = st.date_input('Base Case Exit Date', value=ss.basecase_enddate_pf1, format="YYYY-MM-DD")
+                        ss.basecase_enddate_pf1 = basecase_enddate
 
-                if basecase_enddate < ss.min_date_pf1  and ss.flagging_pf1 == True:
-                    # ss.investments_data_pf1.at[1, 'Exit Date'] = ss.basecase_enddate_pf1
-                    st.error('Please ensure that the Investment Date is before the Base Case Exit Date')
-                else:
-                    ss.basecase_enddate_pf1 = basecase_enddate
-                    ss.investments_data_pf1.at[1, 'Exit Date'] = ss.basecase_enddate_pf1
-                    fetching_assumptions_data()
+                    if basecase_enddate < ss.min_date_pf1  and ss.flagging_pf1 == True:
+                        # ss.investments_data_pf1.at[1, 'Exit Date'] = ss.basecase_enddate_pf1
+                        st.error('Please ensure that the Investment Date is before the Base Case Exit Date')
+                    else:
+                        ss.basecase_enddate_pf1 = basecase_enddate
+                        ss.investments_data_pf1.at[1, 'Exit Date'] = ss.basecase_enddate_pf1
+                        fetching_assumptions_data()
 
-            with input_col3:
+                with input_col3:
 
-                if 'highcase_enddate_pf1' not in ss:
-                    highcase_enddate = st.date_input('High Case Exit Date', dt.date(2025, 9, 29), format="YYYY-MM-DD")
-                    ss.highcase_enddate_pf1 = highcase_enddate
-                else:
-                    highcase_enddate = st.date_input('High Case Exit Date', ss.highcase_enddate_pf1, format="YYYY-MM-DD")
-                    ss.highcase_enddate_pf1 = highcase_enddate
+                    if 'highcase_enddate_pf1' not in ss:
+                        highcase_enddate = st.date_input('High Case Exit Date', dt.date(2025, 9, 29), format="YYYY-MM-DD")
+                        ss.highcase_enddate_pf1 = highcase_enddate
+                    else:
+                        highcase_enddate = st.date_input('High Case Exit Date', ss.highcase_enddate_pf1, format="YYYY-MM-DD")
+                        ss.highcase_enddate_pf1 = highcase_enddate
 
-                if highcase_enddate < ss.min_date_pf1 and ss.flagging_pf1 == True:
-                    # ss.investments_data_pf1.at[2, 'Exit Date'] = ss.highcase_enddate_pf1
-                    st.error('Please ensure that the Investment Date is before the High Case Exit Date')
-                else:
-                    ss.highcase_enddate_pf1 = highcase_enddate
-                    ss.investments_data_pf1.at[2, 'Exit Date'] = ss.highcase_enddate_pf1
-                    fetching_assumptions_data()
+                    if highcase_enddate < ss.min_date_pf1 and ss.flagging_pf1 == True:
+                        # ss.investments_data_pf1.at[2, 'Exit Date'] = ss.highcase_enddate_pf1
+                        st.error('Please ensure that the Investment Date is before the High Case Exit Date')
+                    else:
+                        ss.highcase_enddate_pf1 = highcase_enddate
+                        ss.investments_data_pf1.at[2, 'Exit Date'] = ss.highcase_enddate_pf1
+                        fetching_assumptions_data()
 
-            st.markdown("<div class='empty-space'></div>", unsafe_allow_html=True)
+            with st.container(height=400, border=True):
 
-            st.markdown("<h2 class='streamlit-tooltip'>Entry Metrics 📝<span class='tooltiptext'>Please input the entry metrics values</span></h2>", unsafe_allow_html=True)
-            investments_edited_df = de(ss.investments_amount_pf1, use_container_width=True, width=800, height=80, hide_index=True, column_order=["Investment at Entry", "EBITDA at Entry", "Multiple at Entry"]) 
+                st.markdown("<h2 class='streamlit-tooltip'>Entry Metrics 📝<span class='tooltiptext'>Please input the entry metrics values</span></h2>", unsafe_allow_html=True)
+                investments_edited_df = de(ss.investments_amount_pf1, use_container_width=True, width=800, height=80, hide_index=True, column_order=["Investment at Entry", "EBITDA at Entry", "Multiple at Entry"]) 
 
-            st.markdown("<h2 class='streamlit-tooltip'>Scenario Assumptions 📝<span class='tooltiptext'>Please input the scenario assumptions</span></h2>", unsafe_allow_html=True)
-            investments_details_v2 = de(ss.investments_data_pf1, use_container_width=True, height=150, hide_index=True, column_order=["Scenario", "Invested Amount", "EBITDA at Exit", "Multiple at Exit"],  disabled=["Scenario"])
+                st.markdown("<h2 class='streamlit-tooltip'>Scenario Assumptions 📝<span class='tooltiptext'>Please input the scenario assumptions</span></h2>", unsafe_allow_html=True)
+                investments_details_v2 = de(ss.investments_data_pf1, use_container_width=True, height=150, hide_index=True, column_order=["Scenario", "Invested Amount", "EBITDA at Exit", "Multiple at Exit"],  disabled=["Scenario"])
 
         # Columns - 2
         column1, column2 = st.columns(2)
 
         with column1:
-            st.markdown("<h2 class='streamlit-tooltip'>Cashflow Assumptions 📝 <span class='tooltiptext'>Please input the cashflow amounts</span></h2>", unsafe_allow_html=True)
-            assumptions_edited_df_v2 = de(ss.assumptions_data_pf1,  use_container_width=True, height=880, hide_index=True, disabled=["Date"])
+            with st.container(height=600, border=True):
+                st.markdown("<h2 class='streamlit-tooltip'>Cashflow Assumptions 📝 <span class='tooltiptext'>Please input the cashflow amounts</span></h2>", unsafe_allow_html=True)
+                assumptions_edited_df_v2 = de(ss.assumptions_data_pf1,  use_container_width=True, height=880, hide_index=True, disabled=["Date"])
 
 
         ebitda_entry_value = ss.investments_amount_pf1['EBITDA at Entry'].sum()
@@ -290,9 +279,9 @@ def main():
             return value_invt_v3
 
         with column2:
-            st.markdown("<h2 class='streamlit-tooltip'>Valuation Assumptions<span class='tooltiptext'>View the valuation assumptions values</span></h2>", unsafe_allow_html=True)
 
-            with st.container(height=400, border=True):
+            with st.container(height=600, border=True):
+                st.markdown("<h2 class='streamlit-tooltip'>Valuation Assumptions<span class='tooltiptext'>View the valuation assumptions values</span></h2>", unsafe_allow_html=True)
 
                 tab1, tab2, tab3, tab4, tab5, tab6 = st.tabs(["EBITDA", "Cash Flow", "Equity", "Ownership", "Value & Invt", "Multiple"])
                 
@@ -437,15 +426,17 @@ def main():
                     'selector': 'th',
                     'props': [
                         ('background-color', '#19105B'),
+                        ('opacity', '0.8'),
                         ('color', 'white'),
+                        ('border', '0.1px solid #e7e4e4'),
                         ('font-family', 'Arial, sans-serif'),
-                            ('font-size', '16px')
+                            ('font-size', '14px')
                         ]
                     }, 
                     {
                         'selector': 'td, th',
                         'props': [
-                            ('border', '2px solid #19105B')
+                            ('border', '0.1px solid #e7e4e4')
                         ]
                     }]
                 )
@@ -454,113 +445,121 @@ def main():
 
         with col2:
 
-            st.markdown("<h2  class='streamlit-tooltip'>Returns Calculations<span class='tooltiptext'>View the return calculations value</span></h2>", unsafe_allow_html=True)
-            st.write(revenue_return_styled_df.hide(axis="index").set_table_attributes('style="height:160px;"').to_html(), unsafe_allow_html=True)
-   
-
-        if st.button("Submit"):
+            with st.container():
+                st.markdown("<div style='text-align: center;'><h2 class='streamlit-tooltip'>Returns Calculations<span class='tooltiptext'>View the return calculations value</span></h2></div>", unsafe_allow_html=True)
+                st.write(revenue_return_styled_df.hide(axis="index").set_table_attributes('style="height:120px; margin: 0 auto; border-radius: 2px;"').to_html(), unsafe_allow_html=True)
             
-            # Update the investment Amount
-            if not ss.investments_amount_pf1.equals(investments_edited_df):
-                ss.investments_amount_pf1 = investments_edited_df
-                fetching_assumptions_data()
-
-            if not ss.investments_data_pf1.equals(investments_details_v2):
-                ss.investments_data_pf1 = investments_details_v2
-                fetching_assumptions_data()
             
-            if not ss.assumptions_data_pf1.equals(assumptions_edited_df_v2):
-                investment_update = assumptions_edited_df_v2
+            st.markdown("<div class='empty-space'></div>", unsafe_allow_html=True)
+            st.markdown("<div class='empty-space'></div>", unsafe_allow_html=True)
+    
+        
+            if st.button("Submit"):
+                
+                # Update the investment Amount
+                if not ss.investments_amount_pf1.equals(investments_edited_df):
+                    ss.investments_amount_pf1 = investments_edited_df
+                    fetching_assumptions_data()
 
-                low_case_sum_of_negatives = investment_update[investment_update['Low Case'] < 0]['Low Case'].sum()
-                base_case_sum_of_negatives = investment_update[investment_update['Base Case'] < 0]['Base Case'].sum()
-                high_case_sum_of_negatives = investment_update[investment_update['High Case'] < 0]['High Case'].sum()
-            
-                ss.assumptions_data_pf1 = assumptions_edited_df_v2
-                ss.investments_data_pf1.loc[ss.investments_data_pf1['Scenario'] == 'Low Case', 'Invested Amount'] = abs(low_case_sum_of_negatives)
-                ss.investments_data_pf1.loc[ss.investments_data_pf1['Scenario'] == 'Base Case', 'Invested Amount'] = abs(base_case_sum_of_negatives)
-                ss.investments_data_pf1.loc[ss.investments_data_pf1['Scenario'] == 'High Case', 'Invested Amount'] = abs(high_case_sum_of_negatives)
-            
-            if not ss.netdebt_and_cashflow_df_pf1.equals(netdebt_and_cashflow_edited_df_pf1):
-                ss.netdebt_and_cashflow_df_pf1 =netdebt_and_cashflow_edited_df_pf1
-            
-            if not ss.ownership_df_pf1.equals(ownership_edited_df_pf1):
-                ss.ownership_df_pf1 = ownership_edited_df_pf1
-            
-            rr()
+                if not ss.investments_data_pf1.equals(investments_details_v2):
+                    ss.investments_data_pf1 = investments_details_v2
+                    fetching_assumptions_data()
+                
+                if not ss.assumptions_data_pf1.equals(assumptions_edited_df_v2):
+                    investment_update = assumptions_edited_df_v2
 
-    with st.container(border=True):
+                    low_case_sum_of_negatives = investment_update[investment_update['Low Case'] < 0]['Low Case'].sum()
+                    base_case_sum_of_negatives = investment_update[investment_update['Base Case'] < 0]['Base Case'].sum()
+                    high_case_sum_of_negatives = investment_update[investment_update['High Case'] < 0]['High Case'].sum()
+                
+                    ss.assumptions_data_pf1 = assumptions_edited_df_v2
+                    ss.investments_data_pf1.loc[ss.investments_data_pf1['Scenario'] == 'Low Case', 'Invested Amount'] = abs(low_case_sum_of_negatives)
+                    ss.investments_data_pf1.loc[ss.investments_data_pf1['Scenario'] == 'Base Case', 'Invested Amount'] = abs(base_case_sum_of_negatives)
+                    ss.investments_data_pf1.loc[ss.investments_data_pf1['Scenario'] == 'High Case', 'Invested Amount'] = abs(high_case_sum_of_negatives)
+                
+                if not ss.netdebt_and_cashflow_df_pf1.equals(netdebt_and_cashflow_edited_df_pf1):
+                    ss.netdebt_and_cashflow_df_pf1 =netdebt_and_cashflow_edited_df_pf1
+                
+                if not ss.ownership_df_pf1.equals(ownership_edited_df_pf1):
+                    ss.ownership_df_pf1 = ownership_edited_df_pf1
+                
+                rr()
 
-        st.markdown("<div style='text-align: center;'><h2 style='color: #19105B; font-size:28px;'class='streamlit-tooltip'>Valuation Waterfall <span class='tooltiptext'>View the PortCo 1 Valuation Waterfall chart</span></h2></div>", unsafe_allow_html=True)
+        with st.container(height=650, border=None):
 
-        # Waterfall Data 
-        waterfall_data_pf1 = pd.concat([ss.editda_multiple_df_pf1, ss.netdebt_and_cashflow_df_pf1, ss.equity_df_pf1, ss.ownership_df_pf1, ss.value_and_investment_df_pf1, ss.money_multiple_df_pf1], ignore_index=True)
-        investments_at_entry_amount = ss.investments_amount_pf1['Investment at Entry'].sum()
+            st.markdown("<div style='text-align: center;'><h2 style='color: #19105B; font-size:28px;'class='streamlit-tooltip'>Valuation Waterfall <span class='tooltiptext'>View the PortCo 1 Valuation Waterfall chart</span></h2></div>", unsafe_allow_html=True)
 
-        waterfall_options_pf1 = ['Low Case', 'Base Case', 'High Case']
-        selected_option_pf1 = st.selectbox('Select a Scenario for PortCo 1:', waterfall_options_pf1)
-        ss.selected_option_pf1 = selected_option_pf1
+            # Waterfall Data 
+            waterfall_data_pf1 = pd.concat([ss.editda_multiple_df_pf1, ss.netdebt_and_cashflow_df_pf1, ss.equity_df_pf1, ss.ownership_df_pf1, ss.value_and_investment_df_pf1, ss.money_multiple_df_pf1], ignore_index=True)
+            investments_at_entry_amount = ss.investments_amount_pf1['Investment at Entry'].sum()
 
-        ebitda_value = 0
+            select_column1, select_column12, select_column13 = st.columns(3, vertical_alignment="center")
 
-        if ss.selected_option_pf1 in waterfall_data_pf1.columns:
-            case_value = waterfall_data_pf1.loc[waterfall_data_pf1['Calc'] == 'ARR /Rev /EBITDA', ss.selected_option_pf1].values
-            if case_value == None:
-                case_value = 0
-            entry_value = waterfall_data_pf1.loc[waterfall_data_pf1['Calc'] == 'ARR /Rev /EBITDA', 'Entry'].values
-            actual_entry_value = int(case_value) - int(entry_value)
-            multiple = waterfall_data_pf1.loc[waterfall_data_pf1['Calc'] == 'Multiple', ss.selected_option_pf1].values
-            net_debt = waterfall_data_pf1.loc[waterfall_data_pf1['Calc'] == 'Net Debt', ss.selected_option_pf1].values
-            cash_flow_adj = waterfall_data_pf1.loc[waterfall_data_pf1['Calc'] == 'Cash flow adj', ss.selected_option_pf1].values
-            if multiple == None:
-                multiple = 0
-            if net_debt == None:
-                net_debt = 0
-            if cash_flow_adj == None:
-                cash_flow_adj = 0
+            with select_column1:
+                waterfall_options_pf1 = ['Low Case', 'Base Case', 'High Case']
+                selected_option_pf1 = st.selectbox('Select a Scenario for PortCo 1:', waterfall_options_pf1)
+                ss.selected_option_pf1 = selected_option_pf1
 
-            total_value = int(multiple) + int(net_debt) + int(cash_flow_adj)
-            ownership_data_v2 = waterfall_data_pf1.loc[waterfall_data_pf1['Calc'] == 'Ownership %', ss.selected_option_pf1].values[0]
-            if ownership_data_v2 == None:
-                ownership_data_v2 = 0
-            ebitda_value = (actual_entry_value * total_value) * (int(ownership_data_v2) / 100)
+            ebitda_value = 0
 
-        multiple_growth = 0
-        if ss.selected_option_pf1 in waterfall_data_pf1.columns:
-            case_value1 = waterfall_data_pf1.loc[waterfall_data_pf1['Calc'] == 'Multiple', 'Entry'].values
-            case_value2 = waterfall_data_pf1.loc[waterfall_data_pf1['Calc'] == 'Multiple', ss.selected_option_pf1].values
-            multi_minus_value = int(case_value2) - int(case_value1)
-            total_value1 = waterfall_data_pf1.loc[waterfall_data_pf1['Calc'] == 'ARR /Rev /EBITDA', ss.selected_option_pf1].values
-            total_value2 = waterfall_data_pf1.loc[waterfall_data_pf1['Calc'] == 'Net Debt', 'Entry'].values
+            if ss.selected_option_pf1 in waterfall_data_pf1.columns:
+                case_value = waterfall_data_pf1.loc[waterfall_data_pf1['Calc'] == 'ARR /Rev /EBITDA', ss.selected_option_pf1].values
+                if case_value == None:
+                    case_value = 0
+                entry_value = waterfall_data_pf1.loc[waterfall_data_pf1['Calc'] == 'ARR /Rev /EBITDA', 'Entry'].values
+                actual_entry_value = int(case_value) - int(entry_value)
+                multiple = waterfall_data_pf1.loc[waterfall_data_pf1['Calc'] == 'Multiple', ss.selected_option_pf1].values
+                net_debt = waterfall_data_pf1.loc[waterfall_data_pf1['Calc'] == 'Net Debt', ss.selected_option_pf1].values
+                cash_flow_adj = waterfall_data_pf1.loc[waterfall_data_pf1['Calc'] == 'Cash flow adj', ss.selected_option_pf1].values
+                if multiple == None:
+                    multiple = 0
+                if net_debt == None:
+                    net_debt = 0
+                if cash_flow_adj == None:
+                    cash_flow_adj = 0
 
-            if total_value1 == None:
-                total_value1 = 0
-            if total_value2 == None:
-                total_value2 = 0
+                total_value = int(multiple) + int(net_debt) + int(cash_flow_adj)
+                ownership_data_v2 = waterfall_data_pf1.loc[waterfall_data_pf1['Calc'] == 'Ownership %', ss.selected_option_pf1].values[0]
+                if ownership_data_v2 == None:
+                    ownership_data_v2 = 0
+                ebitda_value = (actual_entry_value * total_value) * (int(ownership_data_v2) / 100)
 
-            total_value3 = int(total_value1) + int(total_value2)
-            ownership_data_v2 = waterfall_data_pf1.loc[waterfall_data_pf1['Calc'] == 'Ownership %', ss.selected_option_pf1].values[0]
-            if ownership_data_v2 == None:
-                ownership_data_v2 = 0
-            multiple_growth = (multi_minus_value * total_value3) * (int(ownership_data_v2)/ 100)
+            multiple_growth = 0
+            if ss.selected_option_pf1 in waterfall_data_pf1.columns:
+                case_value1 = waterfall_data_pf1.loc[waterfall_data_pf1['Calc'] == 'Multiple', 'Entry'].values
+                case_value2 = waterfall_data_pf1.loc[waterfall_data_pf1['Calc'] == 'Multiple', ss.selected_option_pf1].values
+                multi_minus_value = int(case_value2) - int(case_value1)
+                total_value1 = waterfall_data_pf1.loc[waterfall_data_pf1['Calc'] == 'ARR /Rev /EBITDA', ss.selected_option_pf1].values
+                total_value2 = waterfall_data_pf1.loc[waterfall_data_pf1['Calc'] == 'Net Debt', 'Entry'].values
 
-        asset_value_v1 = waterfall_data_pf1.loc[waterfall_data_pf1['Calc'] == 'Value', 'Low Case'].values
-        asset_value_v2 = waterfall_data_pf1.loc[waterfall_data_pf1['Calc'] == 'Value', 'Base Case'].values
-        asset_value_v3 = waterfall_data_pf1.loc[waterfall_data_pf1['Calc'] == 'Value', 'High Case'].values
+                if total_value1 == None:
+                    total_value1 = 0
+                if total_value2 == None:
+                    total_value2 = 0
 
-        asset_value_total = int(asset_value_v1) + int(asset_value_v2) + int(asset_value_v3)
+                total_value3 = int(total_value1) + int(total_value2)
+                ownership_data_v2 = waterfall_data_pf1.loc[waterfall_data_pf1['Calc'] == 'Ownership %', ss.selected_option_pf1].values[0]
+                if ownership_data_v2 == None:
+                    ownership_data_v2 = 0
+                multiple_growth = (multi_minus_value * total_value3) * (int(ownership_data_v2)/ 100)
 
-        financial_engineering = (investments_at_entry_amount + ebitda_value + multiple_growth ) -  asset_value_total
+            asset_value_v1 = waterfall_data_pf1.loc[waterfall_data_pf1['Calc'] == 'Value', 'Low Case'].values
+            asset_value_v2 = waterfall_data_pf1.loc[waterfall_data_pf1['Calc'] == 'Value', 'Base Case'].values
+            asset_value_v3 = waterfall_data_pf1.loc[waterfall_data_pf1['Calc'] == 'Value', 'High Case'].values
 
-        waterfall_data_flow_pf1 = {
-            'Category': ['Value at investment', 'EBITDA growth', 'Multiple growth', 'Financial engineering', 'Asset value'],
-            'Values': [investments_at_entry_amount, ebitda_value, multiple_growth, financial_engineering, asset_value_total  ]
-        }
+            asset_value_total = int(asset_value_v1) + int(asset_value_v2) + int(asset_value_v3)
+
+            financial_engineering = (investments_at_entry_amount + ebitda_value + multiple_growth ) -  asset_value_total
+
+            waterfall_data_flow_pf1 = {
+                'Category': ['Value at investment', 'EBITDA growth', 'Multiple growth', 'Financial engineering', 'Asset value'],
+                'Values': [investments_at_entry_amount, ebitda_value, multiple_growth, financial_engineering, asset_value_total  ]
+            }
 
 
-        waterfall_data_flow_df_pf1 = pd.DataFrame(waterfall_data_flow_pf1)
+            waterfall_data_flow_df_pf1 = pd.DataFrame(waterfall_data_flow_pf1)
 
-        with st.form("my_form"):
+                
             fig = go.Figure(go.Waterfall(
                 name = "20", 
                 # orientation = "v",
@@ -609,9 +608,6 @@ def main():
 
             st.plotly_chart(fig, theme="streamlit")
 
-            submitted = st.form_submit_button("Submit")
-            if submitted:
-                st.write("slider")
 
 
 if __name__ == '__main__':

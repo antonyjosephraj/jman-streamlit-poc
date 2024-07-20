@@ -1,10 +1,14 @@
+*{
+    font-family: Arial !important;
+}
+
 [data-testid="stAppViewBlockContainer"]{
 padding:30px;
 }
  
 hr {
-    margin: 5px 0 20px 0;
-    padding: 1px;
+    margin:0 !important;
+    height: 0.5px !important;
     background-color: #19105B;
 }
 div[data-testid="stDataFrameResizable"] > canvas > table > thead > tr > th {
@@ -20,25 +24,43 @@ div[data-testid="stDataFrameResizable"] > canvas > table >tbody > tr {
     position: relative;
 }
 .top-right {
-    position: absolute; top: -80px; right: 5px;
+    position: absolute; 
+    top: -35px; 
+    right: 0;
     flex:row;
 } 
 .top-right > button:first-child {
-    background-color: #19105B ;
-    border: 1px solid black;
-    padding: 8px 10px;
-    border-radius: 10px;
-    color: white;
+    color: white !important;
+    background-color: #19105B !important;
+    width: 150px !important;
+    border: none !important;
+    border-radius: 3px !important;
+    box-shadow: 0px 0px 2px 1px #19105B !important;
+    font-weight: 700 !important;
+    font-size: 20px !important;
+    letter-spacing: 0.5px !important;
+    min-height: 2.5rem !important;
 }
 
 .top-right > button:nth-child(2) {
-    background-color: #19105B ;
-    border: 1px solid black;
-    padding: 8px 10px;
-    border-radius: 10px;
-    color: white;
     margin-left: 5px;
+    color: white !important;
+    background-color: #19105B !important;
+    width: 150px !important;
+    border: none !important;
+    border-radius: 3px !important;
+    box-shadow: 0px 0px 2px 1px #19105B !important;
+    font-weight: 700 !important;
+    font-size: 20px !important;
+    letter-spacing: 0.5px !important;
+    min-height: 2.5rem !important;
 }
+
+[data-testid="stHeadingWithActionElements"] > h1 {
+    height: 55px;
+    color: #19105b !important;
+    margin: 5px 0 !important;
+}    
 
 .dvn-scroll-inner{
     border: 2px solid #19105B;
@@ -115,6 +137,7 @@ div[data-testid="stDataFrameResizable"] > canvas > table >tbody > tr {
     flex-direction: column !important;
     /* text-align: center !important; */
     align-items: flex-start !important;
+    margin: 0 !important;
 }
 
 [data-testid="stDateInput"] > div > div { 
@@ -127,7 +150,7 @@ div[data-testid="stDataFrameResizable"] > canvas > table >tbody > tr {
     color: #19105b;
     font-weight: 700;
     font-size: 18px;
-    margin: 2px 0 !important;
+    margin: 0 !important;
 }
 
 .empty-space {
@@ -160,16 +183,13 @@ div[data-testid="stDataFrameResizable"] > canvas > table >tbody > tr {
 }
 
 /* SELECT BOX */
-[data-testid="stSelectbox"] {
-    margin-left: 300px !important;
-}
-
 [data-testid="stSelectbox"] > [data-testid="stWidgetLabel"]  { 
     display: flex !important;
     justify-content: center !important;
     flex-direction: column !important;
     /* text-align: center !important; */
     align-items: flex-start !important;
+    margin-bottom: 0 !important;
 }
 
 [data-testid="stSelectbox"] > div > div { 
@@ -181,22 +201,28 @@ div[data-testid="stDataFrameResizable"] > canvas > table >tbody > tr {
 
 /* WATERFALL CHARTS */
 
-[data-testid="baseButton-secondaryFormSubmit"] {
-    display: none !important;
+
+/* LINES */
+
+.line {
+    width: 800px;
+    box-shadow: 0px 0px 1px 0.3px #19105b !important;
 }
-[data-testid="stForm"] {
-    box-shadow: none !important;
+
+
+.st-emotion-cache-1j8dcue, .st-emotion-cache-11pla4g, .st-emotion-cache-1y6asi2 {
+    border-radius: 2px !important;
     border: none !important;
-    padding: 0 300px !important;
+    box-shadow: 0px 0px 3px 0.3px #19105b !important;
 }
 
-
-
-
-
-
-
-
+.st-emotion-cache-r2b2fy {
+    border: none !important;
+    width: 70% !important;
+    margin: 0 auto !important;
+    border-radius: 2px !important;
+    box-shadow: 0px 0px 3px 0.3px #19105b !important;
+}
 
 
 

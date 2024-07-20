@@ -18,8 +18,7 @@ def main():
     st.markdown(f'<style>{css}</style>', unsafe_allow_html=True)
 
     # Header
-    st.markdown("<h1 style='color: #19105B;padding:0; text-align:center;' >Fund Summary</h1>", unsafe_allow_html=True)
-    st.divider()
+    st.markdown("<h1>Fund Summary</h1>", unsafe_allow_html=True)
 
     # Collecting All Data
     data_investments_details_pf1 = ss.investments_data_pf1
@@ -39,31 +38,33 @@ def main():
 
     with st.container(border=True):
 
-        col1, col2 = st.columns(2)
+        col1, col2 = st.columns(2, vertical_alignment="center")
+
 
         with col1:
 
-            st.markdown("<h2 class='streamlit-tooltip'>Select a Scenario for Each PortCo<span class='tooltiptext'>Choose Scenario for Each PortCo</span></h2>", unsafe_allow_html=True)
+            with st.container(height=220, border=True):
 
-            st.markdown("<div class='empty-space'></div>", unsafe_allow_html=True)
-            select_column1, select_column12, select_column3 = st.columns(3)
-            select_column21, select_column22, select_column23 = st.columns(3)
-            select_column31, select_column32, select_column33 = st.columns(3)
+                st.markdown("<h2 class='streamlit-tooltip'>Select a scenario for each PortCo<span class='tooltiptext'>Choose Scenario for Each PortCo</span></h2>", unsafe_allow_html=True)
+                
+                select_column1, select_column12, select_column13 = st.columns(3, vertical_alignment="center")
+                select_column21, select_column22, select_column23 = st.columns(3)
+                select_column31, select_column32, select_column33 = st.columns(3)
+                
+                with select_column1:
+                    portco1_options = ['Low Case', 'Base Case', 'High Case']
+                    portco1_selected_option = st.selectbox('PortCo 1:', portco1_options)
+                    ss.portco1_selected_option = portco1_selected_option
 
-            with select_column1:
-                portco1_options = ['Low Case', 'Base Case', 'High Case']
-                portco1_selected_option = st.selectbox('PortCo 1:', portco1_options)
-                ss.portco1_selected_option = portco1_selected_option
-
-            with select_column21:
-                portco2_options = ['Base Case', 'Low Case', 'High Case' ]
-                portco2_selected_option = st.selectbox('PortCo 2:', portco2_options)
-                ss.portco2_selected_option = portco2_selected_option
-            
-            with select_column31:
-                portco3_options = ['High Case', 'Low Case', 'Base Case']
-                portco3_selected_option = st.selectbox('PortCo 3:', portco3_options)
-                ss.portco3_selected_option = portco3_selected_option
+                with select_column12:
+                    portco2_options = ['Base Case', 'Low Case', 'High Case' ]
+                    portco2_selected_option = st.selectbox('PortCo 2:', portco2_options)
+                    ss.portco2_selected_option = portco2_selected_option
+                
+                with select_column13:
+                    portco3_options = ['High Case', 'Low Case', 'Base Case']
+                    portco3_selected_option = st.selectbox('PortCo 3:', portco3_options)
+                    ss.portco3_selected_option = portco3_selected_option
 
 
         # col11= st.columns(1)
@@ -140,9 +141,11 @@ def main():
                             df.at[2, 'Return (calculated)'] = data_revenue_return_pf3.at[2, 'Return (calculated)']
                             df.at[2, 'IRR (calculated)'] = data_revenue_return_pf3.at[2, 'IRR (calculated)']
 
-        with col2:
-            st.markdown("<h2 class='streamlit-tooltip'>PortCo Assumptions <span class='tooltiptext'>View the portCo assumptions values</span></h2>", unsafe_allow_html=True)
+
+        with st.container(height=300, border=True):
+            st.markdown("<div style='text-align: center;'><h2 class='streamlit-tooltip'>PortCo Assumptions <span class='tooltiptext'>View the portCo assumptions values</span></h2></div>", unsafe_allow_html=True)
             st.markdown(df.style.hide(axis="index").set_table_attributes('style="margin: 0 auto; height: 150px;"').to_html(), unsafe_allow_html=True)
+
 
         df1 = df
         df1['Return (calculated)'] = pd.to_numeric(df1['Return (calculated)'].str.replace('x', ''))
@@ -183,11 +186,9 @@ def main():
         fun_level_data_styled_df = style_dataframe(fun_level_data_df)
 
         with col2:
-            st.markdown("<div class='empty-space'></div>", unsafe_allow_html=True)
-            st.markdown("<h2 class='streamlit-tooltip'>Fund Returns<span class='tooltiptext'>View the fund returns values</span></h2>", unsafe_allow_html=True)
-            st.write(fun_level_data_styled_df.hide(axis="index").to_html(), unsafe_allow_html=True)
+            st.markdown("<div style='text-align: center;'><h2 class='streamlit-tooltip'>Fund Returns<span class='tooltiptext'>View the fund returns values</span></h2></div>", unsafe_allow_html=True)
+            st.write(fun_level_data_styled_df.hide(axis="index").set_table_attributes('style="margin: 0 auto;"').to_html(), unsafe_allow_html=True)
 
-        st.markdown('</div>', unsafe_allow_html=True)
 
         # Get Assumptions Data
         assumptions_data_portco1 = ss.assumptions_data_pf1
@@ -297,83 +298,84 @@ def main():
                 'Values': [sum_invested_captital_amount, sum_asset_value_amount]
         })
 
-        st.markdown("<div class='empty-space'></div>", unsafe_allow_html=True)
-        st.markdown("<div class='empty-space'></div>", unsafe_allow_html=True)
-        st.markdown("<h2 class='streamlit-tooltip'>Fund Summary Charts<span class='tooltiptext'>Funds return chart views</span></h2>", unsafe_allow_html=True)
-
-        # Columns - 2:
-        col1, col2 = st.columns(2)
-
-        with col1:
-            colors = ['#19105B', '#FF6196']
-            
-            fig, ax = plt.subplots(figsize=(9.5, 6))
-            bin_width = 0.3
-
-            ax.bar(fund_level_report_df_v5['Category'], fund_level_report_df_v5['Values'], color=colors, width=bin_width)
-
-            # Customize labels and title
-            # ax.set_xlabel('Fund Level Categories', color='#19105B', fontsize=10)
-            ax.set_ylabel('£', color='#19105B', fontsize=10)
-            ax.set_title('Fund Returns', color='#FF6196', fontsize=10)
-
-            ax.tick_params(axis='x', labelsize=8, labelcolor='#19105B')
-            ax.tick_params(axis='y', labelsize=8, labelcolor='#19105B')
-
-            ax.set_yticklabels([f'{int(val//1000)}k' for val in ax.get_yticks()])
-
-            ax.grid(True, axis='y', linestyle='-', color='#19105B', alpha=0.1)  # Change axis to 'x' or 'both' if needed
-            ax.spines['top'].set_visible(False)
-            ax.spines['right'].set_visible(False)
-            # ax.spines['bottom'].set_visible(False)
-            # ax.spines['left'].set_visible(False)
-
-            # Show plot in Streamlit
-            st.pyplot(fig)
-
-            # st.bar_chart(fund_level_report_df_v5, x="Index", y=['Invested Capital', 'Asset Value'])
-
-        with col2:
 
 
-            # Create the bar chart
-            fig1, ax1 = plt.subplots(figsize=(9, 6))
+        with st.container(height=800, border=True):
+            st.markdown("<div style='text-align: center;'><h2 class='streamlit-tooltip'>Fund Summary Charts<span class='tooltiptext'>Funds return chart views</span></h2></div>", unsafe_allow_html=True)
+    
+            # Columns - 2:
+            col1, col2 = st.columns(2)
 
-            unique_years = fund_level_report_df_v3['Year'].apply(int).unique()
-            
-            # Create stacked bars
-            ax1.bar(fund_level_report_df_v3['Year'], fund_level_report_df_v3['Invested Capital'], color='#19105B', label='Invested Capital')
-            ax1.bar(fund_level_report_df_v3['Year'], fund_level_report_df_v3['Asset Value'], color='#FF6196', label='Asset Value')
-            ax1.bar(fund_level_report_df_v3['Year'], fund_level_report_df_v3['Residual Value'], color='#FFA0C0', label='Residual Value')
+            with col1:
+                colors = ['#19105B', '#FF6196']
+                
+                fig, ax = plt.subplots(figsize=(9.5, 6))
+                bin_width = 0.3
 
-            ax2 = ax1.twinx()
-            ax1.plot(fund_level_report_df_v3['Year'], fund_level_report_df_v3['Total Returns'],  color='b', marker='o', label='Total Returns')
-            
-            # Add labels and title
-            # ax1.set_xlabel('Years', color='#19105B', fontsize=10)
-            ax1.set_ylabel('£', color='#19105B', fontsize=10)
-            plt.title('Returns Overtime', color='#FF6196', fontsize=10)
-            
-            plt.xticks(unique_years)
-            # Add legend
-            ax1.legend(loc='lower right')
-            # ax2.legend(loc='upper right')
+                ax.bar(fund_level_report_df_v5['Category'], fund_level_report_df_v5['Values'], color=colors, width=bin_width)
 
-            ax1.tick_params(axis='x', labelsize=7, labelcolor='#19105B')
-            ax1.tick_params(axis='y', labelsize=7, labelcolor='#19105B')
-            ax2.tick_params(axis='y', labelsize=0)
+                # Customize labels and title
+                # ax.set_xlabel('Fund Level Categories', color='#19105B', fontsize=10)
+                ax.set_ylabel('£', color='#19105B', fontsize=10)
+                ax.set_title('Fund Returns', color='#FF6196', fontsize=10)
 
-            ax1.set_yticklabels([f'{int(val//1000)}k' for val in ax1.get_yticks()])
-            # ax2.set_yticklabels([f'{int(val//1000)}k' for val in ax1.get_yticks()])
+                ax.tick_params(axis='x', labelsize=8, labelcolor='#19105B')
+                ax.tick_params(axis='y', labelsize=8, labelcolor='#19105B')
 
-            ax1.grid(True, axis='y', linestyle='-', color='#19105B', alpha=0.1)  # Change axis to 'x' or 'both' if needed
-            ax1.spines['top'].set_visible(False)
-            ax1.spines['right'].set_visible(False)
+                ax.set_yticklabels([f'{int(val//1000)}k' for val in ax.get_yticks()])
 
-            ax2.spines['top'].set_visible(False)
-            ax2.spines['right'].set_visible(False)
-            # Show the plot
-            st.pyplot(fig1)
+                ax.grid(True, axis='y', linestyle='-', color='#19105B', alpha=0.1)  # Change axis to 'x' or 'both' if needed
+                ax.spines['top'].set_visible(False)
+                ax.spines['right'].set_visible(False)
+                # ax.spines['bottom'].set_visible(False)
+                # ax.spines['left'].set_visible(False)
+
+                # Show plot in Streamlit
+                st.pyplot(fig)
+
+                # st.bar_chart(fund_level_report_df_v5, x="Index", y=['Invested Capital', 'Asset Value'])
+
+            with col2:
+
+
+                # Create the bar chart
+                fig1, ax1 = plt.subplots(figsize=(9, 6))
+
+                unique_years = fund_level_report_df_v3['Year'].apply(int).unique()
+                
+                # Create stacked bars
+                ax1.bar(fund_level_report_df_v3['Year'], fund_level_report_df_v3['Invested Capital'], color='#19105B', label='Invested Capital')
+                ax1.bar(fund_level_report_df_v3['Year'], fund_level_report_df_v3['Asset Value'], color='#FF6196', label='Asset Value')
+                ax1.bar(fund_level_report_df_v3['Year'], fund_level_report_df_v3['Residual Value'], color='#FFA0C0', label='Residual Value')
+
+                ax2 = ax1.twinx()
+                ax1.plot(fund_level_report_df_v3['Year'], fund_level_report_df_v3['Total Returns'],  color='b', marker='o', label='Total Returns')
+                
+                # Add labels and title
+                # ax1.set_xlabel('Years', color='#19105B', fontsize=10)
+                ax1.set_ylabel('£', color='#19105B', fontsize=10)
+                plt.title('Returns Overtime', color='#FF6196', fontsize=10)
+                
+                plt.xticks(unique_years)
+                # Add legend
+                ax1.legend(loc='lower right')
+                # ax2.legend(loc='upper right')
+
+                ax1.tick_params(axis='x', labelsize=7, labelcolor='#19105B')
+                ax1.tick_params(axis='y', labelsize=7, labelcolor='#19105B')
+                ax2.tick_params(axis='y', labelsize=0)
+
+                ax1.set_yticklabels([f'{int(val//1000)}k' for val in ax1.get_yticks()])
+                # ax2.set_yticklabels([f'{int(val//1000)}k' for val in ax1.get_yticks()])
+
+                ax1.grid(True, axis='y', linestyle='-', color='#19105B', alpha=0.1)  # Change axis to 'x' or 'both' if needed
+                ax1.spines['top'].set_visible(False)
+                ax1.spines['right'].set_visible(False)
+
+                ax2.spines['top'].set_visible(False)
+                ax2.spines['right'].set_visible(False)
+                # Show the plot
+                st.pyplot(fig1)
 
 if __name__ == '__main__':
     main()
