@@ -124,6 +124,10 @@ div[data-testid="stDataFrameResizable"] > canvas > table >tbody > tr {
     box-shadow: 0px 0px 2px 1px #FF6196 !important;
 }
 
+[data-testid="baseButton-secondary"]:active {
+    box-shadow: 0px 0px 5px 1px #19105B !important;
+}
+
 /* INPUT WIDGETS */
 [data-testid="baseButton-secondary"] > [data-testid="stMarkdownContainer"] > p {
     color: #fff !important;
