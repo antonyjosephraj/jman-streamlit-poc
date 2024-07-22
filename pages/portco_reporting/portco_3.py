@@ -273,7 +273,7 @@ def main():
             value = 1 if value == None else value
             investments = 1 if investments == None else investments
 
-            value_invt = value / investments
+            value_invt = float(value) / float(investments)
             value_invt_v2 = f"{value_invt:.1f}"
             value_invt_v3 = str(value_invt_v2) + 'x' 
             return value_invt_v3
@@ -344,13 +344,18 @@ def main():
                 value_base_case = calculate_value(concatenated_df_v2, 'Base Case')
                 value_high_case = calculate_value(concatenated_df_v2, 'High Case')
 
+                investments_at_entry_v2 = format(investments_at_entry, ".1f")
+                value_entry_v2 = format(value_entry, ".1f")
+                value_low_case_v2 = format(value_low_case, ".1f")
+                value_base_case_v2 = format(value_base_case, ".1f")
+                value_high_case_v2 = format(value_high_case, ".1f")
 
                 value_and_investment = {
                     'Calc': ['Value', 'Investment'],
-                    'Entry':[value_entry, investments_at_entry],
-                    'Low Case':[value_low_case, investments_at_entry],
-                    'Base Case':[value_base_case, investments_at_entry],
-                    'High Case':[value_high_case, investments_at_entry]
+                    'Entry':[value_entry_v2, investments_at_entry_v2],
+                    'Low Case':[value_low_case_v2, investments_at_entry_v2],
+                    'Base Case':[value_base_case_v2, investments_at_entry_v2],
+                    'High Case':[value_high_case_v2, investments_at_entry_v2]
                 }
 
                 value_and_investment_df = pd.DataFrame(value_and_investment)
@@ -540,7 +545,7 @@ def main():
             asset_value_v2 = waterfall_data_pf3.loc[waterfall_data_pf3['Calc'] == 'Value', 'Base Case'].values
             asset_value_v3 = waterfall_data_pf3.loc[waterfall_data_pf3['Calc'] == 'Value', 'High Case'].values
 
-            asset_value_total = int(asset_value_v1) + int(asset_value_v2) + int(asset_value_v3)
+            asset_value_total = float(asset_value_v1) + float(asset_value_v2) + float(asset_value_v3)
 
             financial_engineering = (investments_at_entry_amount + ebitda_value + multiple_growth ) - asset_value_total
 
