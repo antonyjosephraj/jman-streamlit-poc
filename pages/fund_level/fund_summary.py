@@ -155,7 +155,7 @@ def main():
         total_investment_amout = format(total_investment_amout, ",.1f")
         total_return_amount = df1['Return (calculated)'].sum()
         total_return_amount = total_return_amount
-        total_return_amount_v2 = str(total_return_amount) + ' x'
+        total_return_amount_v2 = str(format(total_return_amount,".1f")) + ' x'
 
         fun_level_data = {
             'Invested Amount': [total_investment_amout],
