@@ -200,7 +200,7 @@ def main():
                 investments_edited_df = de(ss.investments_amount_pf1, use_container_width=True, width=800, height=80, hide_index=True, column_order=["Investment at Entry", "EBITDA at Entry", "Multiple at Entry"]) 
 
                 st.markdown("<h2 class='streamlit-tooltip'>Scenario Assumptions 📝<span class='tooltiptext'>Please input the scenario assumptions</span></h2>", unsafe_allow_html=True)
-                investments_details_v2 = de(ss.investments_data_pf1, use_container_width=True, height=150, hide_index=True, column_order=["Scenario", "Invested Amount", "EBITDA at Exit", "Multiple at Exit"],  disabled=["Scenario"])
+                investments_details_v2 = de(ss.investments_data_pf1, use_container_width=True, height=150, hide_index=True, column_order=["Scenario", "Invested Amount", "EBITDA at Exit", "Multiple at Exit"],  disabled=["Scenario", "Invested Amount"])
 
         # Columns - 2
         column1, column2 = st.columns(2)
