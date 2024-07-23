@@ -63,10 +63,7 @@ def main():
             height: 50px;
         }
 
-        [data-testid="stSelectbox"] {
-            width:300px!important;
-            margin: 5px 0;
-        }
+
 
         """,
         unsafe_allow_html=True, 

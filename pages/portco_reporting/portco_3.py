@@ -116,7 +116,9 @@ def main():
 
         with col1:
 
-            with st.container(height=200, border=True):
+            with st.container(height=230, border=True):
+
+                st.markdown("<h2 class='streamlit-tooltip'>Entry and Exit Dates 📝<span class='tooltiptext'>Input to Entry and Exit Dates</span> </h2>", unsafe_allow_html=True)
 
                 input_column1, input_column2, input_column3 = st.columns(3, vertical_alignment="center")
                 input_col1, input_col2, input_col3 = st.columns(3, vertical_alignment="center")
@@ -288,12 +290,11 @@ def main():
                 
                 with tab1:
                     st.markdown("<div style='text-align: center;'><h3 text class='streamlit-tooltip'>EBITDA <span class='tooltiptext'>View the EDITDA values</span></h3></div>", unsafe_allow_html=True)
-                    editda_multiple_df_pf3_styled_df = ss.editda_multiple_df_pf3
-                    st.markdown(editda_multiple_df_pf3_styled_df.style.hide(axis="index").set_table_attributes('style="margin: 0 auto;"').to_html(), unsafe_allow_html=True)
+                    editda_multiple_df_pf3_styled_df = de(ss.editda_multiple_df_pf3, width=550, height=105, hide_index=True, disabled=["Calc", "Entry", "Low Case", "Base Case", "High Case"])
                     
                 with tab2:
                     st.markdown("<div style='text-align: center;'><h3 class='streamlit-tooltip'>Cash Flow 📝 <span class='tooltiptext'>Please input the cashflow calues</span></h3></div>", unsafe_allow_html=True)
-                    netdebt_and_cashflow_edited_df_pf3 = de(ss.netdebt_and_cashflow_df_pf3, width=550, height=110, hide_index=True, disabled=["Calc"])
+                    netdebt_and_cashflow_edited_df_pf3 = de(ss.netdebt_and_cashflow_df_pf3, width=550, height=105, hide_index=True, disabled=["Calc"])
 
                 concatenated_df = pd.concat([ss.editda_multiple_df_pf3, ss.netdebt_and_cashflow_df_pf3], ignore_index=True)
 
@@ -316,8 +317,7 @@ def main():
 
                 with tab3:
                     st.markdown("<div style='text-align: center;'><h3 class='streamlit-tooltip'>Equity <span class='tooltiptext'>View the equity values</span></h3></div>", unsafe_allow_html=True)
-                    equity_df_pf3_styled_df = ss.equity_df_pf3
-                    st.markdown(equity_df_pf3_styled_df.style.hide(axis="index").set_table_attributes('style="margin: 0 auto;"').to_html(), unsafe_allow_html=True)
+                    equity_df_pf3_styled_df = de(ss.equity_df_pf3, width=550, height=70, hide_index=True, disabled=["Calc", "Entry", "Low Case", "Base Case", "High Case"])
 
                 ownership_data_pf3 = {
                     'Calc': ['Ownership %'],
@@ -363,8 +363,7 @@ def main():
                 
                 with tab5:
                     st.markdown("<div style='text-align: center;'><h3 class='streamlit-tooltip'>Value & Investments <span class='tooltiptext'>View the investment values</span></h3></div>", unsafe_allow_html=True)
-                    value_and_investment_df_pf3_styled_df = ss.value_and_investment_df_pf3
-                    st.markdown(value_and_investment_df_pf3_styled_df.style.hide(axis="index").set_table_attributes('style="margin: 0 auto;"').to_html(), unsafe_allow_html=True)
+                    value_and_investment_df_pf3_styled_df = de(ss.value_and_investment_df_pf3, width=550, height=105, hide_index=True, disabled=["Calc", "Entry", "Low Case", "Base Case", "High Case"])
 
                     # Calculate Equity for each case
                 money_multiple_entry = calculate_money_multiple(value_and_investment_df, 'Entry')
@@ -386,8 +385,7 @@ def main():
                 
                 with tab6:
                     st.markdown("<div style='text-align: center;'><h3 class='streamlit-tooltip'>Money Multiple <span class='tooltiptext'>View the money multiple values</span> </h3></div>", unsafe_allow_html=True)
-                    money_multiple_df_pf3_styled_df = ss.money_multiple_df_pf3
-                    st.markdown(money_multiple_df_pf3_styled_df.style.hide(axis="index").set_table_attributes('style="margin: 0 auto;"').to_html(), unsafe_allow_html=True)
+                    money_multiple_df_pf3_styled_df = de(ss.money_multiple_df_pf3, width=550, height=70, hide_index=True, disabled=["Calc", "Entry", "Low Case", "Base Case", "High Case"])
 
 
         money_multiple_value = money_multiple_df.iloc[0].tolist()
