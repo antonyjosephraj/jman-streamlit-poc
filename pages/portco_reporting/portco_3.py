@@ -234,9 +234,9 @@ def main():
         }
         netdebt_and_cashflow_df_pf3 = pd.DataFrame(netdebt_and_cashflow)
 
-        netdebt_and_cashflow_df_pf3['Low Case'] = [174, 268]
-        netdebt_and_cashflow_df_pf3['Base Case'] = [179, 255]
-        netdebt_and_cashflow_df_pf3['High Case'] = [281, 163]
+        netdebt_and_cashflow_df_pf3['Low Case'] = [114, 28]
+        netdebt_and_cashflow_df_pf3['Base Case'] = [129, 15]
+        netdebt_and_cashflow_df_pf3['High Case'] = [121, 16]
 
 
         if 'netdebt_and_cashflow_df_pf3' not in ss:
