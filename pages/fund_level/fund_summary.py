@@ -144,7 +144,8 @@ def main():
 
         with st.container(height=300, border=True):
             st.markdown("<div style='text-align: center;'><h2 class='streamlit-tooltip'>PortCo Assumptions <span class='tooltiptext'>View the portCo assumptions values</span></h2></div>", unsafe_allow_html=True)
-            st.markdown(df.style.hide(axis="index").set_table_attributes('style="margin: 0 auto; height: 150px;"').to_html(), unsafe_allow_html=True)
+            # st.markdown(df.style.hide(axis="index").set_table_attributes('style="margin: 0 auto; height: 150px;"').to_html(), unsafe_allow_html=True)
+            investments_details_v2 = de(df, use_container_width=True, height=140, hide_index=True, disabled=["Name", "Scenario", "Date of Investment", "Invested Amount", "Invested Amount", "EBITDA at Entry", "EBITDA at Exit", "Multiple at entry", "Multiple at Exit", "Exit Date", "Return (calculated)", "IRR (calculated)"  ])
 
 
         df1 = df
