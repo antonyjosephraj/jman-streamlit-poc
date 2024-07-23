@@ -231,13 +231,13 @@ def main():
 
         netdebt_and_cashflow_pf1 = {
             'Calc': ['Net Debt', 'Cash flow adj'],
-            'Entry': [100, 250]
+            'Entry': [75, 80]
         }
         netdebt_and_cashflow_df_pf1 = pd.DataFrame(netdebt_and_cashflow_pf1)
 
-        netdebt_and_cashflow_df_pf1['Low Case'] = [5,9]
-        netdebt_and_cashflow_df_pf1['Base Case'] = [10, 12]
-        netdebt_and_cashflow_df_pf1['High Case'] = [9, 8]
+        netdebt_and_cashflow_df_pf1['Low Case'] = [120, 119]
+        netdebt_and_cashflow_df_pf1['Base Case'] = [128, 126]
+        netdebt_and_cashflow_df_pf1['High Case'] = [112, 110]
         
         if 'netdebt_and_cashflow_df_pf1' not in ss:
             ss.netdebt_and_cashflow_df_pf1 = netdebt_and_cashflow_df_pf1
@@ -322,9 +322,9 @@ def main():
                 ownership_data_pf1 = {
                     'Calc': ['Ownership %'],
                     'Entry': 14,
-                    'Low Case':13,
-                    'Base Case':18,
-                    'High Case':30
+                    'Low Case':83,
+                    'Base Case':98,
+                    'High Case':80
                 }
 
                 ownership_df_pf1 = pd.DataFrame(ownership_data_pf1)
