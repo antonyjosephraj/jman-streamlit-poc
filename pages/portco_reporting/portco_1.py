@@ -131,7 +131,6 @@ def main():
                         ss.min_date_pf1 = investment_date
                 
                     else:
-                        # year, month, date = get_current_date(ss.min_date_pf1)
                         investment_date = st.date_input('Investment Date',  value=ss.min_date_pf1,  format="YYYY-MM-DD" )
                         ss.min_date_pf1 = investment_date
 
