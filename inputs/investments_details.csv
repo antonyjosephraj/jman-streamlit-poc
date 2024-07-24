@@ -1,4 +1,4 @@
-﻿Scenario,Invested Amount,EBITDA at Exit,Multiple at Exit,Exit Date
-Low Case,"10000",80,27,5/31/2024
-Base Case,"10000",67,33,6/30/2024
-High Case,"10000",72,26,7/31/2025
+﻿Scenario,Low Case,Base Case,High Case,Exit Date
+Invested Amount,"10000","10000","10000",5/31/2024
+EBITDA at Exit,80,67,33,6/30/2024
+Multiple at Exit,27,72,26,7/31/2025

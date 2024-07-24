@@ -104,9 +104,9 @@ def main():
         base_case_sum_of_negatives = investment_update[investment_update['Base Case'] < 0]['Base Case'].sum()
         high_case_sum_of_negatives = investment_update[investment_update['High Case'] < 0]['High Case'].sum()
 
-        ss.investments_data_pf3.loc[ss.investments_data_pf3['Scenario'] == 'Low Case', 'Invested Amount'] = abs(low_case_sum_of_negatives)
-        ss.investments_data_pf3.loc[ss.investments_data_pf3['Scenario'] == 'Base Case', 'Invested Amount'] = abs(base_case_sum_of_negatives)
-        ss.investments_data_pf3.loc[ss.investments_data_pf3['Scenario'] == 'High Case', 'Invested Amount'] = abs(high_case_sum_of_negatives)
+        ss.investments_data_pf3.loc[ss.investments_data_pf3['Scenario'] == 'Invested Amount', 'Low Case'] = abs(low_case_sum_of_negatives)
+        ss.investments_data_pf3.loc[ss.investments_data_pf3['Scenario'] == 'Invested Amount', 'Base Case'] = abs(base_case_sum_of_negatives)
+        ss.investments_data_pf3.loc[ss.investments_data_pf3['Scenario'] == 'Invested Amount', 'High Case'] = abs(high_case_sum_of_negatives)
     
     # Containers and columns    
     with st.container(border=True):
@@ -201,7 +201,7 @@ def main():
                 investments_edited_df = de(ss.investments_amount_pf3, use_container_width=True, width=800, height=80, hide_index=True, column_order=["Investment at Entry", "EBITDA at Entry", "Multiple at Entry"]) 
 
                 st.markdown("<h2 class='streamlit-tooltip'>Scenario Assumptions 📝<span class='tooltiptext'>Please input the scenario assumptions</span></h2>", unsafe_allow_html=True)
-                investments_details_v2 = de(ss.investments_data_pf3, use_container_width=True, height=150, hide_index=True, column_order=["Scenario", "Invested Amount", "EBITDA at Exit", "Multiple at Exit"],  disabled=["Scenario", "Invested Amount"])
+                investments_details_v2 = de(ss.investments_data_pf3, use_container_width=True, height=150, hide_index=True, column_order=["Scenario", "Low Case", "Base Case", "High Case"],  disabled=["Scenario"])
 
         # Columns - 2
         column1, column2 = st.columns(2)
@@ -215,18 +215,23 @@ def main():
 
         ebitda_entry_value = ss.investments_amount_pf3['EBITDA at Entry'].sum()
         ebitda_multiple_entry_value = ss.investments_amount_pf3['Multiple at Entry'].sum()
-        column_values_list = ss.investments_data_pf3['Scenario'].tolist()
-        column_values_values = ss.investments_data_pf3['EBITDA at Exit'].tolist()
-        column_values_values2 = ss.investments_data_pf3['Multiple at Exit'].tolist()
 
         editda_multiple = {
             'Calc': ['ARR /Rev /EBITDA', 'Multiple'],
             'Entry': [ebitda_entry_value,ebitda_multiple_entry_value]
         }
+
+        def get_ebitda_and_multiple(df):
+            ebitda_at_exit = df.loc[df['Scenario'] == 'EBITDA at Exit', ['Low Case', 'Base Case', 'High Case']].values.tolist()[0]
+            multiple_at_exit = df.loc[df['Scenario'] == 'Multiple at Exit', ['Low Case', 'Base Case', 'High Case']].values.tolist()[0]
+            return ebitda_at_exit, multiple_at_exit
+        
+        column_values_values, column_values_values2 =  get_ebitda_and_multiple(ss.investments_data_pf3)
+
         editda_multiple_df = pd.DataFrame(editda_multiple)
-        editda_multiple_df[column_values_list] = None
-        editda_multiple_df.loc[0, column_values_list] = column_values_values
-        editda_multiple_df.loc[1, column_values_list] = column_values_values2
+        editda_multiple_df[["Low Case", "Base Case", "High Case"]] = None
+        editda_multiple_df.loc[0, ["Low Case", "Base Case", "High Case"]] = column_values_values
+        editda_multiple_df.loc[1, ["Low Case", "Base Case", "High Case"]] = column_values_values2
 
         ss.editda_multiple_df_pf3 = editda_multiple_df
 
@@ -470,9 +475,9 @@ def main():
                     high_case_sum_of_negatives = investment_update[investment_update['High Case'] < 0]['High Case'].sum()
                 
                     ss.assumptions_data_pf3 = assumptions_edited_df_v2
-                    ss.investments_data_pf3.loc[ss.investments_data_pf3['Scenario'] == 'Low Case', 'Invested Amount'] = abs(low_case_sum_of_negatives)
-                    ss.investments_data_pf3.loc[ss.investments_data_pf3['Scenario'] == 'Base Case', 'Invested Amount'] = abs(base_case_sum_of_negatives)
-                    ss.investments_data_pf3.loc[ss.investments_data_pf3['Scenario'] == 'High Case', 'Invested Amount'] = abs(high_case_sum_of_negatives)
+                    ss.investments_data_pf3.loc[ss.investments_data_pf3['Scenario'] == 'Invested Amount', 'Low Case'] = abs(low_case_sum_of_negatives)
+                    ss.investments_data_pf3.loc[ss.investments_data_pf3['Scenario'] == 'Invested Amount', 'Base Case'] = abs(base_case_sum_of_negatives)
+                    ss.investments_data_pf3.loc[ss.investments_data_pf3['Scenario'] == 'Invested Amount', 'High Case'] = abs(high_case_sum_of_negatives)
                 
                 if not ss.netdebt_and_cashflow_df_pf3.equals(netdebt_and_cashflow_edited_df_pf3):
                     ss.netdebt_and_cashflow_df_pf3 =netdebt_and_cashflow_edited_df_pf3

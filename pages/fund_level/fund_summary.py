@@ -46,7 +46,7 @@ def main():
 
             with st.container(height=220, border=True):
 
-                st.markdown("<h2 class='streamlit-tooltip'>Select a scenario for each PortCo<span class='tooltiptext'>Choose Scenario for Each PortCo</span></h2>", unsafe_allow_html=True)
+                st.markdown("<h2 class='streamlit-tooltip'>Select a scenario for each PortCo 📝<span class='tooltiptext'>Choose Scenario for Each PortCo</span></h2>", unsafe_allow_html=True)
                 
                 select_column1, select_column12, select_column13 = st.columns(3, vertical_alignment="center")
                 select_column21, select_column22, select_column23 = st.columns(3)
