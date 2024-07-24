@@ -125,7 +125,7 @@ def main():
                 
                 with input_column1:
 
-                # Investment of Date
+                    # Investment of Date
                     if 'min_date_pf1' not in ss:
                         investment_date = st.date_input('Investment Date', dt.date(2022, 7, 6), format="YYYY-MM-DD", min_value=None,  key='investment_min_date')
                         ss.min_date_pf1 = investment_date
