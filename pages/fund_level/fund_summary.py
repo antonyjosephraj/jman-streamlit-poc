@@ -72,74 +72,80 @@ def main():
         # Add a column with a dropdown list
         for i in df.index:
             if i  == 0:
-                for pf1 in data_investments_details_pf1.index:
-                    if ss.portco1_selected_option == data_investments_details_pf1.at[pf1, 'Scenario']:
-                        df.at[0, 'Scenario'] = ss.portco1_selected_option
-                        df.at[0, 'Date of Investment'] = data_investments_amount_pf1.iloc[0]['Date of Investment']
-                        df.at[0, 'Invested Amount'] = format(data_investments_details_pf1.at[pf1, 'Invested Amount'], ",.1f")
-                        df.at[0, 'EBITDA at Entry'] = format(data_investments_amount_pf1.iloc[0]['EBITDA at Entry'], ",.1f")
-                        df.at[0, 'EBITDA at Exit'] = format(data_investments_details_pf1.at[pf1, 'EBITDA at Exit'], ",.1f")
-                        df.at[0, 'Multiple at entry'] = format(data_investments_amount_pf1.iloc[0]['Multiple at Entry'], ",.1f")
-                        df.at[0, 'Multiple at Exit'] = format(data_investments_details_pf1.at[pf1, 'Multiple at Exit'], ",.1f")
-                        df.at[0, 'Exit Date'] = data_investments_details_pf1.at[pf1, 'Exit Date']
-                        if ss.portco1_selected_option == 'Low Case':
-                            df.at[0, 'Return (calculated)'] = data_revenue_return_pf1.at[0, 'Return (calculated)']
-                            df.at[0, 'IRR (calculated)'] = data_revenue_return_pf1.at[0, 'IRR (calculated)']
+                # for pf1 in data_investments_details_pf1.index:
+                    # if ss.portco1_selected_option == data_investments_details_pf1.at[pf1, 'Scenario']:
 
-                        if ss.portco1_selected_option == 'Base Case':
-                            df.at[0, 'Return (calculated)'] = data_revenue_return_pf1.at[1, 'Return (calculated)']
-                            df.at[0, 'IRR (calculated)'] = data_revenue_return_pf1.at[1, 'IRR (calculated)']
+                df.at[0, 'Scenario'] = ss.portco1_selected_option
+                df.at[0, 'Date of Investment'] = data_investments_amount_pf1.iloc[0]['Date of Investment']
+                df.at[0, 'Invested Amount'] = format(data_investments_details_pf1.loc[data_investments_details_pf1['Scenario'] == 'Invested Amount', ss.portco1_selected_option].values[0], ",.1f")
+                df.at[0, 'EBITDA at Entry'] = format(data_investments_amount_pf1.iloc[0]['EBITDA at Entry'], ",.1f")
+                df.at[0, 'EBITDA at Exit'] = format(data_investments_details_pf1.loc[data_investments_details_pf1['Scenario'] == 'EBITDA at Exit', ss.portco1_selected_option].values[0], ",.1f")
+                df.at[0, 'Multiple at entry'] = format(data_investments_amount_pf1.iloc[0]['Multiple at Entry'], ",.1f")
+                df.at[0, 'Multiple at Exit'] = format(data_investments_details_pf1.loc[data_investments_details_pf1['Scenario'] == 'Multiple at Exit', ss.portco1_selected_option].values[0], ",.1f")
+                if ss.portco1_selected_option == 'Low Case':
+                    df.at[0, 'Exit Date'] = data_investments_details_pf1.at[0, 'Exit Date']
+                    df.at[0, 'Return (calculated)'] = data_revenue_return_pf1.at[0, 'Return (calculated)']
+                    df.at[0, 'IRR (calculated)'] = data_revenue_return_pf1.at[0, 'IRR (calculated)']
 
-                        if ss.portco1_selected_option == 'High Case':
-                            df.at[0, 'Return (calculated)'] = data_revenue_return_pf1.at[2, 'Return (calculated)']
-                            df.at[0, 'IRR (calculated)'] = data_revenue_return_pf1.at[2, 'IRR (calculated)']
+                if ss.portco1_selected_option == 'Base Case':
+                    df.at[0, 'Exit Date'] = data_investments_details_pf1.at[1, 'Exit Date']
+                    df.at[0, 'Return (calculated)'] = data_revenue_return_pf1.at[1, 'Return (calculated)']
+                    df.at[0, 'IRR (calculated)'] = data_revenue_return_pf1.at[1, 'IRR (calculated)']
+
+                if ss.portco1_selected_option == 'High Case':
+                    df.at[0, 'Exit Date'] = data_investments_details_pf1.at[2, 'Exit Date']
+                    df.at[0, 'Return (calculated)'] = data_revenue_return_pf1.at[2, 'Return (calculated)']
+                    df.at[0, 'IRR (calculated)'] = data_revenue_return_pf1.at[2, 'IRR (calculated)']
 
             if i  == 1:
-                for pf1 in data_investments_details_pf2.index:
-                    if ss.portco2_selected_option == data_investments_details_pf2.at[pf1, 'Scenario']:
-                        df.at[1, 'Scenario'] = ss.portco2_selected_option
-                        df.at[1, 'Date of Investment'] = data_investments_amount_pf2.iloc[0]['Date of Investment']
-                        df.at[1, 'Invested Amount'] = format(data_investments_details_pf2.at[pf1, 'Invested Amount'], ",.1f")
-                        df.at[1, 'EBITDA at Entry'] = format(data_investments_amount_pf2.iloc[0]['EBITDA at Entry'], ",.1f")
-                        df.at[1, 'EBITDA at Exit'] = format(data_investments_details_pf2.at[pf1, 'EBITDA at Exit'], ",.1f")
-                        df.at[1, 'Multiple at entry'] = format(data_investments_amount_pf2.iloc[0]['Multiple at Entry'], ",.1f")
-                        df.at[1, 'Multiple at Exit'] = format(data_investments_details_pf2.at[pf1, 'Multiple at Exit'], ",.1f")
-                        df.at[1, 'Exit Date'] = data_investments_details_pf2.at[pf1, 'Exit Date']
-                        if ss.portco2_selected_option == 'Low Case':
-                            df.at[1, 'Return (calculated)'] = data_revenue_return_pf2.at[0, 'Return (calculated)']
-                            df.at[1, 'IRR (calculated)'] = data_revenue_return_pf2.at[0, 'IRR (calculated)']
+                
+                df.at[1, 'Scenario'] = ss.portco2_selected_option
+                df.at[1, 'Date of Investment'] = data_investments_amount_pf2.iloc[0]['Date of Investment']
+                df.at[1, 'Invested Amount'] = format(data_investments_details_pf2.loc[data_investments_details_pf2['Scenario'] == 'Invested Amount', ss.portco1_selected_option].values[0], ",.1f")
+                df.at[1, 'EBITDA at Entry'] = format(data_investments_amount_pf2.iloc[0]['EBITDA at Entry'], ",.1f")
+                df.at[1, 'EBITDA at Exit'] = format(data_investments_details_pf2.loc[data_investments_details_pf2['Scenario'] == 'EBITDA at Exit', ss.portco1_selected_option].values[0], ",.1f")
+                df.at[1, 'Multiple at entry'] = format(data_investments_amount_pf2.iloc[0]['Multiple at Entry'], ",.1f")
+                df.at[1, 'Multiple at Exit'] = format(data_investments_details_pf2.loc[data_investments_details_pf2['Scenario'] == 'Multiple at Exit', ss.portco1_selected_option].values[0], ",.1f")
+                df.at[1, 'Exit Date'] = data_investments_details_pf2.at[1, 'Exit Date']
+                if ss.portco2_selected_option == 'Low Case':
+                    df.at[1, 'Exit Date'] = data_investments_details_pf2.at[0, 'Exit Date']
+                    df.at[1, 'Return (calculated)'] = data_revenue_return_pf2.at[0, 'Return (calculated)']
+                    df.at[1, 'IRR (calculated)'] = data_revenue_return_pf2.at[0, 'IRR (calculated)']
 
-                        if ss.portco2_selected_option == 'Base Case':
-                            df.at[1, 'Return (calculated)'] = data_revenue_return_pf2.at[1, 'Return (calculated)']
-                            df.at[1, 'IRR (calculated)'] = data_revenue_return_pf2.at[1, 'IRR (calculated)']
+                if ss.portco2_selected_option == 'Base Case':
+                    df.at[1, 'Exit Date'] = data_investments_details_pf2.at[1, 'Exit Date']
+                    df.at[1, 'Return (calculated)'] = data_revenue_return_pf2.at[1, 'Return (calculated)']
+                    df.at[1, 'IRR (calculated)'] = data_revenue_return_pf2.at[1, 'IRR (calculated)']
 
-                        if ss.portco2_selected_option == 'High Case':
-                            df.at[1, 'Return (calculated)'] = data_revenue_return_pf2.at[2, 'Return (calculated)']
-                            df.at[1, 'IRR (calculated)'] = data_revenue_return_pf2.at[2, 'IRR (calculated)']
+                if ss.portco2_selected_option == 'High Case':
+                    df.at[1, 'Exit Date'] = data_investments_details_pf2.at[2, 'Exit Date']
+                    df.at[1, 'Return (calculated)'] = data_revenue_return_pf2.at[2, 'Return (calculated)']
+                    df.at[1, 'IRR (calculated)'] = data_revenue_return_pf2.at[2, 'IRR (calculated)']
 
             
             if i  == 2:
-                for pf1 in data_investments_details_pf3.index:
-                    if ss.portco3_selected_option == data_investments_details_pf3.at[pf1, 'Scenario']:
-                        df.at[2, 'Scenario'] = ss.portco3_selected_option
-                        df.at[2, 'Date of Investment'] = data_investments_amount_pf3.iloc[0]['Date of Investment']
-                        df.at[2, 'Invested Amount'] = format(data_investments_details_pf3.at[pf1, 'Invested Amount'], ",.1f")
-                        df.at[2, 'EBITDA at Entry'] = format(data_investments_amount_pf3.iloc[0]['EBITDA at Entry'], ",.1f")
-                        df.at[2, 'EBITDA at Exit'] = format(data_investments_details_pf3.at[pf1, 'EBITDA at Exit'], ",.1f")
-                        df.at[2, 'Multiple at entry'] = format(data_investments_amount_pf3.iloc[0]['Multiple at Entry'], ",.1f")
-                        df.at[2, 'Multiple at Exit'] = format(data_investments_details_pf3.at[pf1, 'Multiple at Exit'], ",.1f")
-                        df.at[2, 'Exit Date'] = data_investments_details_pf3.at[pf1, 'Exit Date']
-                        if ss.portco3_selected_option == 'Low Case':
-                            df.at[2, 'Return (calculated)'] = data_revenue_return_pf3.at[0, 'Return (calculated)']
-                            df.at[2, 'IRR (calculated)'] = data_revenue_return_pf3.at[0, 'IRR (calculated)']
+                df.at[2, 'Scenario'] = ss.portco3_selected_option
+                df.at[2, 'Date of Investment'] = data_investments_amount_pf3.iloc[0]['Date of Investment']
+                df.at[2, 'Invested Amount'] = format(data_investments_details_pf3.loc[data_investments_details_pf3['Scenario'] == 'Invested Amount', ss.portco1_selected_option].values[0], ",.1f")
+                df.at[2, 'EBITDA at Entry'] = format(data_investments_amount_pf3.iloc[0]['EBITDA at Entry'], ",.1f")
+                df.at[2, 'EBITDA at Exit'] = format(data_investments_details_pf3.loc[data_investments_details_pf3['Scenario'] == 'EBITDA at Exit', ss.portco1_selected_option].values[0], ",.1f")
+                df.at[2, 'Multiple at entry'] = format(data_investments_amount_pf3.iloc[0]['Multiple at Entry'], ",.1f")
+                df.at[2, 'Multiple at Exit'] = format(data_investments_details_pf3.loc[data_investments_details_pf3['Scenario'] == 'Multiple at Exit', ss.portco1_selected_option].values[0], ",.1f")
+                df.at[2, 'Exit Date'] = data_investments_details_pf3.at[2, 'Exit Date']
+                if ss.portco3_selected_option == 'Low Case':
+                    df.at[2, 'Exit Date'] = data_investments_details_pf3.at[0, 'Exit Date']
+                    df.at[2, 'Return (calculated)'] = data_revenue_return_pf3.at[0, 'Return (calculated)']
+                    df.at[2, 'IRR (calculated)'] = data_revenue_return_pf3.at[0, 'IRR (calculated)']
 
-                        if ss.portco3_selected_option == 'Base Case':
-                            df.at[2, 'Return (calculated)'] = data_revenue_return_pf3.at[1, 'Return (calculated)']
-                            df.at[2, 'IRR (calculated)'] = data_revenue_return_pf3.at[1, 'IRR (calculated)']
+                if ss.portco3_selected_option == 'Base Case':
+                    df.at[2, 'Exit Date'] = data_investments_details_pf3.at[1, 'Exit Date']
+                    df.at[2, 'Return (calculated)'] = data_revenue_return_pf3.at[1, 'Return (calculated)']
+                    df.at[2, 'IRR (calculated)'] = data_revenue_return_pf3.at[1, 'IRR (calculated)']
 
-                        if ss.portco3_selected_option == 'High Case':
-                            df.at[2, 'Return (calculated)'] = data_revenue_return_pf3.at[2, 'Return (calculated)']
-                            df.at[2, 'IRR (calculated)'] = data_revenue_return_pf3.at[2, 'IRR (calculated)']
+                if ss.portco3_selected_option == 'High Case':
+                    df.at[2, 'Exit Date'] = data_investments_details_pf3.at[2, 'Exit Date']
+                    df.at[2, 'Return (calculated)'] = data_revenue_return_pf3.at[2, 'Return (calculated)']
+                    df.at[2, 'IRR (calculated)'] = data_revenue_return_pf3.at[2, 'IRR (calculated)']
 
 
         with st.container(height=300, border=True):
