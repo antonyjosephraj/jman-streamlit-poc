@@ -558,6 +558,7 @@ def main():
             }
 
             waterfall_data_flow_df_pf3 = pd.DataFrame(waterfall_data_flow_pf3)
+            waterfall_data_flow_df_pf3['Values'] = waterfall_data_flow_df_pf3['Values'] / 1000
 
 
             fig = go.Figure(go.Waterfall(
@@ -598,6 +599,8 @@ def main():
                         size=18,  # Y-axis title font size
                         color='#19105B'  # Y-axis title color
                     ),
+                    ticksuffix='£',  # Prefix each tick label with £
+                    tickformat=',d',
                     tickfont=dict(
                         size=14,  # Y-axis tick font size
                         color='#19105B'  # Y-axis tick color
