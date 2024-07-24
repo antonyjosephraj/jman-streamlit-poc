@@ -101,11 +101,11 @@ def main():
                 
                 df.at[1, 'Scenario'] = ss.portco2_selected_option
                 df.at[1, 'Date of Investment'] = data_investments_amount_pf2.iloc[0]['Date of Investment']
-                df.at[1, 'Invested Amount'] = format(data_investments_details_pf2.loc[data_investments_details_pf2['Scenario'] == 'Invested Amount', ss.portco1_selected_option].values[0], ",.1f")
+                df.at[1, 'Invested Amount'] = format(data_investments_details_pf2.loc[data_investments_details_pf2['Scenario'] == 'Invested Amount', ss.portco2_selected_option].values[0], ",.1f")
                 df.at[1, 'EBITDA at Entry'] = format(data_investments_amount_pf2.iloc[0]['EBITDA at Entry'], ",.1f")
-                df.at[1, 'EBITDA at Exit'] = format(data_investments_details_pf2.loc[data_investments_details_pf2['Scenario'] == 'EBITDA at Exit', ss.portco1_selected_option].values[0], ",.1f")
+                df.at[1, 'EBITDA at Exit'] = format(data_investments_details_pf2.loc[data_investments_details_pf2['Scenario'] == 'EBITDA at Exit', ss.portco2_selected_option].values[0], ",.1f")
                 df.at[1, 'Multiple at entry'] = format(data_investments_amount_pf2.iloc[0]['Multiple at Entry'], ",.1f")
-                df.at[1, 'Multiple at Exit'] = format(data_investments_details_pf2.loc[data_investments_details_pf2['Scenario'] == 'Multiple at Exit', ss.portco1_selected_option].values[0], ",.1f")
+                df.at[1, 'Multiple at Exit'] = format(data_investments_details_pf2.loc[data_investments_details_pf2['Scenario'] == 'Multiple at Exit', ss.portco2_selected_option].values[0], ",.1f")
                 df.at[1, 'Exit Date'] = data_investments_details_pf2.at[1, 'Exit Date']
                 if ss.portco2_selected_option == 'Low Case':
                     df.at[1, 'Exit Date'] = data_investments_details_pf2.at[0, 'Exit Date']
@@ -126,11 +126,11 @@ def main():
             if i  == 2:
                 df.at[2, 'Scenario'] = ss.portco3_selected_option
                 df.at[2, 'Date of Investment'] = data_investments_amount_pf3.iloc[0]['Date of Investment']
-                df.at[2, 'Invested Amount'] = format(data_investments_details_pf3.loc[data_investments_details_pf3['Scenario'] == 'Invested Amount', ss.portco1_selected_option].values[0], ",.1f")
+                df.at[2, 'Invested Amount'] = format(data_investments_details_pf3.loc[data_investments_details_pf3['Scenario'] == 'Invested Amount', ss.portco3_selected_option].values[0], ",.1f")
                 df.at[2, 'EBITDA at Entry'] = format(data_investments_amount_pf3.iloc[0]['EBITDA at Entry'], ",.1f")
-                df.at[2, 'EBITDA at Exit'] = format(data_investments_details_pf3.loc[data_investments_details_pf3['Scenario'] == 'EBITDA at Exit', ss.portco1_selected_option].values[0], ",.1f")
+                df.at[2, 'EBITDA at Exit'] = format(data_investments_details_pf3.loc[data_investments_details_pf3['Scenario'] == 'EBITDA at Exit', ss.portco3_selected_option].values[0], ",.1f")
                 df.at[2, 'Multiple at entry'] = format(data_investments_amount_pf3.iloc[0]['Multiple at Entry'], ",.1f")
-                df.at[2, 'Multiple at Exit'] = format(data_investments_details_pf3.loc[data_investments_details_pf3['Scenario'] == 'Multiple at Exit', ss.portco1_selected_option].values[0], ",.1f")
+                df.at[2, 'Multiple at Exit'] = format(data_investments_details_pf3.loc[data_investments_details_pf3['Scenario'] == 'Multiple at Exit', ss.portco3_selected_option].values[0], ",.1f")
                 df.at[2, 'Exit Date'] = data_investments_details_pf3.at[2, 'Exit Date']
                 if ss.portco3_selected_option == 'Low Case':
                     df.at[2, 'Exit Date'] = data_investments_details_pf3.at[0, 'Exit Date']
