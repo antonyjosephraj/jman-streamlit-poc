@@ -148,6 +148,7 @@ def main():
                     df.at[2, 'IRR (calculated)'] = data_revenue_return_pf3.at[2, 'IRR (calculated)']
 
 
+
         with st.container(height=300, border=True):
             st.markdown("<div style='text-align: center;'><h2 class='streamlit-tooltip'>PortCo Assumptions <span class='tooltiptext'>View the portCo assumptions values</span></h2></div>", unsafe_allow_html=True)
             # st.markdown(df.style.hide(axis="index").set_table_attributes('style="margin: 0 auto; height: 150px;"').to_html(), unsafe_allow_html=True)
