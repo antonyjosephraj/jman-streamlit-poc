@@ -560,7 +560,6 @@ def main():
             waterfall_data_flow_df_pf3 = pd.DataFrame(waterfall_data_flow_pf3)
             waterfall_data_flow_df_pf3['Values'] = waterfall_data_flow_df_pf3['Values'] / 1000
 
-
             fig = go.Figure(go.Waterfall(
                 name = "20", 
                 # orientation = "v",
