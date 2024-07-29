@@ -558,7 +558,6 @@ def main():
             }
 
             waterfall_data_flow_df_pf3 = pd.DataFrame(waterfall_data_flow_pf3)
-            waterfall_data_flow_df_pf3['Values'] = waterfall_data_flow_df_pf3['Values'] / 1000
 
             fig = go.Figure(go.Waterfall(
                 name = "20", 
@@ -576,11 +575,7 @@ def main():
             ))
 
             fig.update_layout(
-                # title="Portfolio Insights Dashboard",
-                # title_font=dict(
-                #     size=20,  # Title font size
-                #     color='#FF6196'  # Title color
-                # ),
+
                 xaxis=dict(
                     # title='Categories',  # X-axis title
                     title_font=dict(
@@ -593,19 +588,34 @@ def main():
                     ),
                 ),
                 yaxis=dict(
-                    title='£',  # Y-axis title
+                    title='',  # Y-axis title
                     title_font=dict(
                         size=18,  # Y-axis title font size
-                        color='#19105B'  # Y-axis title color
+                        color='#19105B',  # Y-axis title color
                     ),
-                    ticksuffix='£',  # Prefix each tick label with £
-                    tickformat=',d',
                     tickfont=dict(
                         size=14,  # Y-axis tick font size
                         color='#19105B'  # Y-axis tick color
                     ),
                 ),
-                showlegend=True
+                annotations=[
+                    dict(
+                        x=-0.1,  # Position relative to the y-axis
+                        y=0.5,   # Position relative to the y-axis
+                        xref="paper",
+                        yref="paper",
+                        text="£",
+                        showarrow=False,
+                        align="center",
+                        textangle=0,  # Rotate the text
+                        font=dict(
+                            size=20,        # Set the font size
+                            color="#19105B"    # Set the font color
+                        ),
+                    )
+                ],
+                margin=dict(l=100)
+
             )
 
             st.plotly_chart(fig, theme="streamlit")

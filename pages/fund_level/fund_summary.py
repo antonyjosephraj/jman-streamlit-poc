@@ -318,28 +318,27 @@ def main():
             with col1:
                 colors = ['#19105B', '#FF6196']
                 
-                fig, ax = plt.subplots(figsize=(9.5, 6))
+                fig, ax = plt.subplots(figsize=(9, 6))
                 bin_width = 0.3
 
                 ax.bar(fund_level_report_df_v5['Category'], fund_level_report_df_v5['Values'], color=colors, width=bin_width)
 
                 # Customize labels and title
                 # ax.set_xlabel('Fund Level Categories', color='#19105B', fontsize=10)
-                # ax.set_ylabel('£', rotation=0, color='#19105B', fontsize=10)
+                ax.set_ylabel('£', rotation=0, color='#19105B', fontsize=14)
                 ax.set_title('Fund Returns', color='#FF6196', fontsize=10)
 
                 ax.tick_params(axis='x', labelsize=8, labelcolor='#19105B')
                 ax.tick_params(axis='y', labelsize=8, labelcolor='#19105B')
 
-                ax.set_yticklabels([f'{int(val//1000)}£' for val in ax.get_yticks()])
+                ax.set_yticklabels([f'{int(val//1000)}k' for val in ax.get_yticks()])
 
                 ax.grid(True, axis='y', linestyle='-', color='#19105B', alpha=0.1)  # Change axis to 'x' or 'both' if needed
                 ax.spines['top'].set_visible(False)
                 ax.spines['right'].set_visible(False)
+                ax.yaxis.labelpad = 20
                 # ax.spines['bottom'].set_visible(False)
                 # ax.spines['left'].set_visible(False)
-
-                # Show plot in Streamlit
                 st.pyplot(fig)
 
                 # st.bar_chart(fund_level_report_df_v5, x="Index", y=['Invested Capital', 'Asset Value'])
@@ -362,7 +361,7 @@ def main():
                 
                 # Add labels and title
                 # ax1.set_xlabel('Years', color='#19105B', fontsize=10)
-                # ax1.set_ylabel('£', rotation=0, color='#19105B', fontsize=10)
+                ax1.set_ylabel('£', rotation=0, color='#19105B', fontsize=14)
                 plt.title('Returns Overtime', color='#FF6196', fontsize=10)
                 
                 plt.xticks(unique_years)
@@ -374,7 +373,7 @@ def main():
                 ax1.tick_params(axis='y', labelsize=7, labelcolor='#19105B')
                 ax2.tick_params(axis='y', labelsize=0)
 
-                ax1.set_yticklabels([f'{int(val//1000)}£' for val in ax1.get_yticks()])
+                ax1.set_yticklabels([f'{int(val//1000)}k' for val in ax1.get_yticks()])
                 # ax2.set_yticklabels([f'{int(val//1000)}k' for val in ax1.get_yticks()])
 
                 ax1.grid(True, axis='y', linestyle='-', color='#19105B', alpha=0.1)  # Change axis to 'x' or 'both' if needed
@@ -383,6 +382,8 @@ def main():
 
                 ax2.spines['top'].set_visible(False)
                 ax2.spines['right'].set_visible(False)
+                ax1.yaxis.labelpad = 20
+
                 # Show the plot
                 st.pyplot(fig1)
 
