@@ -228,7 +228,9 @@ div[data-testid="stDataFrameResizable"] > canvas > table >tbody > tr {
     box-shadow: 0px 0px 3px 0.3px #19105b !important;
 }
 
-
+.st-dy{
+    background-color: #19105B !important;
+}
 
 
 
